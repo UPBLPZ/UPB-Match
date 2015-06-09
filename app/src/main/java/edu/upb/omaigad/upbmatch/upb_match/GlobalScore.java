@@ -1,6 +1,7 @@
 package edu.upb.omaigad.upbmatch.upb_match;
 
 import android.app.Activity;
+import android.app.Application;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import Mocks.MockScoreInterface;
+
 
 public class GlobalScore extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -31,6 +34,10 @@ public class GlobalScore extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private TextView puntajes[];
+    private TextView escuelas[];
+    //private Application upb = new UPBMatchApplication();
+    private MockScoreInterface mockScoreInterface = new MockScoreInterface();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,36 @@ public class GlobalScore extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        // Se up the textviews
+        puntajes = new TextView[mockScoreInterface.getScores().length];
+        escuelas = new TextView[mockScoreInterface.getCareer().length];
+        puntajes[0] = (TextView) findViewById(R.id.puntaje1);
+        puntajes[1] = (TextView) findViewById(R.id.puntaje2);
+        puntajes[2] = (TextView) findViewById(R.id.puntaje3);
+        puntajes[3] = (TextView) findViewById(R.id.puntaje4);
+        puntajes[4] = (TextView) findViewById(R.id.puntaje5);
+        puntajes[5] = (TextView) findViewById(R.id.puntaje6);
+        puntajes[6] = (TextView) findViewById(R.id.puntaje7);
+        puntajes[7] = (TextView) findViewById(R.id.puntaje8);
+        puntajes[8] = (TextView) findViewById(R.id.puntaje9);
+        puntajes[9] = (TextView) findViewById(R.id.puntaje10);
+
+        escuelas[0] = (TextView) findViewById(R.id.escuela1);
+        escuelas[1] = (TextView) findViewById(R.id.escuela2);
+        escuelas[2] = (TextView) findViewById(R.id.escuela3);
+        escuelas[3] = (TextView) findViewById(R.id.escuela4);
+        escuelas[4] = (TextView) findViewById(R.id.escuela5);
+        escuelas[5] = (TextView) findViewById(R.id.escuela6);
+        escuelas[6] = (TextView) findViewById(R.id.escuela7);
+        escuelas[7] = (TextView) findViewById(R.id.escuela8);
+        escuelas[8] = (TextView) findViewById(R.id.escuela9);
+        escuelas[9] = (TextView) findViewById(R.id.escuela10);
+
+        for(int cont = 0; cont < mockScoreInterface.getCareer().length;cont++){
+            puntajes[cont].setText(mockScoreInterface.getScores()[cont]);
+            escuelas[cont].setText(mockScoreInterface.getCareer()[cont]);
+        }
+
     }
 
     @Override
