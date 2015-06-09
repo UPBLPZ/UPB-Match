@@ -7,11 +7,17 @@ import com.parse.*;
  */
 
 public class UPBMatchApplication extends Application {
+
+    public TeamsManager teamsManager;
+
     public void onCreate() {
         super.onCreate();
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "vCDljkDZu04YLITBMCjZdWngHE4RU0ojdqmySUd4", "jwHg4psPxJfToPQk4lVj2rPztrD3Q13Io2KmoUzv");
+
+        // Inicializando singletons.
+        teamsManager = new TeamsManager();
 
     }
 }
