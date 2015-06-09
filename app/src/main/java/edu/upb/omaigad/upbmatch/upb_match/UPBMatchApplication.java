@@ -8,7 +8,7 @@ import com.parse.*;
 
 public class UPBMatchApplication extends Application {
 
-    public TeamsManager teamsManager;
+    private TeamsManager teamsManager;
 
     public void onCreate() {
         super.onCreate();
@@ -19,5 +19,9 @@ public class UPBMatchApplication extends Application {
         // Inicializando singletons.
         teamsManager = new TeamsManager();
 
+    }
+
+    public TeamsManager getTeamsManager() {
+        return teamsManager;
     }
 }
