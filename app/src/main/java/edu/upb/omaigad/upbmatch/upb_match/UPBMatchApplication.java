@@ -1,7 +1,7 @@
 package edu.upb.omaigad.upbmatch.upb_match;
 import android.app.Application;
 import com.parse.*;
-
+import Mocks.MockScoreInterface;
 /**
  * Created by andyibanezk on 6/8/15.
  */
@@ -9,6 +9,8 @@ import com.parse.*;
 public class UPBMatchApplication extends Application {
 
     public TeamsManager teamsManager;
+
+    //public ScoreInterface scoreInterface;
 
     public void onCreate() {
         super.onCreate();
@@ -18,6 +20,9 @@ public class UPBMatchApplication extends Application {
 
         // Inicializando singletons.
         teamsManager = new TeamsManager();
+        //scoreInterface = new MockScoreInterface();
 
     }
+
+
 }
