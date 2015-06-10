@@ -11,7 +11,19 @@ public class TeamsManager extends Object {
     /*
         Para usar esto:
 
-        app.teamsManager.getTeams();
+        En un Activity:
+
+        UPBMatchApplication app = (UPBMatchApplication) getApplication();
+
+        app.teamsManager.getTeams(new CustomSimpleCallback<Equipo> {
+            public void done(List<Equipo>) {
+                // Hacer algo con la lista de equipos.
+            }
+
+            public void fail(String message) {
+                // Esto se llama si la operacion ha fallado.
+            }
+        });
     */
 
     public void getTeams(final CustomSimpleCallback<Equipo> callback) {
