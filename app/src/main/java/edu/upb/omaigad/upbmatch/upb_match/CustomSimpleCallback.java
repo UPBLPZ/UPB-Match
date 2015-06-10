@@ -6,4 +6,5 @@ import java.util.ArrayList;
  */
 public interface CustomSimpleCallback<T> {
     public void done(ArrayList<T> data);
+    public void fail(String failMessage);
 }
