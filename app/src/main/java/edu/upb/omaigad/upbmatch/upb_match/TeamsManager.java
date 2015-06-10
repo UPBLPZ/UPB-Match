@@ -11,20 +11,29 @@ public class TeamsManager extends Object {
     /*
         Para usar esto:
 
-     app.teamsManager.getTeams();
+        app.teamsManager.getTeams();
     */
 
-    public void getTeams(CustomSimpleCallback<Equipo> callback) {
+    public void getTeams(final CustomSimpleCallback<Equipo> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Equipos");
         query.orderByAscending("Puntaje");
         query.findInBackground(new FindCallback<ParseObject>() {
             // ORIGINAL: public void done(ParseObject object, ParseException e)
             public void done(List<ParseObject> object, ParseException e) {
                 if (e == null) {
+                    ArrayList<Equipo> teams = new ArrayList<Equipo>();
                     // TODOS LOS OBJETOS DEL PARSE.
-
+                    for(ParseObject team : object) {
+                        String tName = team.getString("Nombre_Equipo");
+                        String tColor = team.getString("Color");
+                        int tScore = team.getInt("Puntaje");
+                        Equipo indiTeam = new Equipo(tName, tColor, tScore);
+                        teams.add(indiTeam);
+                    }
+                    callback.done(teams);
                 } else {
                     // ALGO SE HA ESTIDO CHE
+                    callback.fail(e.getMessage());
                 }
             }
         });
