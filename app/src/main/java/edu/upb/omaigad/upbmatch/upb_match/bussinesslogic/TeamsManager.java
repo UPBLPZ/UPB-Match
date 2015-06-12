@@ -1,6 +1,9 @@
-package edu.upb.omaigad.upbmatch.upb_match;
+package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 import com.parse.*;
 import java.util.*;
+
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
 
 /**
  * Created by andyibanezk on 6/8/15.

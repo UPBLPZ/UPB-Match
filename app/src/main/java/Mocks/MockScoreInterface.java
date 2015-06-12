@@ -1,6 +1,6 @@
 package Mocks;
 
-import edu.upb.omaigad.upbmatch.upb_match.ScoreInterface;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.ScoreInterface;
 
 /**
  * Created by Mauricio on 09-Jun-15.

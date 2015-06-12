@@ -1,4 +1,4 @@
-package edu.upb.omaigad.upbmatch.upb_match;
+package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 import android.app.Application;
 import com.parse.*;
 
