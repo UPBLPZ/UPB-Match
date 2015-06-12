@@ -42,7 +42,9 @@ public class TeamsManager extends Object {
                         String tName = team.getString("Nombre_Equipo");
                         String tColor = team.getString("Color");
                         int tScore = team.getInt("Puntaje");
-                        Equipo indiTeam = new Equipo(tName, tColor, tScore);
+                        int tLost = team.getInt("Puntos_Perdidos");
+                        String id = team.getObjectId();
+                        Equipo indiTeam = new Equipo(tName, tColor, tScore, tLost, id);
                         teams.add(indiTeam);
                     }
                     callback.done(teams);

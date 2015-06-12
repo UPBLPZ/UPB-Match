@@ -6,7 +6,7 @@ package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 public class Actividad {
     private String estado;
     private String fechaUHora;
-    private int id;
+    private String ID;
     private String nombreActividad;
     private String numeroParticipantes;
     private String reglas;
@@ -20,7 +20,7 @@ public class Actividad {
     }
 
     private int getID() {
-        return id;
+        return ID;
     }
 
     private String getNombreActividad() {
@@ -35,10 +35,10 @@ public class Actividad {
         return reglas;
     }
 
-    public Actividad(String estado, String fechaUHora, int id, String nombreActividad, String numeroParticipantes, String reglas) {
+    public Actividad(String estado, String fechaUHora, String ID, String nombreActividad, String numeroParticipantes, String reglas) {
         this.estado = estado;
         this.fechaUHora = fechaUHora;
-        this.id = id;
+        this.ID = ID;
         this.nombreActividad = nombreActividad;
         this.numeroParticipantes = numeroParticipantes;
         this.reglas = reglas;

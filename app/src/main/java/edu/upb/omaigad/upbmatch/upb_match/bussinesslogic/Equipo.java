@@ -7,11 +7,15 @@ public class Equipo {
     private String color;
     private String nombre;
     private int puntaje;
+    private String ID;
+    private int puntosPerdidos;
 
-    public Equipo(String color, String nombre, int puntaje) {
+    public Equipo(String color, String nombre, int puntaje, int puntosPerdidos, String ID) {
         this.color = color;
         this.nombre = nombre;
         this.puntaje = puntaje;
+        this.ID = ID;
+        this.puntosPerdidos = puntosPerdidos;
     }
 
     public String getColor() {
@@ -24,5 +28,13 @@ public class Equipo {
 
     public int getPuntaje() {
         return puntaje;
+    }
+
+    public String getID() {
+        return this.ID;
+    }
+
+    public int getPuntosPerdidos() {
+        return this.puntosPerdidos;
     }
 }
