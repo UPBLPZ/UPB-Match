@@ -19,8 +19,8 @@ public class Actividad {
         return fechaUHora;
     }
 
-    private int getID() {
-        return ID;
+    private String getID() {
+        return this.ID;
     }
 
     private String getNombreActividad() {

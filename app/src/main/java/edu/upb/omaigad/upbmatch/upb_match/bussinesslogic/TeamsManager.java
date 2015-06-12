@@ -50,7 +50,8 @@ public class TeamsManager extends Object {
                     callback.done(teams);
                 } else {
                     // ALGO SE HA ESTIDO CHE
-                    callback.fail(e.getMessage());
+                    // TODO Pasarle el cache actual (cuando relevante)
+                    callback.fail(e.getMessage(), new ArrayList<Equipo>());
                 }
             }
         });
