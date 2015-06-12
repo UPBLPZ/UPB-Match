@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +15,13 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import Mocks.MockScoreInterface;
 import edu.upb.omaigad.upbmatch.upb_match.R;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 
 
 public class GlobalScore extends ActionBarActivity
@@ -32,14 +38,14 @@ public class GlobalScore extends ActionBarActivity
     private CharSequence mTitle;
     private TextView puntajes[];
     private TextView escuelas[];
-    //private Application upb = new UPBMatchApplication();
+    private UPBMatchApplication app;
     private MockScoreInterface mockScoreInterface = new MockScoreInterface();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_global_score);
-
+        app = (UPBMatchApplication) getApplication();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -77,7 +83,27 @@ public class GlobalScore extends ActionBarActivity
             puntajes[cont].setText(mockScoreInterface.getScores()[cont]);
             escuelas[cont].setText(mockScoreInterface.getCareer()[cont]);
         }
+        update();
+    }
+    protected  void update(){
+        app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {
+            @Override
+            public void done(ArrayList<Equipo> data) {
+                for(int cont = 0; cont < data.size();cont++){
+                    Log.e(data.get(cont).getNombre(), "");
+                    escuelas[cont].setText(data.get(cont).getNombre());
 
+                    puntajes[cont].setText(data.get(cont).getPuntaje()+"");
+                }
+            }
+
+            @Override
+            public void fail(String failMessage, ArrayList<Equipo> cache) {
+                Log.e("callback","NOen el done");
+                puntajes[1].setText("No jala");
+                escuelas[1].setText("No jala");
+            }
+        });
     }
 
     @Override

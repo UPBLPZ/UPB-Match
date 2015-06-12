@@ -10,7 +10,7 @@ public class Equipo {
     private String ID;
     private int puntosPerdidos;
 
-    public Equipo(String color, String nombre, int puntaje, int puntosPerdidos, String ID) {
+    public Equipo(String nombre, String color, int puntaje, int puntosPerdidos, String ID) {
         this.color = color;
         this.nombre = nombre;
         this.puntaje = puntaje;

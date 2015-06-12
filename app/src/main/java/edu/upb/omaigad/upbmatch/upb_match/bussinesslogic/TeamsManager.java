@@ -31,7 +31,7 @@ public class TeamsManager extends Object {
 
     public void getTeams(final CustomSimpleCallback<Equipo> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Equipos");
-        query.orderByAscending("Puntaje");
+        query.orderByDescending("Puntaje");
         query.findInBackground(new FindCallback<ParseObject>() {
             // ORIGINAL: public void done(ParseObject object, ParseException e)
             public void done(List<ParseObject> object, ParseException e) {
@@ -56,4 +56,6 @@ public class TeamsManager extends Object {
             }
         });
     }
+
+
 }
