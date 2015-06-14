@@ -1,9 +1,19 @@
 package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 
+import android.media.MediaRouter;
+
+import com.parse.ParseQuery;
+
 /**
  * Created by andyibanezk on 6/11/15.
  */
 public class Actividad {
+
+    public class Participante {
+        Equipo equipo;
+        int puntaje;
+    }
+
     private String estado;
     private String fechaUHora;
     private String ID;
@@ -42,5 +52,11 @@ public class Actividad {
         this.nombreActividad = nombreActividad;
         this.numeroParticipantes = numeroParticipantes;
         this.reglas = reglas;
+    }
+
+    public void getParticipantes(CustomSimpleCallback<Participante> participants) {
+        ParseQuery query = ParseQuery.getQuery("Actividades");
+        query.whereEqualTo("objectId", this.ID);
+        query.include("Id_Equipo");
     }
 }
