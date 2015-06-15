@@ -43,27 +43,27 @@ public class Actividad {
     private String numeroParticipantes;
     private String reglas;
 
-    private String getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    private String getFechaUHora() {
+    public String getFechaUHora() {
         return fechaUHora;
     }
 
-    private String getID() {
+    public String getID() {
         return this.ID;
     }
 
-    private String getNombreActividad() {
+    public String getNombreActividad() {
         return nombreActividad;
     }
 
-    private String getNumeroParticipantes() {
+    public String getNumeroParticipantes() {
         return numeroParticipantes;
     }
 
-    private String reglas() {
+    public String reglas() {
         return reglas;
     }
 
@@ -75,6 +75,7 @@ public class Actividad {
         this.numeroParticipantes = numeroParticipantes;
         this.reglas = reglas;
     }
+
 
     public void getParticipantes(final CustomSimpleCallback<Participante> callback) {
         ParseQuery query = ParseQuery.getQuery("Participantes");

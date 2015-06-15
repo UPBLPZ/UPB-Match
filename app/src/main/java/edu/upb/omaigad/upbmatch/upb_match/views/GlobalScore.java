@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,7 +38,7 @@ public class GlobalScore extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    private TableLayout tabla;
+    private TableLayout tablaPuntaje;
     private UPBMatchApplication app;
     private MockScoreInterface mockScoreInterface = new MockScoreInterface();
 
@@ -58,7 +57,7 @@ public class GlobalScore extends ActionBarActivity
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
         // Set up the table
-        tabla = (TableLayout) findViewById(R.id.scoreTable);
+        tablaPuntaje = (TableLayout) findViewById(R.id.scoreTable);
         updateTable();
     }
     protected  void updateTable(){
@@ -75,7 +74,7 @@ public class GlobalScore extends ActionBarActivity
         });
     }
     private void createDinamicContentTable(ArrayList<Equipo> equipos){
-        tabla.removeAllViews();
+        tablaPuntaje.removeAllViews();
         int tam = equipos.size();
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
@@ -85,7 +84,7 @@ public class GlobalScore extends ActionBarActivity
             puntaje.setText(equipos.get(cont).getPuntaje()+"");
             fila.addView(equipo,0);
             fila.addView(puntaje,1);
-            tabla.addView(fila,cont);
+            tablaPuntaje.addView(fila, cont);
         }
 
     }
