@@ -26,6 +26,14 @@ public class Actividad {
             this.equipo = equipo;
             this.puntaje = puntaje;
         }
+
+        Equipo getEquipo() {
+            return equipo;
+        }
+
+        int getPuntaje() {
+            return puntaje;
+        }
     }
 
     private String estado;
