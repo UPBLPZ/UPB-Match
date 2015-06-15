@@ -21,10 +21,12 @@ public class Actividad {
     public class Participante {
         Equipo equipo;
         int puntaje;
+        int puntosPerdidos;
 
-        Participante(Equipo equipo, int puntaje) {
+        Participante(Equipo equipo, int puntaje, int puntosPerdidos) {
             this.equipo = equipo;
             this.puntaje = puntaje;
+            this.puntosPerdidos = puntosPerdidos;
         }
 
         Equipo getEquipo() {
@@ -33,6 +35,10 @@ public class Actividad {
 
         int getPuntaje() {
             return puntaje;
+        }
+
+        int getPuntosPerdidos() {
+            return puntosPerdidos;
         }
     }
 
@@ -95,7 +101,7 @@ public class Actividad {
                         int tLost = team.getInt("Puntos_Perdidos");
                         String id = team.getObjectId();
                         Equipo indiTeam = new Equipo(tName, tColor, tScore, tLost, id);
-                        Participante dudeBro = new Participante(indiTeam, participant.getInt("puntaje"));
+                        Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
                         partis.add(dudeBro);
                     }
                     callback.done(partis);
