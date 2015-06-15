@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -24,6 +25,7 @@ public class ActivityScore extends ActionBarActivity {
 
     private UPBMatchApplication app;
     private TableLayout tablaPuntajeActividad;
+    private Button botonReglas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,8 @@ public class ActivityScore extends ActionBarActivity {
         app = (UPBMatchApplication) getApplication();
 
         tablaPuntajeActividad = (TableLayout) findViewById(R.id.activityScoreTable);
-
+        botonReglas = (Button) findViewById(R.id.buttonRules);
+        botonReglas.setText("Ir a reglamento");
         updateTable();
 
     }
@@ -43,25 +46,17 @@ public class ActivityScore extends ActionBarActivity {
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> actividades) {
-                String estado = actividades.get(1).getEstado();
-                if(estado == null){
-                    Toast.makeText(getApplicationContext(), estado, Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Estado esta null", Toast.LENGTH_SHORT).show();
-                }
-
-                /*switch (estado){
+                String estado = actividades.get(12).getEstado();
+                switch (estado){
                     case "Pendiente":
-                        Toast.makeText(getApplicationContext(), "Todavia no comenzo.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), actividades.get(12).getNombreActividad()+" todavia no comenzo.", Toast.LENGTH_SHORT).show();
                         break;
                     case "En curso":
                         Toast.makeText(getApplicationContext(), "Esta en curso.", Toast.LENGTH_SHORT).show();
                         break;
                     case "Concluida":
                        actividades.get(0).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
-
                             @Override
-
                             public void done(ArrayList<Actividad.Participante> participantes) {
                                 createDinamicContentTable(participantes);
                             }
@@ -74,7 +69,7 @@ public class ActivityScore extends ActionBarActivity {
                         break;
                     default:
                         break;
-                }*/
+                }
             }
             @Override
             public void fail(String failMessage, ArrayList<Actividad> cache) {
