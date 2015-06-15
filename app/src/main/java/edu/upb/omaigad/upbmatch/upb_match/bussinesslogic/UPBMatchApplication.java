@@ -9,6 +9,7 @@ import com.parse.*;
 public class UPBMatchApplication extends Application {
 
     private TeamsManager teamsManager;
+    private ActivitiesManager activitiesManager;
 
     public void onCreate() {
         super.onCreate();
@@ -18,10 +19,12 @@ public class UPBMatchApplication extends Application {
 
         // Inicializando singletons.
         teamsManager = new TeamsManager();
-
+        activitiesManager = new ActivitiesManager();
     }
 
     public TeamsManager getTeamsManager() {
         return teamsManager;
     }
+    public ActivitiesManager getActivitiesManager() { return activitiesManager; }
+
 }
