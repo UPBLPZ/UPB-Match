@@ -29,15 +29,15 @@ public class Actividad {
             this.puntosPerdidos = puntosPerdidos;
         }
 
-        Equipo getEquipo() {
+        public Equipo getEquipo() {
             return equipo;
         }
 
-        int getPuntaje() {
+        public int getPuntaje() {
             return puntaje;
         }
 
-        int getPuntosPerdidos() {
+        public int getPuntosPerdidos() {
             return puntosPerdidos;
         }
     }

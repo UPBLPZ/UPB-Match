@@ -2,11 +2,15 @@ package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,18 +39,29 @@ public class ActivityScore extends ActionBarActivity {
     }
 
     private void updateTable(){
+        Log.e("Upadate table","");
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> actividades) {
-                String estado = actividades.get(0).getEstado();
-                switch (estado){
+                String estado = actividades.get(1).getEstado();
+                if(estado == null){
+                    Toast.makeText(getApplicationContext(), estado, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Estado esta null", Toast.LENGTH_SHORT).show();
+                }
+
+                /*switch (estado){
                     case "Pendiente":
+                        Toast.makeText(getApplicationContext(), "Todavia no comenzo.", Toast.LENGTH_SHORT).show();
                         break;
                     case "En curso":
+                        Toast.makeText(getApplicationContext(), "Esta en curso.", Toast.LENGTH_SHORT).show();
                         break;
                     case "Concluida":
-                        actividades.get(0).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
+                       actividades.get(0).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
+
                             @Override
+
                             public void done(ArrayList<Actividad.Participante> participantes) {
                                 createDinamicContentTable(participantes);
                             }
@@ -59,12 +74,8 @@ public class ActivityScore extends ActionBarActivity {
                         break;
                     default:
                         break;
-                }
-                Pendiente
-                        Concluida
-                        En curso
+                }*/
             }
-
             @Override
             public void fail(String failMessage, ArrayList<Actividad> cache) {
             }
@@ -73,16 +84,22 @@ public class ActivityScore extends ActionBarActivity {
 
     private void createDinamicContentTable(ArrayList<Actividad.Participante> participantes){
         tablaPuntajeActividad.removeAllViews();
+        Log.e("Logre entrar","");
         int tam = participantes.size();
-        for(int cont = 0; cont < tam; cont++){
+
+        for(int cont = 1; cont < tam; cont++){
             TableRow fila = new TableRow(this);
             TextView equipo = new TextView(this);
-            equipo.setText(participantes.get(cont).getNombre());
-            TextView puntaje = new TextView(this);
-            puntaje.setText(participantes.get(cont).()+"");
+            equipo.setText(participantes.get(cont).getEquipo().getNombre());
+            TextView puntajeGanado = new TextView(this);
+            puntajeGanado.setText(participantes.get(cont).getPuntaje()+"");
+            TextView puntajePerdido = new TextView(this);
+            puntajePerdido.setText(participantes.get(cont).getPuntosPerdidos()+"");;
             fila.addView(equipo,0);
-            fila.addView(puntaje,1);
-            tablaPuntaje.addView(fila, cont);
+            fila.addView(puntajeGanado,1);
+            fila.addView(puntajePerdido,2);
+
+            tablaPuntajeActividad.addView(fila, cont);
         }
     }
 
