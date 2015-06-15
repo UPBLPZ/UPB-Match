@@ -29,6 +29,11 @@ public class TeamsManager extends Object {
         });
     */
 
+    /**
+     * getTeams: get all teams from the parse class Equipo and save them in a callback
+     * @param callback class where all the data from the parse is stored to be used
+     */
+
     public void getTeams(final CustomSimpleCallback<Equipo> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Equipos");
         query.orderByDescending("Puntaje");
@@ -57,5 +62,20 @@ public class TeamsManager extends Object {
         });
     }
 
+
+    /**
+     * crearTeam create a team in the cloud in the "Equipo" class
+     * @param equipo nombre del nuevo equipo creado
+     * @param color_Equipo string en rgb para el color del equipo
+     */
+
+
+    public void crearTeam(String equipo,String color_Equipo){
+        ParseObject newTeam = new ParseObject("Equipos");
+        newTeam.put("Nombre_Equipo",equipo);
+        newTeam.put("Color",color_Equipo);
+        newTeam.put("Puntaje",0);
+        newTeam.saveInBackground();
+    }
 
 }
