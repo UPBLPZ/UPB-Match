@@ -47,7 +47,19 @@ public class ActivityScore extends ActionBarActivity {
     }
 
     private void updateTable(){
-        app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
+        Equipo e1 = new Equipo("DTI", "FFFFFF", 80, 0, "1");
+        Equipo e2 = new Equipo("Admin. de Empresas", "FFFFFF", 70, 0, "1");
+        Equipo e3 = new Equipo("Com. y Diseño", "FFFFFF", 60, 0, "1");
+        Actividad act = new Actividad();
+        Actividad.Participante a1 = act.hiddenCreateParticipante(e1, 80, 0);
+        Actividad.Participante a2 = act.hiddenCreateParticipante(e2, 70, 0);
+        Actividad.Participante a3 = act.hiddenCreateParticipante(e3, 60, 0);
+        ArrayList<Actividad.Participante> l = new ArrayList<Actividad.Participante>();
+        l.add(a1);
+        l.add(a2);
+        l.add(a3);
+        createDinamicContentTable(l);
+        /*app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> actividades) {
                 String estado = actividades.get(12).getEstado();
@@ -67,18 +79,6 @@ public class ActivityScore extends ActionBarActivity {
 
                             @Override
                             public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
-                                Equipo e1 = new Equipo("DTI", "FFFFFF", 80, 0, "1");
-                                Equipo e2 = new Equipo("Admin. de Empresas", "FFFFFF", 70, 0, "1");
-                                Equipo e3 = new Equipo("Com. y Diseño", "FFFFFF", 60, 0, "1");
-                                Actividad act = new Actividad();
-                                Actividad.Participante a1 = act.hiddenCreateParticipante(e1, 80, 0);
-                                Actividad.Participante a2 = act.hiddenCreateParticipante(e2, 70, 0);
-                                Actividad.Participante a3 = act.hiddenCreateParticipante(e3, 60, 0);
-                                ArrayList<Actividad.Participante> l = new ArrayList<Actividad.Participante>();
-                                l.add(a1);
-                                l.add(a2);
-                                l.add(a3);
-                                createDinamicContentTable(l);
                             }
                         });
                         break;
@@ -90,7 +90,7 @@ public class ActivityScore extends ActionBarActivity {
             @Override
             public void fail(String failMessage, ArrayList<Actividad> cache) {
             }
-        });
+        });*/
     }
 
     private void createDinamicContentTable(ArrayList<Actividad.Participante> participantes){

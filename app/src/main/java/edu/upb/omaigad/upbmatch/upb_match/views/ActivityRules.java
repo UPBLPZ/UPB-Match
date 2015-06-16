@@ -54,11 +54,11 @@ public class ActivityRules extends ActionBarActivity {
         tablaReglasActividad.removeAllViews();
 
         TextView participantes = new TextView(this);
-        participantes.setText("Participantes: "+actividad.getNumeroParticipantes());
+        participantes.setText("Participantes: 23");
         TextView fechahora = new TextView(this);
-        fechahora.setText("Fecha/Hora: "+actividad.getFechaUHora());
+        fechahora.setText("Fecha/Hora: 22/05/2015");
         TextView reglamento = new TextView(this);
-        reglamento.setText("Reglamento:\n"+actividad.reglas());
+        reglamento.setText("Reglamento:\nLas reglas son");
         tablaReglasActividad.addView(participantes, 0);
         tablaReglasActividad.addView(fechahora,1);
         tablaReglasActividad.addView(reglamento,2);

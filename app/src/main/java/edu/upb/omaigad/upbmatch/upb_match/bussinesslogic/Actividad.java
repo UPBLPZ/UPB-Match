@@ -111,7 +111,7 @@ public class Actividad {
                     callback.done(partis);
                 } else {
                     // TODO: Pasar el cache cuando relevante
-                    callback.fail("Fail", new ArrayList<Participante>());
+                    callback.fail(e.getMessage(), new ArrayList<Participante>());
                 }
             }
         });
