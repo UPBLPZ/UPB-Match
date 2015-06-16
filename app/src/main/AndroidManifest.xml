@@ -24,6 +24,14 @@
             android:name=".views.ActivityScore"
             android:label="@string/title_activity_activity_score" >
         </activity>
+        <activity
+            android:name=".views.ActivityRules"
+            android:label="@string/title_activity_activity_rules"
+            android:parentActivityName=".views.ActivityScore" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.upb.omaigad.upbmatch.upb_match.views.ActivityScore" />
+        </activity>
     </application>
 
 </manifest>

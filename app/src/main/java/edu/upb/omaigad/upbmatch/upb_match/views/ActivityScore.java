@@ -1,11 +1,15 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -42,7 +46,6 @@ public class ActivityScore extends ActionBarActivity {
     }
 
     private void updateTable(){
-        Log.e("Upadate table","");
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> actividades) {
@@ -55,7 +58,7 @@ public class ActivityScore extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), "Esta en curso.", Toast.LENGTH_SHORT).show();
                         break;
                     case "Concluida":
-                       actividades.get(0).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
+                       actividades.get(12).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
                             @Override
                             public void done(ArrayList<Actividad.Participante> participantes) {
                                 createDinamicContentTable(participantes);
@@ -78,11 +81,11 @@ public class ActivityScore extends ActionBarActivity {
     }
 
     private void createDinamicContentTable(ArrayList<Actividad.Participante> participantes){
+        //Toast.makeText(getApplicationContext(),"Dentro de la creacion de la tabla", Toast.LENGTH_SHORT).show();
         tablaPuntajeActividad.removeAllViews();
-        Log.e("Logre entrar","");
         int tam = participantes.size();
 
-        for(int cont = 1; cont < tam; cont++){
+        for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
             TextView equipo = new TextView(this);
             equipo.setText(participantes.get(cont).getEquipo().getNombre());
@@ -93,9 +96,12 @@ public class ActivityScore extends ActionBarActivity {
             fila.addView(equipo,0);
             fila.addView(puntajeGanado,1);
             fila.addView(puntajePerdido,2);
-
             tablaPuntajeActividad.addView(fila, cont);
         }
+    }
+    public  void onClick(View view){
+        Intent intent = new Intent(this, ActivityRules.class);
+        startActivity(intent);
     }
 
     @Override
@@ -120,3 +126,5 @@ public class ActivityScore extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+;
