@@ -82,6 +82,10 @@ public class Actividad {
         this.reglas = reglas;
     }
 
+    public Actividad() {
+
+    }
+
 
     public void getParticipantes(final CustomSimpleCallback<Participante> callback) {
         ParseQuery query = ParseQuery.getQuery("Participacion");
@@ -111,5 +115,9 @@ public class Actividad {
                 }
             }
         });
+    }
+
+    public Participante hiddenCreateParticipante(Equipo e, int punt, int perds) {
+        return new Actividad.Participante(e, punt, perds);
     }
 }
