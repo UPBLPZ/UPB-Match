@@ -36,7 +36,7 @@ public class TeamsManager extends Object {
 
     public void getTeams(final CustomSimpleCallback<Equipo> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Equipos");
-        query.orderByDescending("Puntos_Ganados");
+        query.orderByDescending("Puntaje");
         query.findInBackground(new FindCallback<ParseObject>() {
             // ORIGINAL: public void done(ParseObject object, ParseException e)
             public void done(List<ParseObject> object, ParseException e) {
@@ -46,7 +46,7 @@ public class TeamsManager extends Object {
                     for(ParseObject team : object) {
                         String tName = team.getString("Nombre_Equipo");
                         String tColor = team.getString("Color");
-                        int tScore = team.getInt("Puntos_Ganados");
+                        int tScore = team.getInt("Puntaje");
                         int tLost = team.getInt("Puntos_Perdidos");
                         String id = team.getObjectId();
                         Equipo indiTeam = new Equipo(tName, tColor, tScore, tLost, id);
