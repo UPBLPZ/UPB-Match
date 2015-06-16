@@ -84,7 +84,7 @@ public class Actividad {
 
 
     public void getParticipantes(final CustomSimpleCallback<Participante> callback) {
-        ParseQuery query = ParseQuery.getQuery("Participantes");
+        ParseQuery query = ParseQuery.getQuery("Participacion");
         query.whereEqualTo("Id_Actividad", this.ID);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
