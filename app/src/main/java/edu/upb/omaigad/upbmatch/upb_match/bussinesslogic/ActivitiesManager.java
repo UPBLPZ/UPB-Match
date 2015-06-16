@@ -23,7 +23,7 @@ public class ActivitiesManager {
                     // TODOS LOS OBJETOS DEL PARSE.
                     for(ParseObject act : object) {
                         String tEstado = act.getString("Estado");
-                        String tFechaHora = act.getString("Fecha_o_Hora");
+                        String tFechaHora = act.getString("Fecha_Hora");
                         String tID = act.getObjectId();
                         String tNombre = act.getString("Nombre_Actividad");
                         String tNumPartici = act.getString("Numero_Participantes");
