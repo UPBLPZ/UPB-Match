@@ -52,10 +52,10 @@ public class ActivityScore extends ActionBarActivity {
                 String estado = actividades.get(12).getEstado();
                 switch (estado){
                     case "Pendiente":
-                        Toast.makeText(getApplicationContext(), actividades.get(12).getNombreActividad()+" todavia no comenzo.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), actividades.get(12).getNombreActividad()+" todavia no comenzo.", Toast.LENGTH_LONG).show();
                         break;
                     case "En curso":
-                        Toast.makeText(getApplicationContext(), "Esta en curso.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Esta en curso.", Toast.LENGTH_LONG).show();
                         break;
                     case "Concluida":
                        actividades.get(12).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
@@ -98,6 +98,17 @@ public class ActivityScore extends ActionBarActivity {
             fila.addView(puntajePerdido,2);
             tablaPuntajeActividad.addView(fila, cont);
         }
+        TableRow fila = new TableRow(this);
+        TextView equipo = new TextView(this);
+        equipo.setText("Carrera");
+        TextView puntajeGanado = new TextView(this);
+        puntajeGanado.setText("Puntos ganados");
+        TextView puntajePerdido = new TextView(this);
+        puntajePerdido.setText("Puntos perdidos");;
+        fila.addView(equipo,0);
+        fila.addView(puntajeGanado,1);
+        fila.addView(puntajePerdido,2);
+        tablaPuntajeActividad.addView(fila,0);
     }
     public  void onClick(View view){
         Intent intent = new Intent(this, ActivityRules.class);
