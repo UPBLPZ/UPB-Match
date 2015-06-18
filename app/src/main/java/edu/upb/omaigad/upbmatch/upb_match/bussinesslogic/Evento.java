@@ -16,7 +16,6 @@ public class Evento {
      * Construcore de la clase
      * @param titulo titulo del evento
      * @param fecha fecha del evento
-
      * @param desc decripcion del evento
      */
     public Evento(String titulo, String fecha,String desc){
@@ -30,7 +29,6 @@ public class Evento {
 
     }
 
-
     /**
      * getters para la clase eventos y retornar sus atributos
      * @return
@@ -38,10 +36,6 @@ public class Evento {
     public String getTitulo() {return nombreEvento; }
     public String getFecha() {return fecha; }
     public String getDescripcion() {return descripcion; }
-
-
-
-
 
 
 }

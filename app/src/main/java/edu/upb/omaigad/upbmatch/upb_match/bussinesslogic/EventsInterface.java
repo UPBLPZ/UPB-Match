@@ -6,6 +6,10 @@ package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 
 public interface EventsInterface {
 
+    /**
+     * METIDI BASE PARA JALAR DATOS
+     * @param callback
+     */
     public void getEvents(final CustomSimpleCallback<Equipo> callback);
 
 }
