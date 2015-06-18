@@ -9,8 +9,12 @@ import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
  * Created by andyibanezk on 6/8/15.
  */
 
-public class TeamsManager extends Object {
+//VERSION ANTIGUA DE LA CLASE AHORA IMPLEMENTA LA INERFACE SCORES MANAGER (y)
+//public class TeamsManager extends Object {
 
+
+
+public class TeamsManager implements TeamsInterface{
     /*
         Para usar esto:
 
@@ -43,7 +47,7 @@ public class TeamsManager extends Object {
                 if (e == null) {
                     ArrayList<Equipo> teams = new ArrayList<Equipo>();
                     // TODOS LOS OBJETOS DEL PARSE.
-                    for(ParseObject team : object) {
+                    for (ParseObject team : object) {
                         String tName = team.getString("Nombre_Equipo");
                         String tColor = team.getString("Color");
                         int tScore = team.getInt("Puntaje");
@@ -61,21 +65,4 @@ public class TeamsManager extends Object {
             }
         });
     }
-
-
-    /**
-     * crearTeam create a team in the cloud in the "Equipo" class
-     * @param equipo nombre del nuevo equipo creado
-     * @param color_Equipo string en rgb para el color del equipo
-     */
-
-
-    public void crearTeam(String equipo,String color_Equipo){
-        ParseObject newTeam = new ParseObject("Equipos");
-        newTeam.put("Nombre_Equipo",equipo);
-        newTeam.put("Color",color_Equipo);
-        newTeam.put("Puntaje",0);
-        newTeam.saveInBackground();
-    }
-
 }
