@@ -1,9 +1,11 @@
 package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 
 /**
- * Created by Mauricio on 09-Jun-15.
+ * Created by Miguel on 17/06/2015.
  */
 public interface ScoreInterface {
-    String[] getScores();
-    String[] getCareer();
+
+
+    public String[] getCareer();
+    public String[] getScores();
 }

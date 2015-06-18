@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/UPB-Match.iml" filepath="$PROJECT_DIR$/UPB-Match.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UPBmatch.iml" filepath="$PROJECT_DIR$/UPBmatch.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
