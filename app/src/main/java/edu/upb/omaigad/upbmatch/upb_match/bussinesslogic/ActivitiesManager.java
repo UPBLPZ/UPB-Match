@@ -1,5 +1,7 @@
 package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 
+import android.util.Log;
+
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;

@@ -88,9 +88,11 @@ public class Actividad {
 
 
     public void getParticipantes(final CustomSimpleCallback<Participante> callback) {
+        Log.e("ANDY LOG", "Supercat");
         ParseQuery query = ParseQuery.getQuery("Participacion");
         ParseObject acti = new ParseObject("Actividades");
         acti.setObjectId(this.ID);
+        Log.e("ANDY LOG", "Chu");
         query.whereEqualTo("Id_Actividad", acti);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
