@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import Mocks.MockScoreInterface;
 import edu.upb.omaigad.upbmatch.upb_match.R;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
@@ -58,6 +59,33 @@ public class GlobalScore extends ActionBarActivity
 
         // Set up the table
         tablaPuntaje = (TableLayout) findViewById(R.id.scoreTable);
+
+        // andy start
+        app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
+            @Override
+            public void done(ArrayList<Actividad> data) {
+                Actividad act = data.get(1);
+                Log.e("ANDY LOG", act.getNombreActividad());
+                act.getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
+                    @Override
+                    public void done(ArrayList<Actividad.Participante> data) {
+                        Log.e("ANDY LOG", "PARTICIPANTES: " + data);
+                    }
+
+                    @Override
+                    public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
+                        Log.e("ANDY LOG", "ACTIVITY PARTICIPANTS FAIL: " + failMessage);
+                    }
+                });
+            }
+
+            @Override
+            public void fail(String failMessage, ArrayList<Actividad> cache) {
+
+            }
+        });
+        // andy end
+
         updateTable();
     }
     protected  void updateTable(){

@@ -89,12 +89,14 @@ public class Actividad {
 
     public void getParticipantes(final CustomSimpleCallback<Participante> callback) {
         ParseQuery query = ParseQuery.getQuery("Participacion");
-        query.whereEqualTo("Id_Actividad", this.ID);
+        ParseObject acti = new ParseObject("Actividades");
+        acti.setObjectId(this.ID);
+        query.whereEqualTo("Id_Actividad", acti);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
-                    //Log.e("ANDY PARSE", parseObject.toString());
+                    Log.e("ANDY PARSE", list.toString());
 
                     ArrayList<Participante> partis = new ArrayList<Participante>();
                     for (ParseObject participant : list) {
