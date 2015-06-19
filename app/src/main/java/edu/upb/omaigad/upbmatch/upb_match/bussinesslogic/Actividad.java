@@ -93,24 +93,29 @@ public class Actividad {
         ParseObject acti = new ParseObject("Actividades");
         acti.setObjectId(this.ID);
         Log.e("ANDY LOG", "Chu");
-        query.whereEqualTo("Id_Actividad", acti);
+        //query.whereEqualTo("Id_Actividad", acti);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
-                    Log.e("ANDY PARSE", list.toString());
+                    Log.e("ANDY PARSE LA LISTA", list.toString());
 
                     ArrayList<Participante> partis = new ArrayList<Participante>();
                     for (ParseObject participant : list) {
-                        ParseObject team = participant.getParseObject("Id_Equipo");
-                        String tName = team.getString("Nombre_Equipo");
-                        String tColor = team.getString("Color");
-                        int tScore = team.getInt("Puntaje");
-                        int tLost = team.getInt("Puntos_Perdidos");
-                        String id = team.getObjectId();
-                        Equipo indiTeam = new Equipo(tName, tColor, tScore, tLost, id);
-                        Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
-                        partis.add(dudeBro);
+                        try {
+                            ParseObject team = participant.getParseObject("Id_Equipo");
+                            Log.e("ANDY YA OKAY ENTONCES", team.toString());
+                            String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
+                            String tColor = team.fetchIfNeeded().getString("Color");
+                            int tScore = team.fetchIfNeeded().getInt("Puntaje");
+                            int tLost = team.fetchIfNeeded().getInt("Puntos_Perdidos");
+                            String id = team.fetchIfNeeded().getObjectId();
+                            Equipo indiTeam = new Equipo(tName, tColor, tScore, tLost, id);
+                            Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
+                            partis.add(dudeBro);
+                        } catch(Exception errorcito) {
+                            callback.fail(errorcito.getMessage(), null);
+                        }
                     }
                     callback.done(partis);
                 } else {

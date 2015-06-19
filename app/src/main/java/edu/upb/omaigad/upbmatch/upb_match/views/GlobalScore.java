@@ -70,6 +70,7 @@ public class GlobalScore extends ActionBarActivity
                     @Override
                     public void done(ArrayList<Actividad.Participante> data) {
                         Log.e("ANDY LOG", "PARTICIPANTES: " + data);
+                        Log.e("UN MINI PARTICIPANTE: ", data.get(0).getEquipo().getNombre());
                     }
 
                     @Override
