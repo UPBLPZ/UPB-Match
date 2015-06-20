@@ -10,6 +10,6 @@ public interface EventsInterface {
      * METIDI BASE PARA JALAR DATOS
      * @param callback
      */
-    public void getEvents(final CustomSimpleCallback<Equipo> callback);
+    public void getEvents(final CustomSimpleCallback<Evento> callback);
 
 }
