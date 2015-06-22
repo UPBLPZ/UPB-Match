@@ -50,9 +50,48 @@ public abstract class EventsManager implements EventsInterface {
     public void getInvolucrados(final CustomSimpleCallback<Involucrado> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Involucrados");
         Log.e("Micky","accede a la tabla");
-        ParseObject equipo = new ParseObject("Equipos");
-        ParseObject evento = new ParseObject("Eventos");
+      //  ParseObject equipo = new ParseObject("Equipos");
+      //  ParseObject evento = new ParseObject("Eventos");
 
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (e == null) {
+                    Log.e("Micky",list.toString());
+                    ArrayList<Involucrado> invol = new ArrayList<Involucrado>();
+                    for (ParseObject involucrados : list){
+                        try {
+                            // obtener los datos del equipo involucrados en el evento
+                            ParseObject team = involucrados.getParseObject("Id_Equipo");
+                            Log.e("ANDY YA OKAY ENTONCES", team.toString());
+                            String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
+                            String tColor = team.fetchIfNeeded().getString("Color");
+                            int tScore = team.fetchIfNeeded().getInt("Puntaje");
+                            String id = team.fetchIfNeeded().getObjectId();
+                            Equipo indiTeam = new Equipo(tName, tColor, tScore, id);
+                            //obtener los datos del evento
+                            ParseObject event = involucrados.getParseObject("Id_Evento");
+                            String eID = event.getObjectId();
+                            String eNombre = event.getString("Nombre_Evento");
+                            Date eFecha = event.getDate("Fecha_Hora");
+                            String eDesc = event.getString("Descripcion");
+                            Evento indiEvent = new Evento(eID, eNombre, eFecha, eDesc);
+                            // Sea crea los involucrados con su evento y su equipo participe
+                            Involucrado invo = new Involucrado(indiTeam,indiEvent);
+                            invol.add(invo);
+
+                        } catch(Exception error) {
+                            callback.fail(error.getMessage(), null);
+                        }
+                    }
+
+
+                }else{
+
+                }
+
+            }
+        });
 
     }
 }

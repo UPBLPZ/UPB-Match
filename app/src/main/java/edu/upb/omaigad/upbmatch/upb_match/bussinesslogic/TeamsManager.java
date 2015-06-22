@@ -51,9 +51,8 @@ public class TeamsManager implements TeamsInterface{
                         String tName = team.getString("Nombre_Equipo");
                         String tColor = team.getString("Color");
                         int tScore = team.getInt("Puntaje");
-                        int tLost = team.getInt("Puntos_Perdidos");
                         String id = team.getObjectId();
-                        Equipo indiTeam = new Equipo(tName, tColor, tScore, tLost, id);
+                        Equipo indiTeam = new Equipo(tName, tColor, tScore, id);
                         teams.add(indiTeam);
                     }
                     callback.done(teams);
