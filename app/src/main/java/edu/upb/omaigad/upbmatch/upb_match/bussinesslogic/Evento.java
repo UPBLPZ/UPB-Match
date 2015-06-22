@@ -1,5 +1,7 @@
 package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 
+import java.util.Date;
+
 /**
  * Created by Miguel on 17/06/2015.
  */
@@ -8,17 +10,20 @@ public class Evento {
     /**
      * atributos de la clase en funcion al parse
      */
+    private String EventID;
     private String nombreEvento;
-    private String fecha;
+    private Date fecha;
     private String descripcion;
 
     /**
-     * Construcore de la clase
-     * @param titulo titulo del evento
-     * @param fecha fecha del evento
-     * @param desc decripcion del evento
+     * Construcotor de la clase
+     * @param id
+     * @param titulo
+     * @param fecha
+     * @param desc
      */
-    public Evento(String titulo, String fecha,String desc){
+    public Evento(String id, String titulo, Date fecha,String desc){
+       this.EventID = id;
         this.nombreEvento=titulo;
         this.fecha=fecha;
         this.descripcion=desc;
@@ -34,7 +39,7 @@ public class Evento {
      * @return
      */
     public String getTitulo() {return nombreEvento; }
-    public String getFecha() {return fecha; }
+    public Date getFecha() {return fecha; }
     public String getDescripcion() {return descripcion; }
 
 
