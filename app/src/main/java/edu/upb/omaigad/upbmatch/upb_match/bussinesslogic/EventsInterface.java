@@ -11,5 +11,5 @@ public interface EventsInterface {
      * @param callback
      */
     public void getEvents(final CustomSimpleCallback<Evento> callback);
-
+    public void getInvolucrados(final CustomSimpleCallback<Involucrado> callback);
 }

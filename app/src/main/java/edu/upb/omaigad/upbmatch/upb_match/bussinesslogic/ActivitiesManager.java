@@ -14,6 +14,7 @@ import java.util.List;
  * Created by andyibanezk on 6/11/15.
  */
 public class ActivitiesManager {
+
     public void getActivities(final CustomSimpleCallback<Actividad> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Actividades");
         query.orderByAscending("Nombre_Actividad");

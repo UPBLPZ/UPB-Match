@@ -18,6 +18,21 @@ public class Equipo {
         this.puntosPerdidos = puntosPerdidos;
     }
 
+    /** Made By Miguel Frade
+     * Construcor witohut losing points per team
+     * @param nom
+     * @param Color
+     * @param pts
+     * @param id
+     */
+
+    public Equipo(String nom, String Color, int pts,String id){
+        this.nombre=nom;
+        this.color=Color;
+        this.puntaje=pts;
+        this.ID=id;
+    }
+
     public String getColor() {
         return color;
     }
