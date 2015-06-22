@@ -108,9 +108,8 @@ public class Actividad {
                             String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
                             String tColor = team.fetchIfNeeded().getString("Color");
                             int tScore = team.fetchIfNeeded().getInt("Puntaje");
-                            int tLost = team.fetchIfNeeded().getInt("Puntos_Perdidos");
                             String id = team.fetchIfNeeded().getObjectId();
-                            Equipo indiTeam = new Equipo(tName, tColor, tScore, tLost, id);
+                            Equipo indiTeam = new Equipo(tName, tColor, tScore, id);
                             Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
                             partis.add(dudeBro);
                         } catch(Exception errorcito) {
