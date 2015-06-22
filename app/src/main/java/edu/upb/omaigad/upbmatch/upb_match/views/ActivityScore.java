@@ -1,6 +1,7 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,9 +27,9 @@ import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 
 
-public class ActivityScore extends ActionBarActivity {
+public class ActivityScore extends BaseActivity {
 
-    private UPBMatchApplication app;
+
     private TableLayout tablaPuntajeActividad;
     private Button botonReglas;
 
@@ -38,6 +39,11 @@ public class ActivityScore extends ActionBarActivity {
         setContentView(R.layout.activity_activity_score);
 
         app = (UPBMatchApplication) getApplication();
+        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
         tablaPuntajeActividad = (TableLayout) findViewById(R.id.activityScoreTable);
         botonReglas = (Button) findViewById(R.id.buttonRules);
@@ -89,26 +95,41 @@ public class ActivityScore extends ActionBarActivity {
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
             TextView equipo = new TextView(this);
-            equipo.setText(participantes.get(cont).getEquipo().getNombre());
             TextView puntajeGanado = new TextView(this);
-            puntajeGanado.setText(participantes.get(cont).getPuntaje()+"");
             TextView puntajePerdido = new TextView(this);
-            puntajePerdido.setText(participantes.get(cont).getPuntosPerdidos()+"");;
+            TextView puntajeTotal = new TextView(this);
+            int pg = participantes.get(cont).getPuntaje();
+            int pp = participantes.get(cont).getPuntosPerdidos();
+            int pt = pg-pp;
+
+            equipo.setText(participantes.get(cont).getEquipo().getNombre());
+            puntajeGanado.setText(pg+"");
+            puntajePerdido.setText(pp+"");
+            puntajeTotal.setText(pt+"");
+
             fila.addView(equipo,0);
             fila.addView(puntajeGanado,1);
             fila.addView(puntajePerdido,2);
+            fila.addView(puntajeTotal,3);
+
             tablaPuntajeActividad.addView(fila, cont);
         }
         TableRow fila = new TableRow(this);
         TextView equipo = new TextView(this);
-        equipo.setText("Carrera");
         TextView puntajeGanado = new TextView(this);
-        puntajeGanado.setText("Puntos ganados");
         TextView puntajePerdido = new TextView(this);
-        puntajePerdido.setText("Puntos perdidos");;
+        TextView puntajeTotal = new TextView(this);
+
+        equipo.setText("Carrera");
+        puntajeGanado.setText("PG");
+        puntajePerdido.setText("PP");;
+        puntajeTotal.setText("PT");
+
         fila.addView(equipo,0);
         fila.addView(puntajeGanado,1);
         fila.addView(puntajePerdido,2);
+        fila.addView(puntajeTotal,3);
+
         tablaPuntajeActividad.addView(fila,0);
     }
     public  void onClick(View view){

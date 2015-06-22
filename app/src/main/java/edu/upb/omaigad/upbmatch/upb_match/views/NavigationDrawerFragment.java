@@ -1,5 +1,6 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -78,7 +79,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
+        //selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -191,6 +192,28 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
+        Intent intent;
+        switch (position){
+            case 0:
+                if (this.getActivity().getClass() == GlobalScore.class){
+                }else{
+                    intent = new Intent(this.getActivity(), GlobalScore.class);
+                    this.getActivity().startActivity(intent);
+                }
+                break;
+            case 1:
+                if (this.getActivity().getClass() == ActivityScore.class){
+                }else{
+                    intent = new Intent(this.getActivity(), ActivityScore.class);
+                    this.getActivity().startActivity(intent);
+                }
+                break;
+            case 2:
+                break;
+            default:
+                break;
+
+        }
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);

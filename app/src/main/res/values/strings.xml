@@ -15,4 +15,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_activity_rules">Reglamento</string>
+    <string name="title_activity_base">BaseActivity</string>
 </resources>
