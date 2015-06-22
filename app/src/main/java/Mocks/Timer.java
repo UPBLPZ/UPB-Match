@@ -6,7 +6,7 @@ package Mocks;
 public class Timer {
 
 
-    public Timer(MockEventsManager mockEventsManager) {
+    public Timer(MockIEventsManager mockEventsManager) {
 
     }
 }

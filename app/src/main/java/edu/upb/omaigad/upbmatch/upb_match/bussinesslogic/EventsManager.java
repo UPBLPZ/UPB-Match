@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Miguel on 17/06/2015.
  */
 
-public abstract class EventsManager implements EventsInterface {
+public abstract class EventsManager implements IEventsManager {
 
 
     @Override
