@@ -6,16 +6,17 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Evento;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.IEventsManager;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.EventsInterface;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Involucrado;
 
 /**
  * Created by Natalia Decormis on 6/19/2015.
  */
-public class MockIEventsManager implements IEventsManager {
+public class MockEventsManager implements EventsInterface {
 
-    public MockIEventsManager() {
+    public MockEventsManager() {
 
     }
 

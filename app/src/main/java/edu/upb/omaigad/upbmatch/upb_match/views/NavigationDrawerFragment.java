@@ -199,6 +199,7 @@ public class NavigationDrawerFragment extends Fragment {
                 }else{
                     intent = new Intent(this.getActivity(), GlobalScore.class);
                     this.getActivity().startActivity(intent);
+                    this.getActivity().finish();
                 }
                 break;
             case 1:
@@ -206,9 +207,16 @@ public class NavigationDrawerFragment extends Fragment {
                 }else{
                     intent = new Intent(this.getActivity(), ActivityScore.class);
                     this.getActivity().startActivity(intent);
+                    this.getActivity().finish();
                 }
                 break;
             case 2:
+                if(this.getActivity().getClass() == Calendar.class){
+                }else{
+                    intent = new Intent(this.getActivity(),Calendar.class);
+                    this.getActivity().startActivity(intent);
+                    this.getActivity().finish();
+                }
                 break;
             default:
                 break;

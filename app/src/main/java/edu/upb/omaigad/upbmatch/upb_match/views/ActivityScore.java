@@ -38,7 +38,7 @@ public class ActivityScore extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_score);
 
-        app = (UPBMatchApplication) getApplication();
+        //app = (UPBMatchApplication) getApplication();
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
