@@ -10,6 +10,7 @@ public class UPBMatchApplication extends Application {
 
     private TeamsManager teamsManager;
     private ActivitiesManager activitiesManager;
+    private EventsManager eventsManager;
 
     public void onCreate() {
         super.onCreate();
@@ -20,11 +21,14 @@ public class UPBMatchApplication extends Application {
         // Inicializando singletons.
         teamsManager = new TeamsManager();
         activitiesManager = new ActivitiesManager();
+        eventsManager = new EventsManager();
     }
 
     public TeamsManager getTeamsManager() {
         return teamsManager;
     }
+
     public ActivitiesManager getActivitiesManager() { return activitiesManager; }
+    public EventsManager getEventsManager() {return eventsManager;}
 
 }
