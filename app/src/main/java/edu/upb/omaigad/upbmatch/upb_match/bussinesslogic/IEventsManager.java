@@ -9,7 +9,8 @@ public interface IEventsManager {
     /**
      * METIDI BASE PARA JALAR DATOS
      * @param callback
+     * @param months
      */
-    public void getEvents(final CustomSimpleCallback<Evento> callback);
+    public void getEvents(String months, final CustomSimpleCallback<Evento> callback);
     public void getInvolucrados(final CustomSimpleCallback<Involucrado> callback);
 }

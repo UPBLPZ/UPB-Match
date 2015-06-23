@@ -19,9 +19,11 @@ public abstract class EventsManager implements IEventsManager {
 
 
     @Override
-    public void getEvents(final CustomSimpleCallback<Evento> callback) {
-        // Pendiente
+    public void getEvents(String months , final CustomSimpleCallback<Evento> callback) {
+        //
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Eventos");
+      //  query.whereEqualTo("Fecha_Evento","months");
+      //  query.whereContains("Fecha_Evento","months");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> object, ParseException e) {
                 if (e == null) {
@@ -31,6 +33,7 @@ public abstract class EventsManager implements IEventsManager {
                         String eID = evnt.getObjectId();
                         String eNombre = evnt.getString("Nombre_Evento");
                         Date eFecha = evnt.getDate("Fecha_Hora");
+                        int hora = eFecha.getDate();
                         String eDesc = evnt.getString("Descripcion");
 
                         Evento indiEvent = new Evento(eID, eNombre, eFecha, eDesc);
