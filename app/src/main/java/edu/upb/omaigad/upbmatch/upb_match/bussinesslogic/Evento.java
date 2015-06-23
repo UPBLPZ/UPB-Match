@@ -1,5 +1,6 @@
 package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -12,6 +13,8 @@ public class Evento {
      */
     private String EventID;
     private String nombreEvento;
+    private String dia;
+    private String hora;
     private Date fecha;
     private String descripcion;
 
@@ -30,6 +33,15 @@ public class Evento {
 
     }
 
+    public Evento(String id, String titulo, String dia,String hora,String desc){
+        this.EventID = id;
+        this.nombreEvento=titulo;
+        this.dia=dia;
+        this.hora=hora;
+        this.descripcion=desc;
+
+    }
+
     public Evento(){
 
     }
@@ -38,9 +50,11 @@ public class Evento {
      * getters para la clase eventos y retornar sus atributos
      * @return
      */
+    public String getId(){return EventID;}
     public String getTitulo() {return nombreEvento; }
-    public Date getFecha() {return fecha; }
+    public Date getFecha() {return fecha ; }
     public String getDescripcion() {return descripcion; }
-
+    public String getDia(){return dia;}
+    public String getHora() {return hora;}
 
 }

@@ -58,6 +58,7 @@ public class GlobalScore extends BaseActivity{
             @Override
             public void fail(String failMessage, ArrayList<Equipo> cache) {
                 Log.e("callback", "NOen el done");
+
             }
         });
     }

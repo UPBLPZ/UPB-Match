@@ -21,7 +21,7 @@ public class MockEventsManager implements EventsInterface {
     }
 
     @Override
-    public void getEvents(final CustomSimpleCallback<Evento> callback) {
+    public void getEvents(String months,final CustomSimpleCallback<Evento> callback) {
 
 
         (new Handler()).postDelayed(
