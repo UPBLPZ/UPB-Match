@@ -24,6 +24,7 @@ import edu.upb.omaigad.upbmatch.upb_match.R;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Evento;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 
 
@@ -44,6 +45,7 @@ public class GlobalScore extends BaseActivity{
 
         // Set up the table
         tablaPuntaje = (TableLayout) findViewById(R.id.scoreTable);
+
         updateTable();
     }
     private  void updateTable(){
