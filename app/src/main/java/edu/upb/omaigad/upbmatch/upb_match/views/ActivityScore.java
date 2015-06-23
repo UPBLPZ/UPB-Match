@@ -73,6 +73,7 @@ public class ActivityScore extends BaseActivity {
 
                             @Override
                             public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
+                                Toast.makeText(getApplicationContext(),"No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
                             }
                         });
                         break;
@@ -83,6 +84,7 @@ public class ActivityScore extends BaseActivity {
 
             @Override
             public void fail(String failMessage, ArrayList<Actividad> cache) {
+                Toast.makeText(getApplicationContext(),"No se pudo cargar la actividad.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -102,10 +104,10 @@ public class ActivityScore extends BaseActivity {
             int pp = participantes.get(cont).getPuntosPerdidos();
             int pt = pg-pp;
 
-            equipo.setText(participantes.get(cont).getEquipo().getNombre());
-            puntajeGanado.setText(pg+"");
-            puntajePerdido.setText(pp+"");
-            puntajeTotal.setText(pt+"");
+            equipo.setText(participantes.get(cont).getEquipo().getNombre()+"  ");
+            puntajeGanado.setText(pg+" ");
+            puntajePerdido.setText(pp+" ");
+            puntajeTotal.setText(pt+" ");
 
             fila.addView(equipo,0);
             fila.addView(puntajeGanado,1);
@@ -120,10 +122,10 @@ public class ActivityScore extends BaseActivity {
         TextView puntajePerdido = new TextView(this);
         TextView puntajeTotal = new TextView(this);
 
-        equipo.setText("Carrera");
-        puntajeGanado.setText("PG");
-        puntajePerdido.setText("PP");;
-        puntajeTotal.setText("PT");
+        equipo.setText("Carrera   ");
+        puntajeGanado.setText("PG  ");
+        puntajePerdido.setText("PP  ");
+        puntajeTotal.setText("PT  ");
 
         fila.addView(equipo,0);
         fila.addView(puntajeGanado,1);

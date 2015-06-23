@@ -11,6 +11,6 @@ public interface IEventsManager {
      * @param callback
      * @param months
      */
-    public void getEvents(String months, final CustomSimpleCallback<Evento> callback);
+    public void getEvents(final String months, final CustomSimpleCallback<Evento> callback);
     public void getInvolucrados(final CustomSimpleCallback<Involucrado> callback);
 }

@@ -2,6 +2,8 @@ package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 import android.app.Application;
 import com.parse.*;
 
+import Mocks.MockIEventsManager;
+
 /**
  * Created by andyibanezk on 6/8/15.
  */
@@ -10,7 +12,7 @@ public class UPBMatchApplication extends Application {
 
     private TeamsManager teamsManager;
     private ActivitiesManager activitiesManager;
-    private EventsManager eventsManager;
+    private IEventsManager eventsManager;
 
     public void onCreate() {
         super.onCreate();
@@ -21,7 +23,7 @@ public class UPBMatchApplication extends Application {
         // Inicializando singletons.
         teamsManager = new TeamsManager();
         activitiesManager = new ActivitiesManager();
-        eventsManager = new EventsManager();
+        eventsManager = new MockIEventsManager();
     }
 
     public TeamsManager getTeamsManager() {
@@ -29,6 +31,6 @@ public class UPBMatchApplication extends Application {
     }
 
     public ActivitiesManager getActivitiesManager() { return activitiesManager; }
-    public EventsManager getEventsManager() {return eventsManager;}
+    public IEventsManager getEventsManager() {return eventsManager;}
 
 }

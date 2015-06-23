@@ -10,48 +10,43 @@
         android:layout_height="match_parent" >
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/bPMonth"
+                android:onClick="onClickPM" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/bAMonth"
+                android:onClick="onClickAM" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/bNMonth"
+                android:onClick="onClickNM" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="407dp"
+            android:id="@+id/scrollView"
             android:layout_gravity="center">
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/textView" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/textView2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/textView3" />
-            </LinearLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/scrollView" >
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></TableLayout>
-            </ScrollView>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:id="@+id/calendarTable"></TableLayout>
+        </ScrollView>
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
