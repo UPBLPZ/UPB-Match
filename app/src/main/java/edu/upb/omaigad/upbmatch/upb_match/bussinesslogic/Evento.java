@@ -33,6 +33,14 @@ public class Evento {
 
     }
 
+    /**
+     * Crea un nuevo evento.
+     * @param id
+     * @param titulo
+     * @param dia
+     * @param hora
+     * @param desc
+     */
     public Evento(String id, String titulo, String dia,String hora,String desc){
         this.EventID = id;
         this.nombreEvento=titulo;
@@ -42,6 +50,9 @@ public class Evento {
 
     }
 
+    /**
+     * Crea un evento vacío.
+     */
     public Evento(){
 
     }
@@ -51,10 +62,35 @@ public class Evento {
      * @return
      */
     public String getId(){return EventID;}
+
+    /**
+     * Retorna el título del evento.
+     * @return String
+     */
     public String getTitulo() {return nombreEvento; }
+
+    /**
+     * Retorna la fecha del evento.
+     * @return Date
+     */
     public Date getFecha() {return fecha ; }
+
+    /**
+     * Retorna la descripción del evento.
+     * @return String
+     */
     public String getDescripcion() {return descripcion; }
+
+    /**
+     * Retorna el día del evento.
+     * @return String
+     */
     public String getDia(){return dia;}
+
+    /**
+     * Retorna el día del evento.
+     * @return
+     */
     public String getHora() {return hora;}
 
 }

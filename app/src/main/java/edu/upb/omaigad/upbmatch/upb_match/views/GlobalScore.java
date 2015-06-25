@@ -65,8 +65,6 @@ public class GlobalScore extends BaseActivity{
                 } else {
                     Toast.makeText(getApplicationContext(), "No se pudieron cargar datos.", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
     }

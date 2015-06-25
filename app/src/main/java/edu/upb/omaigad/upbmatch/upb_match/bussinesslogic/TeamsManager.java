@@ -75,6 +75,10 @@ public class TeamsManager implements ITeamsManager {
         });
     }
 
+    /**
+     * Retorna el cache de equipos.
+     * @param callback
+     */
     public void teamsCache(final CustomSimpleCallback<Equipo> callback) {
         ParseQuery<ParseObject> cacheQuery = ParseQuery.getQuery("Equipos");
         cacheQuery.orderByDescending("Puntaje");

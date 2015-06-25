@@ -15,6 +15,10 @@ import java.util.List;
  */
 public class ActivitiesManager implements IActivitiesManager {
 
+    /**
+     * Devuelve todas las actividades.
+     * @param callback
+     */
     public void getActivities(final CustomSimpleCallback<Actividad> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Actividades");
         query.orderByAscending("Nombre_Actividad");
@@ -47,6 +51,10 @@ public class ActivitiesManager implements IActivitiesManager {
         });
     }
 
+    /**
+     * Devuelve el cache de todas las actividades.
+     * @param callback
+     */
     public void actividadesCache(final CustomSimpleCallback<Actividad> callback) {
         // ALGO SE HA ESTIDO CHE
         Log.e("ANDY CHE", "ALGO SE HA ESTIDO CHE");
