@@ -1,17 +1,9 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
-import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,11 +14,8 @@ import java.util.ArrayList;
 
 import Mocks.MockScoreInterface;
 import edu.upb.omaigad.upbmatch.upb_match.R;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Evento;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 
 
 public class GlobalScore extends BaseActivity{
