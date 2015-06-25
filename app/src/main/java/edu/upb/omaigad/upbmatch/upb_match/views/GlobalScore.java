@@ -1,31 +1,21 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
-import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Mocks.MockScoreInterface;
 import edu.upb.omaigad.upbmatch.upb_match.R;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Evento;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 
 
 public class GlobalScore extends BaseActivity{
@@ -57,8 +47,13 @@ public class GlobalScore extends BaseActivity{
 
             @Override
             public void fail(String failMessage, ArrayList<Equipo> cache) {
-                Log.e("callback", "NOen el done");
-
+                Log.e("ANDY TEAMS ACT", "NOPE");
+                if(failMessage == "cache") {
+                    createDinamicContentTable(cache);
+                    Toast.makeText(getApplicationContext(), "Error de conexión. Los datos mostrados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se pudieron cargar datos.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

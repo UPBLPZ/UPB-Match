@@ -12,12 +12,20 @@ public class Involucrado {
     private Evento evento;
 
 
+    /**
+     * Crea un nuevo Involucrado
+     * @param eq
+     * @param ev
+     */
     public Involucrado(Equipo eq, Evento ev) {
         this.equipo = eq;
         this.evento = ev;
 
     }
 
+    /**
+     * Crea un involucrado vacío.
+     */
     public Involucrado() {
 
     }

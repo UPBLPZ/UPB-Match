@@ -5,6 +5,10 @@ package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
  */
 public interface ITeamsManager {
 
+    /**
+     * Devuelve todos los equipos, ordenados por score mayor a score menor.
+     * @param callback
+     */
     public void getTeams(final CustomSimpleCallback<Equipo> callback);
 
 }
