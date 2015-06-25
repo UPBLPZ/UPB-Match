@@ -7,10 +7,15 @@ package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 public interface IEventsManager {
 
     /**
-     * METIDI BASE PARA JALAR DATOS
+     * Devuelve los eventos del calendario.
      * @param callback
      * @param months
      */
     public void getEvents(final String months, final CustomSimpleCallback<Evento> callback);
+
+    /**
+     * Devuelve los involucrados en un Evento.
+     * @param callback
+     */
     public void getInvolucrados(final CustomSimpleCallback<Involucrado> callback);
 }

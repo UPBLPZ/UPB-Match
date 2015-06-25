@@ -28,6 +28,11 @@ public class Equipo {
         this.ID=id;
     }
 
+    /**
+     * Crea un equipo con un objeto de Parse.
+     * @param team
+     * @throws Exception
+     */
     public Equipo(ParseObject team) throws Exception {
         //ParseObject team = obj.getParseObject("Id_Equipo");
         String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
@@ -40,18 +45,34 @@ public class Equipo {
         this.ID = id;
     }
 
+    /**
+     * Retorna el color del equipo.
+     * @return String
+     */
     public String getColor() {
         return color;
     }
 
+    /**
+     * Retorna el nombre del equipo.
+     * @return String
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Retorna el puntaje del equipo.
+     * @return int
+     */
     public int getPuntaje() {
         return puntaje;
     }
 
+    /**
+     * Retorna el ID del equipo.
+     * @return String
+     */
     public String getID() {
         return this.ID;
     }
