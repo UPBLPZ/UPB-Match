@@ -1,5 +1,9 @@
 package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
 
+import android.util.Log;
+
+import com.parse.ParseObject;
+
 /**
  * Created by andyibanezk on 6/9/15.
  */
@@ -22,6 +26,18 @@ public class Equipo {
         this.color=Color;
         this.puntaje=pts;
         this.ID=id;
+    }
+
+    public Equipo(ParseObject obj) throws Exception {
+        ParseObject team = obj.getParseObject("Id_Equipo");
+        String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
+        String tColor = team.fetchIfNeeded().getString("Color");
+        int tScore = team.fetchIfNeeded().getInt("Puntaje");
+        String id = team.fetchIfNeeded().getObjectId();
+        this.nombre = tName;
+        this.color = tColor;
+        this.puntaje = tScore;
+        this.ID = id;
     }
 
     public String getColor() {

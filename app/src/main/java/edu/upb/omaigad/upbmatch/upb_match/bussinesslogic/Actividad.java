@@ -90,10 +90,10 @@ public class Actividad {
     public void getParticipantes(final CustomSimpleCallback<Participante> callback) {
         Log.e("ANDY LOG", "Supercat");
         ParseQuery query = ParseQuery.getQuery("Participacion");
-        ParseObject acti = new ParseObject("Actividades");
+        final ParseObject acti = new ParseObject("Actividades");
         acti.setObjectId(this.ID);
         Log.e("ANDY LOG", "Chu");
-        //query.whereEqualTo("Id_Actividad", acti);
+        query.whereEqualTo("Id_Actividad", acti);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -103,13 +103,7 @@ public class Actividad {
                     ArrayList<Participante> partis = new ArrayList<Participante>();
                     for (ParseObject participant : list) {
                         try {
-                            ParseObject team = participant.getParseObject("Id_Equipo");
-                            Log.e("ANDY YA OKAY ENTONCES", team.toString());
-                            String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
-                            String tColor = team.fetchIfNeeded().getString("Color");
-                            int tScore = team.fetchIfNeeded().getInt("Puntaje");
-                            String id = team.fetchIfNeeded().getObjectId();
-                            Equipo indiTeam = new Equipo(tName, tColor, tScore, id);
+                            Equipo indiTeam = new Equipo(participant);
                             Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
                             partis.add(dudeBro);
                         } catch(Exception errorcito) {
@@ -118,7 +112,30 @@ public class Actividad {
                     }
                     callback.done(partis);
                 } else {
-                    // TODO: Pasar el cache cuando relevante
+                    ParseQuery cacheQuery = ParseQuery.getQuery("Participacion");
+                    cacheQuery.whereEqualTo("Id_Actividad", acti);
+                    cacheQuery.setCachePolicy(ParseQuery.CachePolicy.CACHE_ONLY);
+                    cacheQuery.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> list, ParseException e) {
+                            if (e == null) {
+                                ArrayList<Participante> partis = new ArrayList<Participante>();
+                                for (ParseObject participant : list) {
+                                    try {
+                                        Equipo indiTeam = new Equipo(participant);
+                                        Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
+                                        partis.add(dudeBro);
+                                    } catch(Exception errorcito) {
+                                        callback.fail(errorcito.getMessage(), null);
+                                    }
+                                }
+                                callback.fail("cache", partis);
+                            } else {
+                                callback.fail("no cache", null);
+                            }
+                        }
+                    });
+
                     callback.fail(e.getMessage(), new ArrayList<Participante>());
                 }
             }
