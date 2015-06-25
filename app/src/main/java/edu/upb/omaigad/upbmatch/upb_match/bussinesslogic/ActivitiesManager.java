@@ -25,20 +25,57 @@ public class ActivitiesManager implements IActivitiesManager {
                     ArrayList<Actividad> teams = new ArrayList<Actividad>();
                     // TODOS LOS OBJETOS DEL PARSE.
                     for(ParseObject act : object) {
-                        String tEstado = act.getString("Estado");
-                        String tFechaHora = act.getString("Fecha_Hora");
-                        String tID = act.getObjectId();
-                        String tNombre = act.getString("Nombre_Actividad");
-                        String tNumPartici = act.getString("Numero_Participantes");
-                        String tReglas = act.getString("Reglas");
-                        Actividad indiAct = new Actividad(tEstado, tFechaHora, tID, tNombre, tNumPartici, tReglas);
+                        Actividad indiAct = new Actividad(act);
                         teams.add(indiAct);
                     }
+                    if(teams.toArray().length <= 0) {
+                        actividadesCache(callback);
+                    }
+                    try {
+                        ParseObject.unpinAll("ACTIVITIES_LABEL");
+                    } catch(Exception ex) {
+                        Log.e("ANDYCHE", "Couldn't unpin.");
+                    }
+                    Log.e("DOKO", "HERE");
+                    ParseObject.pinAllInBackground("ACTIVITIES_LABEL", object);
+                    Log.e("DOKO", "THEREAFTER");
                     callback.done(teams);
                 } else {
-                    // ALGO SE HA ESTIDO CHE
-                    // TODO Pasarle el cache actual (cuando relevante)
-                    callback.fail(e.getMessage(), new ArrayList<Actividad>());
+                    Log.e("DOKO", "The error is: " + e.getMessage());
+                    actividadesCache(callback);
+                }
+            }
+        });
+    }
+
+    public void actividadesCache(final CustomSimpleCallback<Actividad> callback) {
+        // ALGO SE HA ESTIDO CHE
+        Log.e("ANDY CHE", "ALGO SE HA ESTIDO CHE");
+        ParseQuery cacheQuery = ParseQuery.getQuery("Actividades");
+        //cacheQuery.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        cacheQuery.fromLocalDatastore();
+        cacheQuery.orderByAscending("Nombre_Actividad");
+        cacheQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (e == null) {
+                    ArrayList<Actividad> teams = new ArrayList<Actividad>();
+                    // TODOS LOS OBJETOS DEL PARSE.
+                    for (ParseObject act : list) {
+                        Actividad indiAct = new Actividad(act);
+                        teams.add(indiAct);
+                    }
+
+                    if (teams.toArray().length > 0) {
+                        Log.e("ANDY", "ARRAY MAYOR A CERO CHE");
+                        callback.fail("cache", teams);
+                    } else {
+                        Log.e("ANDY", "ARRAY 0 CHE");
+                        callback.fail("no cache", null);
+                    }
+                } else {
+                    Log.e("ANDY CHE CHE", e.getMessage());
+                    callback.fail(e.getMessage(), null);
                 }
             }
         });

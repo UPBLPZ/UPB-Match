@@ -73,7 +73,12 @@ public class ActivityScore extends BaseActivity {
 
                             @Override
                             public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
-                                Toast.makeText(getApplicationContext(),"No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
+                                if(failMessage == "cache") {
+                                    createDinamicContentTable(cache);
+                                    Toast.makeText(getApplicationContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(),"No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
+                                }
                             }
                         });
                         break;
@@ -84,7 +89,30 @@ public class ActivityScore extends BaseActivity {
 
             @Override
             public void fail(String failMessage, ArrayList<Actividad> cache) {
-                Toast.makeText(getApplicationContext(),"No se pudo cargar la actividad.", Toast.LENGTH_LONG).show();
+                if(failMessage == "cache") {
+                    // TODO (para Mauri) hacerlo dinámico.
+
+                    cache.get(12).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
+                        @Override
+                        public void done(ArrayList<Actividad.Participante> participantes) {
+                            createDinamicContentTable(participantes);
+                        }
+
+                        @Override
+                        public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
+                            if(failMessage == "cache") {
+                                createDinamicContentTable(cache);
+                                Toast.makeText(getApplicationContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),"No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                    Toast.makeText(getApplicationContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),"No se pudo cargar la actividad.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
