@@ -28,14 +28,13 @@ public class ActivitiesManager implements IActivitiesManager {
                         Actividad indiAct = new Actividad(act);
                         teams.add(indiAct);
                     }
-                    if(teams.toArray().length <= 0) {
-                        actividadesCache(callback);
-                    }
+
                     try {
                         ParseObject.unpinAll("ACTIVITIES_LABEL");
                     } catch(Exception ex) {
                         Log.e("ANDYCHE", "Couldn't unpin.");
                     }
+
                     Log.e("DOKO", "HERE");
                     ParseObject.pinAllInBackground("ACTIVITIES_LABEL", object);
                     Log.e("DOKO", "THEREAFTER");

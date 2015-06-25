@@ -134,10 +134,6 @@ public class Actividad {
 
                     ParseObject.pinAllInBackground("PARTICIPANTES_LABEL", list);
 
-                    if(list.toArray().length <= 0) {
-                        participantesCache(callback);
-                    }
-
                     callback.done(partis);
                 } else {
                     Log.e("ANDY PARTICIPANTES", e.getMessage());

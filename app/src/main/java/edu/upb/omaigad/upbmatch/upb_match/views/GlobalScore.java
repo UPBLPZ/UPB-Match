@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -57,7 +58,14 @@ public class GlobalScore extends BaseActivity{
 
             @Override
             public void fail(String failMessage, ArrayList<Equipo> cache) {
-                Log.e("callback", "NOen el done");
+                Log.e("ANDY TEAMS ACT", "NOPE");
+                if(failMessage == "cache") {
+                    createDinamicContentTable(cache);
+                    Toast.makeText(getApplicationContext(), "Error de conexión. Los datos mostrados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se pudieron cargar datos.", Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });

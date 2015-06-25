@@ -1,4 +1,6 @@
 package edu.upb.omaigad.upbmatch.upb_match.bussinesslogic;
+import android.util.Log;
+
 import com.parse.*;
 import java.util.*;
 
@@ -45,18 +47,65 @@ public class TeamsManager implements ITeamsManager {
                     ArrayList<Equipo> teams = new ArrayList<Equipo>();
                     // TODOS LOS OBJETOS DEL PARSE.
                     for (ParseObject team : object) {
-                        String tName = team.getString("Nombre_Equipo");
-                        String tColor = team.getString("Color");
-                        int tScore = team.getInt("Puntaje");
-                        String id = team.getObjectId();
-                        Equipo indiTeam = new Equipo(tName, tColor, tScore, id);
-                        teams.add(indiTeam);
+                        try {
+                            Log.e("ANDY TEAM", "THE TEAM IS " + team.toString());
+                            Equipo indiTeam = new Equipo(team);
+                            teams.add(indiTeam);
+                        } catch (Exception exi) {
+                            Log.e("ANDY WHY", "WHY ARE YOU HERE " + exi.getMessage());
+                            callback.fail(exi.getMessage(), null);
+                            break;
+                        }
                     }
+
+                    try {
+                        ParseObject.unpinAll("TEAMS_LABEL");
+                    } catch (Exception ex) {
+                        Log.e("ANDY TEAMS", "WHOOPS UNPINNING");
+                    }
+
+                    ParseObject.pinAllInBackground("TEAMS_LABEL", object);
+
                     callback.done(teams);
                 } else {
                     // ALGO SE HA ESTIDO CHE
-                    // TODO Pasarle el cache actual (cuando relevante)
-                    callback.fail(e.getMessage(), new ArrayList<Equipo>());
+                    teamsCache(callback);
+                }
+            }
+        });
+    }
+
+    public void teamsCache(final CustomSimpleCallback<Equipo> callback) {
+        ParseQuery<ParseObject> cacheQuery = ParseQuery.getQuery("Equipos");
+        cacheQuery.orderByDescending("Puntaje");
+        cacheQuery.fromLocalDatastore();
+        cacheQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                Log.e("ANDY TEAMS", "TEAMS CACHE");
+                if (e == null) {
+
+                    ArrayList<Equipo> teams = new ArrayList<Equipo>();
+                    // TODOS LOS OBJETOS DEL PARSE.
+                    for (ParseObject team : list) {
+                        try {
+                            Equipo indiTeam = new Equipo(team);
+                            teams.add(indiTeam);
+                        } catch (Exception exi) {
+                            callback.fail(exi.getMessage(), null);
+                        }
+                    }
+
+                    if(teams.toArray().length > 0) {
+                        Log.e("ANDY TEAMS", "MORE THAN 0 TEAMS");
+                        callback.fail("cache", teams);
+                    } else {
+                        Log.e("ANDY TEAMS", "LESS OR = THAN 0 TEAMS");
+                        callback.fail("no cache", teams);
+                    }
+                } else {
+                    Log.e("ANDY TEAMS", "LOS TEAMS EN FAIL " + e.getMessage());
+                    callback.fail(e.getMessage(), null);
                 }
             }
         });
