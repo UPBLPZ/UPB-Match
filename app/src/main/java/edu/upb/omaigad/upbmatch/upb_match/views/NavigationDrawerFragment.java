@@ -67,7 +67,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -105,9 +104,9 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
+                        "Inicio",
+                        "Actividades",
+                        "Calendario",
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -150,8 +149,8 @@ public class NavigationDrawerFragment extends Fragment {
                 if (!isAdded()) {
                     return;
                 }
-
                 getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+
             }
 
             @Override
@@ -203,9 +202,9 @@ public class NavigationDrawerFragment extends Fragment {
                 }
                 break;
             case 1:
-                if (this.getActivity().getClass() == ActivityScore.class){
+                if (this.getActivity().getClass() == ActivityMenu.class){
                 }else{
-                    intent = new Intent(this.getActivity(), ActivityScore.class);
+                    intent = new Intent(this.getActivity(), ActivityMenu.class);
                     this.getActivity().startActivity(intent);
                     this.getActivity().finish();
                 }
