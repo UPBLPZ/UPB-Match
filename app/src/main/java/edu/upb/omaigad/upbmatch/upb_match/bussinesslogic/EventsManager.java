@@ -7,8 +7,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -19,11 +22,27 @@ public class EventsManager implements IEventsManager {
 
 
     @Override
-    public void getEvents(String months , final CustomSimpleCallback<Evento> callback) {
+    public void getEvents(String months , final CustomSimpleCallback<Evento> callback)  {
         //
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Eventos");
-      //  query.whereEqualTo("Fecha_Evento","months");
-      //  query.whereContains("Fecha_Evento","months");
+
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy, HH:mm ");
+        Date low = null;
+        try {
+            low = formatter.parse( "" + months + " 1, 2015, 01:00");
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        Date up = null;
+        try {
+            up = formatter.parse( "" + months + " 31, 2015, 23:59");
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        query.whereGreaterThanOrEqualTo("Fecha_Evento", low);
+        query.whereLessThanOrEqualTo("Fecha_Evento", up );
+
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> object, ParseException e) {
                 if (e == null) {
@@ -33,10 +52,14 @@ public class EventsManager implements IEventsManager {
                         String eID = evnt.getObjectId();
                         String eNombre = evnt.getString("Nombre_Evento");
                         Date eFecha = evnt.getDate("Fecha_Hora");
-                        int hora = eFecha.getDate();
+                        Calendar c1 = Calendar.getInstance();
+                        c1.setTime(eFecha);
+                        int dia = c1.get(Calendar.DAY_OF_MONTH);
+                        String hours = "" + c1.get(Calendar.HOUR_OF_DAY) + ":" + c1.get(Calendar.MINUTE);
                         String eDesc = evnt.getString("Descripcion");
 
-                        Evento indiEvent = new Evento(eID, eNombre, eFecha, eDesc);
+                        Evento indiEvent = new Evento(eID, eNombre, dia,hours, eDesc);
+
                         eventos.add(indiEvent);
                     }
                     callback.done(eventos);
