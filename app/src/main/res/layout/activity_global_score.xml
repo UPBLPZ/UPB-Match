@@ -12,7 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scrollViewGlobalScore"
-            android:longClickable="false">
+            android:longClickable="false"
+            android:background="@drawable/FondoGloblalScore">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -20,10 +21,11 @@
                 android:layout_height="wrap_content">
 
                 <FrameLayout
-                    android:layout_width="184dp"
-                    android:layout_height="341dp"
-                    android:background="@drawable/copa"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_width="280dp"
+                    android:layout_height="244dp"
+                    android:background="@drawable/CopaGlobalScore"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/imag1" />
 
                 <TableLayout
                     android:layout_width="match_parent"
