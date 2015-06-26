@@ -23,7 +23,7 @@ public class UPBMatchApplication extends Application {
         // Inicializando singletons.
         teamsManager = new TeamsManager();
         activitiesManager = new ActivitiesManager();
-        eventsManager = new MockIEventsManager();
+        eventsManager = new EventsManager();
     }
 
     public TeamsManager getTeamsManager() {
