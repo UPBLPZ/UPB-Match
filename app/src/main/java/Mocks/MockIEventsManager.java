@@ -23,7 +23,7 @@ public class MockIEventsManager implements IEventsManager{
 
     }
     @Override
-    public void getEvents(final String month, final CustomSimpleCallback<Evento> callback) {
+    public void getEvents(final int month, final CustomSimpleCallback<Evento> callback) {
         String[] meses = {"febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre"};
 
         Handler handler = new Handler();
@@ -40,29 +40,29 @@ public class MockIEventsManager implements IEventsManager{
                             ArrayList<Evento> eventos = new ArrayList<Evento>();
                             switch (month) {
 
-                                case "junio":
+                                case 5:
                                     eventos.add(new Evento("kasjjsv","Futbol", 16, "10:00", "Se jugara la final"));
                                     eventos.add(new Evento("sfdshg","Pelota quemada", 20, "12:30", "Dos partidos simultaneos de semfinal"));
                                     eventos.add(new Evento("sdfgsdfh","Reunion capitanes", 29, "19:00", "Para tratar temas sobre el festival de danza"));
                                     break;
 
-                                case "julio":
+                                case 6:
                                     // no hay eventos en julio!!! para probar
                                     break;
 
-                                case "agosto":
+                                case 7:
                                     eventos.add(new Evento("esrjsg","Volley", 1, "10:00", "Empiezan partidos"));
                                     eventos.add(new Evento("nvfdj","Futbol Tenis", 10, "12:30", "Dos partidos de semfinal"));
                                     eventos.add(new Evento("wrheg","Volley", 30, "19:00", "se juega la Final"));
                                     break;
 
-                                case "septiembre":
+                                case 8:
                                     eventos.add(new Evento("dfbhr","Spirit Week", 2, "10:00", "Una semana todos disfrazados segun el tema"));
                                     eventos.add(new Evento("trrte","Recoleccion de peluches", 20, "12:30", "Busca el saco de recoleccion de tu carrera"));
                                     eventos.add(new Evento("shrgt","Reunion capitanes", 29, "19:00", "Para tratar temas sobre el festival de Selfie UPB"));
                                     break;
 
-                                case "octubre":
+                                case 9:
                                             eventos.add(new Evento("afbdbg","Jalar la cuerda", 24, "12:30", "Dia del Upbmatch"));
                                     eventos.add(new Evento("adgefh","Encostalados", 24, "19:00", "Dia del Upbmatch"));
                                     break;
