@@ -25,7 +25,7 @@ public class Evento {
      * @param fecha
      * @param desc
      */
-    public Evento(String id, String titulo, Date fecha,String desc){
+    public Evento(String id, String titulo, Date fecha, String desc){
        this.EventID = id;
         this.nombreEvento=titulo;
         this.fecha=fecha;

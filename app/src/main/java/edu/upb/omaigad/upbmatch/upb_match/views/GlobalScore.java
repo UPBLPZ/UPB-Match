@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Mocks.MockScoreInterface;
 import edu.upb.omaigad.upbmatch.upb_match.R;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
