@@ -13,7 +13,7 @@ public class Evento {
      */
     private String EventID;
     private String nombreEvento;
-    private String dia;
+    private int dia;
     private String hora;
     private Date fecha;
     private String descripcion;
@@ -25,7 +25,7 @@ public class Evento {
      * @param fecha
      * @param desc
      */
-    public Evento(String id, String titulo, Date fecha,String desc){
+    public Evento(String id, String titulo, Date fecha, String desc){
        this.EventID = id;
         this.nombreEvento=titulo;
         this.fecha=fecha;
@@ -33,7 +33,7 @@ public class Evento {
 
     }
 
-    public Evento(String id, String titulo, String dia,String hora,String desc){
+    public Evento(String id, String titulo, int dia,String hora,String desc){
         this.EventID = id;
         this.nombreEvento=titulo;
         this.dia=dia;
@@ -54,7 +54,7 @@ public class Evento {
     public String getTitulo() {return nombreEvento; }
     public Date getFecha() {return fecha ; }
     public String getDescripcion() {return descripcion; }
-    public String getDia(){return dia;}
+    public int getDia(){return dia;}
     public String getHora() {return hora;}
 
 }

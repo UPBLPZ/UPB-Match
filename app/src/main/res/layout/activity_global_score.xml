@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:id="@+id/scrollViewGlobalScore"
             android:longClickable="false"
-            android:background="@drawable/FondoGloblalScore">
+            android:background="@drawable/fondo_global_score">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -23,7 +23,7 @@
                 <FrameLayout
                     android:layout_width="280dp"
                     android:layout_height="244dp"
-                    android:background="@drawable/CopaGlobalScore"
+                    android:background="@drawable/copa_global_score"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/imag1" />
 
