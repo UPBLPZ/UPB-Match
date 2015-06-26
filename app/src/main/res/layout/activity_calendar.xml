@@ -9,17 +9,25 @@
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_gravity="center"
+            android:background="@drawable/fondo_calendario">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/calendarTable"
+                android:baselineAligned="false"></TableLayout>
+        </ScrollView>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/bPMonth"
-                android:onClick="onClickPM" />
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
             <Button
                 android:layout_width="wrap_content"
@@ -33,20 +41,17 @@
                 android:layout_height="wrap_content"
                 android:text="New Button"
                 android:id="@+id/bNMonth"
-                android:onClick="onClickNM" />
+                android:onClick="onClickNM"
+                android:layout_gravity="center_vertical" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/bPMonth"
+                android:onClick="onClickPM" />
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="407dp"
-            android:id="@+id/scrollView"
-            android:layout_gravity="center">
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/calendarTable"></TableLayout>
-        </ScrollView>
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
