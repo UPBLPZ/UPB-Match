@@ -31,17 +31,21 @@ public class EventsManager implements IEventsManager {
         try {
             low = formatter.parse( "" + months + " 1, 2015, 01:00");
         } catch (java.text.ParseException e) {
+            Log.e("Pikachu", "Y su stack trace 1 " + months + " y su msg " + e.getMessage());
             e.printStackTrace();
         }
         Date up = null;
         try {
             up = formatter.parse( "" + months + " 31, 2015, 23:59");
         } catch (java.text.ParseException e) {
+            Log.e("Pikachu", "Y su stack trace 2");
             e.printStackTrace();
         }
 
         query.whereGreaterThanOrEqualTo("Fecha_Evento", low);
-        query.whereLessThanOrEqualTo("Fecha_Evento", up );
+        query.whereLessThanOrEqualTo("Fecha_Evento", up);
+
+        Log.e("ANDY", "La vida no es facil");
 
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> object, ParseException e) {
@@ -49,6 +53,7 @@ public class EventsManager implements IEventsManager {
                     ArrayList<Evento> eventos = new ArrayList<Evento>();
                     // TODOS LOS OBJETOS DEL PARSE.
                     for(ParseObject evnt : object) {
+                        Log.e("Pikachu", "Y su evento");
                         String eID = evnt.getObjectId();
                         String eNombre = evnt.getString("Nombre_Evento");
                         Date eFecha = evnt.getDate("Fecha_Hora");
