@@ -16,11 +16,6 @@
             android:layout_gravity="center"
             android:background="@drawable/fondo_calendario">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/calendarTable"
-                android:baselineAligned="false"></TableLayout>
         </ScrollView>
 
         <LinearLayout
@@ -30,27 +25,38 @@
             android:weightSum="1">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="New Button"
                 android:id="@+id/bAMonth"
-                android:onClick="onClickAM" />
+                android:onClick="onClickAM"
+                android:layout_weight="0.33" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="New Button"
                 android:id="@+id/bNMonth"
                 android:onClick="onClickNM"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.33" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="New Button"
                 android:id="@+id/bPMonth"
-                android:onClick="onClickPM" />
+                android:onClick="onClickPM"
+                android:layout_weight="0.33" />
         </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="439dp"
+            android:id="@+id/calendarTable"
+            android:baselineAligned="false"
+            android:layout_gravity="center"
+            android:showDividers="middle|beginning|end"></TableLayout>
 
     </FrameLayout>
 
