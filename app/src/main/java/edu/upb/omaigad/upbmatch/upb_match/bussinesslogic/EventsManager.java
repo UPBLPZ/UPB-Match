@@ -22,7 +22,7 @@ public class EventsManager implements IEventsManager {
 
 
     @Override
-    public void getEvents(String months , final CustomSimpleCallback<Evento> callback)  {
+    public void getEvents(int months , final CustomSimpleCallback<Evento> callback)  {
         //
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Eventos");
 
