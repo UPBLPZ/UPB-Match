@@ -1,7 +1,6 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,10 +12,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.parse.codec.binary.StringUtils;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -86,7 +81,7 @@ public class Calendar extends BaseActivity {
             @Override
             public void done(ArrayList<Evento> data) {
                 if(data.size() != 0){
-                    createDinamicContentTable(data);
+                    createDynamicContentTable(data);
                 }else{
                     Toast.makeText(getApplicationContext(), "No hay eventos en este mes.", Toast.LENGTH_LONG).show();
                 }
@@ -99,7 +94,7 @@ public class Calendar extends BaseActivity {
             }
         });
     }
-    private void createDinamicContentTable(ArrayList<Evento> eventos){
+    private void createDynamicContentTable(ArrayList<Evento> eventos){
         int tam = eventos.size();
         Log.e("en create",tam+"");
         for(int cont = 0; cont < tam; cont++){

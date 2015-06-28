@@ -41,14 +41,14 @@ public class GlobalScore extends BaseActivity{
         app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {
             @Override
             public void done(ArrayList<Equipo> equipos) {
-                createDinamicContentTable(equipos);
+                createDynamicContentTable(equipos);
             }
 
             @Override
             public void fail(String failMessage, ArrayList<Equipo> cache) {
                 Log.e("ANDY TEAMS ACT", "NOPE");
                 if(failMessage == "cache") {
-                    createDinamicContentTable(cache);
+                    createDynamicContentTable(cache);
                     Toast.makeText(getApplicationContext(), "Error de conexión. Los datos mostrados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "No se pudieron cargar datos.", Toast.LENGTH_LONG).show();
@@ -56,7 +56,7 @@ public class GlobalScore extends BaseActivity{
             }
         });
     }
-    private void createDinamicContentTable(ArrayList<Equipo> equipos){
+    private void createDynamicContentTable(ArrayList<Equipo> equipos){
         tablaPuntaje.removeAllViews();
         int tam = equipos.size();
         for(int cont = 0; cont < tam; cont++){

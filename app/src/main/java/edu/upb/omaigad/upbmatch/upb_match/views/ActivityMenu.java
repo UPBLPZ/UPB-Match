@@ -1,5 +1,6 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -47,14 +48,14 @@ public class ActivityMenu extends BaseActivity{
             }
         });
     }
-    private void createDynamicContentTable(ArrayList<Actividad> actividades){
-       int tam = actividades.size();
+    private void createDynamicContentTable(final ArrayList<Actividad> actividades){
+        int tam = actividades.size();
         int contA = 0;
         for(int filas = 0;filas < tam/3;filas++){
             TableRow fila = new TableRow(this);
             for(int colum = 0;colum < 3;colum++){
                 LinearLayout actividad = new LinearLayout(this);
-
+                final int numero_actividad = contA;
                 ImageView icono = new ImageView(this);
                 TextView nombre = new TextView(this);
 
@@ -64,16 +65,25 @@ public class ActivityMenu extends BaseActivity{
                 actividad.setOrientation(LinearLayout.VERTICAL);
                 nombre.setTextSize((float) 10);
                 icono.setBackgroundResource(resID);
-
+                icono.setTag((String)actividades.get(contA).getNombreActividad());
+                icono.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ActivityMenu.this, ActivityScore.class);
+                        intent.putExtra("nombre_actividad",(String)v.getTag());
+                        intent.putExtra("numero_actividad",numero_actividad);
+                        startActivity(intent);
+                    }
+                });
                 nombre.setText(actividades.get(contA).getNombreActividad());
                 actividad.addView(icono, 0);
                 actividad.addView(nombre, 1);
-                fila.addView(actividad,colum);
+                fila.addView(actividad, colum);
                 contA++;
             }
             tablaActividades.addView(fila,filas);
         }
-        if(contA != tam-1){
+        /*if(contA != tam-1){
                 TableRow fila = new TableRow(this);
                 for(int colum = 0;colum < 3;colum++){
                     LinearLayout actividad = new LinearLayout(this);
@@ -92,13 +102,7 @@ public class ActivityMenu extends BaseActivity{
                     contA++;
                 }
                 tablaActividades.addView(fila);
-        }
-    }
-    public  void onClick(View view){
-        TextView asdad = new TextView(this);
-        asdad.setText(view.getTag().toString());
-        tablaActividades.addView(asdad);
-
+        }*/
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

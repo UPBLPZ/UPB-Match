@@ -2,19 +2,14 @@ package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +18,6 @@ import java.util.ArrayList;
 import edu.upb.omaigad.upbmatch.upb_match.R;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
-import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 
 
 public class ActivityScore extends BaseActivity {
@@ -32,16 +25,25 @@ public class ActivityScore extends BaseActivity {
 
     private TableLayout tablaPuntajeActividad;
     private Button botonReglas;
+    private int numero_actividad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_score);
 
-        //app = (UPBMatchApplication) getApplication();
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
 
+        Intent intent = getIntent();
+
+        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = intent.getStringExtra("nombre_actividad");
+        numero_actividad = intent.getIntExtra("numero_actividad",0);
+
+
+        setTitle(mTitle);
+
+        /*Log.e("esta en la activdad",(String)mTitle);
+        Log.e("nactividad",numero_actividad+"");*/
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
@@ -52,32 +54,32 @@ public class ActivityScore extends BaseActivity {
 
     }
 
-    private void updateTable(){
+    private void updateTable() {
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> actividades) {
-                String estado = actividades.get(12).getEstado();
+                String estado = actividades.get(numero_actividad).getEstado();
                 switch (estado) {
                     case "Pendiente":
-                        Toast.makeText(getApplicationContext(), actividades.get(12).getNombreActividad() + " todavia no comenzo.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), actividades.get(numero_actividad).getNombreActividad() + " todavia no comenzo.", Toast.LENGTH_LONG).show();
                         break;
                     case "En curso":
                         Toast.makeText(getApplicationContext(), "Esta en curso.", Toast.LENGTH_LONG).show();
                         break;
                     case "Concluida":
-                        actividades.get(12).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
+                        actividades.get(numero_actividad).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
                             @Override
                             public void done(ArrayList<Actividad.Participante> participantes) {
-                                createDinamicContentTable(participantes);
+                                createDynamicContentTable(participantes);
                             }
 
                             @Override
                             public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
-                                if(failMessage == "cache") {
-                                    createDinamicContentTable(cache);
+                                if (failMessage == "cache") {
+                                    createDynamicContentTable(cache);
                                     Toast.makeText(getApplicationContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Toast.makeText(getApplicationContext(),"No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -89,22 +91,22 @@ public class ActivityScore extends BaseActivity {
 
             @Override
             public void fail(String failMessage, ArrayList<Actividad> cache) {
-                if(failMessage == "cache") {
+                if (failMessage == "cache") {
                     // TODO (para Mauri) hacerlo dinámico.
 
-                    cache.get(12).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
+                    cache.get(numero_actividad).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
                         @Override
                         public void done(ArrayList<Actividad.Participante> participantes) {
-                            createDinamicContentTable(participantes);
+                            createDynamicContentTable(participantes);
                         }
 
                         @Override
                         public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
-                            if(failMessage == "cache") {
-                                createDinamicContentTable(cache);
+                            if (failMessage == "cache") {
+                                createDynamicContentTable(cache);
                                 Toast.makeText(getApplicationContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getApplicationContext(),"No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -117,7 +119,7 @@ public class ActivityScore extends BaseActivity {
         });
     }
 
-    private void createDinamicContentTable(ArrayList<Actividad.Participante> participantes){
+    private void createDynamicContentTable(ArrayList<Actividad.Participante> participantes){
         //Toast.makeText(getApplicationContext(),"Dentro de la creacion de la tabla", Toast.LENGTH_SHORT).show();
         tablaPuntajeActividad.removeAllViews();
         int tam = participantes.size();
@@ -164,7 +166,11 @@ public class ActivityScore extends BaseActivity {
     }
     public  void onClick(View view){
         Intent intent = new Intent(this, ActivityRules.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("nombre_actividad",mTitle);
+        intent.putExtra("numero_actividad",numero_actividad);
         startActivity(intent);
+
     }
 
     @Override

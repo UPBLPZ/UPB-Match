@@ -1,14 +1,11 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +20,18 @@ public class ActivityRules extends ActionBarActivity {
 
     private UPBMatchApplication app;
     private TableLayout tablaReglasActividad;
-    
-    
+    private CharSequence mTiTle;
+    private int numero_actividad;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Intent intent = getIntent();
+        numero_actividad = intent.getIntExtra("numero_actividad",0);
+        mTiTle = intent.getCharSequenceExtra("nombre_actividad");
+        setTitle("Reglamento: "+mTiTle);
         setContentView(R.layout.activity_activity_rules);
         app = (UPBMatchApplication) getApplication();
         tablaReglasActividad = (TableLayout) findViewById(R.id.activityRulesTable);
@@ -39,32 +42,37 @@ public class ActivityRules extends ActionBarActivity {
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> data) {
-                createDinamicContentTable(data.get(14));
+                createDynamicContentTable(data.get(numero_actividad));
             }
 
             @Override
             public void fail(String failMessage, ArrayList<Actividad> cache) {
-
+                if (failMessage == "cache") {
+                    createDynamicContentTable(cache.get(numero_actividad));
+                    Toast.makeText(getApplicationContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se pudo cargar el reglamento.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
-    private void createDinamicContentTable(Actividad actividad){
-        
+    private void createDynamicContentTable(Actividad actividad){
+
         tablaReglasActividad.removeAllViews();
 
         TextView participantes = new TextView(this);
-        participantes.setText("Participantes: 23");
+        participantes.setText("Participantes: "+actividad.getNumeroParticipantes());
         TextView fechahora = new TextView(this);
-        fechahora.setText("Fecha/Hora: 22/05/2015");
+        fechahora.setText("Fecha/Hora: "+actividad.getFechaUHora());
         TextView reglamento = new TextView(this);
-        reglamento.setText("Reglamento:\nLas reglas son");
+        reglamento.setText("Reglamento:\n"+actividad.getReglas());
         tablaReglasActividad.addView(participantes, 0);
         tablaReglasActividad.addView(fechahora,1);
         tablaReglasActividad.addView(reglamento,2);
-        
+
     }
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,3 +96,4 @@ public class ActivityRules extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+

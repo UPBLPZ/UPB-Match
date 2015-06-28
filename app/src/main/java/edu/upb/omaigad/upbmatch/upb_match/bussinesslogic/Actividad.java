@@ -114,7 +114,7 @@ public class Actividad {
      * Retorna las reglas de la actividad.
      * @return String
      */
-    public String reglas() {
+    public String getReglas() {
         return reglas;
     }
 
