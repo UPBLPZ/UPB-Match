@@ -70,6 +70,7 @@ public class EventsManager implements IEventsManager {
                     callback.done(eventos);
                 } else {
                     // No Esta Jalando los datos :(
+                    Log.e("ANDY EN LAS ULTIMAS", e.getMessage());
                     // TODO Pasarle el cache actual (cuando relevante)
                     callback.fail(e.getMessage(), new ArrayList<Evento>());
                 }

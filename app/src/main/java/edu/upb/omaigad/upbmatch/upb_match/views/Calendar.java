@@ -82,7 +82,7 @@ public class Calendar extends BaseActivity {
     }
 
     private void refreshMonth(){
-        app.getEventsManager().getEvents(meses[am], new CustomSimpleCallback<Evento>() {
+        app.getEventsManager().getEvents(am, new CustomSimpleCallback<Evento>() {
             @Override
             public void done(ArrayList<Evento> data) {
                 if(data.size() != 0){
