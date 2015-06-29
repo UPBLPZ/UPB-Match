@@ -67,16 +67,90 @@ public class EventsManager implements IEventsManager {
                         eventos.add(neoEvent);
 
                     }
+
+                    try {
+                        ParseObject.unpinAll("EVENTS_LABEL");
+                    } catch (Exception ex) {
+                        Log.e("ANDY EVENTS", "WHOOPS UNPINNING");
+                    }
+
+                    ParseObject.pinAllInBackground("TEAMS_LABEL", list);
+
                     callback.done(eventos);
                 }else {
-
-                    callback.fail(e.getMessage(),null );
+                    eventsCache(months, callback);
                 }
 
             }
 
         });
+    }
 
+    public void eventsCache(final int months, final CustomSimpleCallback<Evento> callback){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Eventos");
+
+        Calendar c1 = Calendar.getInstance();
+        c1.set(2015,months,1);
+
+        Calendar c2 = Calendar.getInstance();
+
+        int topDay=30;
+
+        if (months==1) {
+            topDay = 28;
+        }else if(months==3 || months==5 || months ==8 || months==10){
+            topDay=30;
+        }else{
+            topDay=31;
+        }
+
+
+        c2.set(2015,months,topDay);
+        Date low =c1.getTime();
+        Date up = c2.getTime();
+
+        query.whereGreaterThanOrEqualTo("Fecha_Evento",low);
+        query.whereLessThanOrEqualTo("Fecha_Evento",up );
+        query.fromLocalDatastore();
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> list, ParseException e) {
+
+                if (e == null) {
+                    ArrayList<Evento> eventos = new ArrayList<Evento>();
+
+                    for(ParseObject event : list){
+                        String eId = event.getObjectId();
+                        String eTitulo = event.getString("Nombre_Evento");
+                        Date eDate = event.getDate("Fecha_Evento");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(eDate);
+
+                        int eDay = cal.get(Calendar.DAY_OF_MONTH);
+                        String eHora = "" + cal.get(Calendar.HOUR_OF_DAY) +":" + cal.get(Calendar.MINUTE);
+                        String eDesc = event.getString("Descripcion");
+                        Evento neoEvent = new Evento(eId,eTitulo,eDay,eHora,eDesc);
+                        eventos.add(neoEvent);
+
+                    }
+
+                    try {
+                        ParseObject.unpinAll("EVENTS_LABEL");
+                    } catch (Exception ex) {
+                        Log.e("ANDY EVENTS", "WHOOPS UNPINNING");
+                    }
+
+                    ParseObject.pinAllInBackground("EVENTS_LABEL", list);
+
+                    callback.done(eventos);
+                }else {
+
+                    callback.fail(e.getMessage(), null);
+                }
+
+            }
+
+        });
     }
 
     @Override
