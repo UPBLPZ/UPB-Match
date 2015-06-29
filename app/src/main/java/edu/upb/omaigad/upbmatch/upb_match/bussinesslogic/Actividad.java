@@ -194,7 +194,7 @@ public class Actividad {
                         try {
                             Log.e("ANDY", "PERO CREO QUE LLEGA AQUI");
                             ParseObject team = participant.getParseObject("Id_Equipo");
-                            Equipo indiTeam = new Equipo(obj);
+                            Equipo indiTeam = new Equipo(team);
                             Log.e("ANDY INDITEAM", "OH SHIT");
                             Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
                             partis.add(dudeBro);
