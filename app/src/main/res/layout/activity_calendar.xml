@@ -52,14 +52,16 @@
         </LinearLayout>
 
         <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="459dp"
+            android:layout_width="16dp"
+            android:layout_height="385dp"
             android:id="@+id/calendarTable"
-            android:baselineAligned="false"
+            android:baselineAligned="true"
             android:layout_gravity="center"
-            android:showDividers="middle|beginning|end"
-            android:stretchColumns="0"
-            android:clickable="false">
+            android:clickable="false"
+            android:focusable="false"
+            android:measureWithLargestChild="false"
+            android:showDividers="middle"
+            android:stretchColumns="*">
 
         </TableLayout>
 

@@ -7,7 +7,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,60 +21,62 @@ public class EventsManager implements IEventsManager {
 
 
     @Override
-    public void getEvents(int months , final CustomSimpleCallback<Evento> callback)  {
-        //
+    public void getEvents(final int months,final CustomSimpleCallback<Evento> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Eventos");
 
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy, HH:mm ");
-        Date low = null;
-        try {
-            low = formatter.parse( "" + months + " 1, 2015, 01:00");
-        } catch (java.text.ParseException e) {
-            Log.e("Pikachu", "Y su stack trace 1 " + months + " y su msg " + e.getMessage());
-            e.printStackTrace();
-        }
-        Date up = null;
-        try {
-            up = formatter.parse( "" + months + " 31, 2015, 23:59");
-        } catch (java.text.ParseException e) {
-            Log.e("Pikachu", "Y su stack trace 2");
-            e.printStackTrace();
+        Calendar c1 = Calendar.getInstance();
+        c1.set(2015,months,1);
+
+        Calendar c2 = Calendar.getInstance();
+
+        int topDay=30;
+
+        if (months==1) {
+            topDay = 28;
+        }else if(months==3 || months==5 || months ==8 || months==10){
+            topDay=30;
+        }else{
+            topDay=31;
         }
 
-        query.whereGreaterThanOrEqualTo("Fecha_Evento", low);
-        query.whereLessThanOrEqualTo("Fecha_Evento", up);
 
-        Log.e("ANDY", "La vida no es facil");
+        c2.set(2015,months,topDay);
+        Date low =c1.getTime();
+        Date up = c2.getTime();
+
+        query.whereGreaterThanOrEqualTo("Fecha_Evento",low);
+        query.whereLessThanOrEqualTo("Fecha_Evento",up );
 
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> object, ParseException e) {
+            public void done(List<ParseObject> list, ParseException e) {
+
                 if (e == null) {
                     ArrayList<Evento> eventos = new ArrayList<Evento>();
-                    // TODOS LOS OBJETOS DEL PARSE.
-                    for(ParseObject evnt : object) {
-                        Log.e("Pikachu", "Y su evento");
-                        String eID = evnt.getObjectId();
-                        String eNombre = evnt.getString("Nombre_Evento");
-                        Date eFecha = evnt.getDate("Fecha_Hora");
-                        Calendar c1 = Calendar.getInstance();
-                        c1.setTime(eFecha);
-                        int dia = c1.get(Calendar.DAY_OF_MONTH);
-                        String hours = "" + c1.get(Calendar.HOUR_OF_DAY) + ":" + c1.get(Calendar.MINUTE);
-                        String eDesc = evnt.getString("Descripcion");
 
-                        Evento indiEvent = new Evento(eID, eNombre, dia,hours, eDesc);
+                    for(ParseObject event : list){
+                        String eId = event.getObjectId();
+                        String eTitulo = event.getString("Nombre_Evento");
+                        Date eDate = event.getDate("Fecha_Evento");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(eDate);
 
-                        eventos.add(indiEvent);
+                        int eDay = cal.get(Calendar.DAY_OF_MONTH);
+                        String eHora = "" + cal.get(Calendar.HOUR_OF_DAY) +":" + cal.get(Calendar.MINUTE);
+                        String eDesc = event.getString("Descripcion");
+                        Evento neoEvent = new Evento(eId,eTitulo,eDay,eHora,eDesc);
+                        eventos.add(neoEvent);
+
                     }
                     callback.done(eventos);
-                } else {
-                    // No Esta Jalando los datos :(
-                    Log.e("ANDY EN LAS ULTIMAS", e.getMessage());
-                    // TODO Pasarle el cache actual (cuando relevante)
-                    callback.fail(e.getMessage(), new ArrayList<Evento>());
+                }else {
+
+                    callback.fail(e.getMessage(),null );
                 }
+
             }
+
         });
+
     }
 
     @Override
@@ -105,7 +106,7 @@ public class EventsManager implements IEventsManager {
                             ParseObject event = involucrados.getParseObject("Id_Evento");
                             String eID = event.getObjectId();
                             String eNombre = event.getString("Nombre_Evento");
-                            Date eFecha = event.getDate("Fecha_Hora");
+                            Date eFecha = event.getDate("Fecha_Evento");
                             String eDesc = event.getString("Descripcion");
                             Evento indiEvent = new Evento(eID, eNombre, eFecha, eDesc);
                             // Sea crea los involucrados con su evento y su equipo participe

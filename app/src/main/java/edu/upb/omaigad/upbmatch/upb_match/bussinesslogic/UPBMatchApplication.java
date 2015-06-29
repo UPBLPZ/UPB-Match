@@ -14,6 +14,7 @@ public class UPBMatchApplication extends Application {
     private ActivitiesManager activitiesManager;
     private IEventsManager eventsManager;
 
+
     public void onCreate() {
         super.onCreate();
         // Enable Local Datastore.
@@ -23,6 +24,7 @@ public class UPBMatchApplication extends Application {
         // Inicializando singletons.
         teamsManager = new TeamsManager();
         activitiesManager = new ActivitiesManager();
+    //    eventsManager = new MockIEventsManager();
         eventsManager = new EventsManager();
     }
 

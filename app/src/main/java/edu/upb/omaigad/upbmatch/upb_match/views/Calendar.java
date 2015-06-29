@@ -1,5 +1,6 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,8 +98,11 @@ public class Calendar extends BaseActivity {
     private void createDynamicContentTable(ArrayList<Evento> eventos){
         int tam = eventos.size();
         Log.e("en create",tam+"");
+        tablaEventos.setBackgroundColor(Color.WHITE);
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
+       //     fila.setBaselineAlignedChildIndex(2);
+
             LinearLayout h = new LinearLayout(this);
             LinearLayout h2 = new LinearLayout(this);
             LinearLayout v = new LinearLayout(this);
@@ -108,13 +112,20 @@ public class Calendar extends BaseActivity {
             TextView descripcion = new TextView(this);
 
             h.setOrientation(LinearLayout.HORIZONTAL);
+
             h2.setOrientation(LinearLayout.HORIZONTAL);
             v.setOrientation(LinearLayout.VERTICAL);
 
-            dia.setText(eventos.get(cont).getDia());
-            hora.setText("  "+eventos.get(cont).getHora());
+            dia.setText("" + eventos.get(cont).getDia());
+            dia.setBackgroundColor(Color.WHITE);
+            hora.setText("  " + eventos.get(cont).getHora());
+            hora.setBackgroundColor(Color.WHITE);
             titulo.setText("  " + eventos.get(cont).getTitulo());
+            titulo.setBackgroundColor(Color.WHITE);
+
             descripcion.setText(eventos.get(cont).getDescripcion());
+            descripcion.setBackgroundColor(Color.WHITE);
+
 
             h2.addView(hora,0);
             h2.addView(titulo,1);
@@ -124,7 +135,7 @@ public class Calendar extends BaseActivity {
             h.addView(v,1);
             fila.addView(h,0);
 
-            tablaEventos.addView(fila,cont);
+            tablaEventos.addView(fila, cont);
         }
     }
 
