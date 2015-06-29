@@ -193,8 +193,8 @@ public class Actividad {
                     for (ParseObject participant : list) {
                         try {
                             Log.e("ANDY", "PERO CREO QUE LLEGA AQUI");
-                            ParseObject team = obj.getParseObject("Id_Equipo");
-                            Equipo indiTeam = new Equipo(obj);
+                            ParseObject team = participant.getParseObject("Id_Equipo");
+                            Equipo indiTeam = new Equipo(participant);
                             Log.e("ANDY INDITEAM", "OH SHIT");
                             Participante dudeBro = new Participante(indiTeam, participant.getInt("Puntos_Ganados"), participant.getInt("Puntos_Perdido"));
                             partis.add(dudeBro);
