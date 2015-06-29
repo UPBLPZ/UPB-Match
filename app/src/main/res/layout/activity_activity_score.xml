@@ -8,29 +8,38 @@ tools:context=".ActivityScore">
      space available using match_parent in both dimensions. -->
 <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollViewActivityScore" >
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TableLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/activityScoreTable"
-                android:gravity="top|center"></TableLayout>
+                android:layout_gravity="center_horizontal|top">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/buttonRules"
-                android:onClick="onClick" />
-        </LinearLayout>
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/activityScoreTable"
+                    android:gravity="top|center"></TableLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Ir a reglamento"
+                    android:id="@+id/buttonRules"
+                    android:onClick="onClick"
+                    android:layout_gravity="center_horizontal|top" />
+
+            </LinearLayout>
+        </FrameLayout>
     </ScrollView>
 
 </FrameLayout>

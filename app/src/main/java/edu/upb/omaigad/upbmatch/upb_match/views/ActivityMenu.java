@@ -51,6 +51,7 @@ public class ActivityMenu extends BaseActivity{
         });
     }
     private void createDynamicContentTable(final ArrayList<Actividad> actividades){
+        tablaActividades.setBackgroundColor(Color.WHITE);
         int tam = actividades.size();
         int contA = 0;
         for(int filas = 0;filas < tam/3;filas++){
@@ -82,9 +83,10 @@ public class ActivityMenu extends BaseActivity{
                 actividad.addView(icono, 0);
                 actividad.addView(nombre, 1);
                 fila.addView(actividad, colum);
-                fila.setBackgroundColor(Color.WHITE);
+
                 contA++;
             }
+
             tablaActividades.addView(fila,filas);
         }
         /*if(contA != tam-1){

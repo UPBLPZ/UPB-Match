@@ -1,6 +1,9 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,8 +36,6 @@ public class ActivityScore extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_score);
-
-
         Intent intent = getIntent();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -127,6 +128,7 @@ public class ActivityScore extends BaseActivity {
     private void createDynamicContentTable(ArrayList<Actividad.Participante> participantes){
         //Toast.makeText(getApplicationContext(),"Dentro de la creacion de la tabla", Toast.LENGTH_SHORT).show();
         tablaPuntajeActividad.removeAllViews();
+        tablaPuntajeActividad.setBackgroundColor(Color.WHITE);
         int tam = participantes.size();
 
         for(int cont = 0; cont < tam; cont++){
@@ -135,15 +137,19 @@ public class ActivityScore extends BaseActivity {
             TextView puntajeGanado = new TextView(this);
             TextView puntajePerdido = new TextView(this);
             TextView puntajeTotal = new TextView(this);
+            TextView polera = new TextView(this);
             int pg = participantes.get(cont).getPuntaje();
             int pp = participantes.get(cont).getPuntosPerdidos();
             int pt = pg-pp;
+            int colorPolera;
+
 
             equipo.setText(participantes.get(cont).getEquipo().getNombre()+"  ");
             puntajeGanado.setText(pg+" ");
             puntajePerdido.setText(pp+" ");
-            puntajeTotal.setText(pt+" ");
+            puntajeTotal.setText(pt + " ");
 
+            //fila.addView(polera,0);
             fila.addView(equipo,0);
             fila.addView(puntajeGanado,1);
             fila.addView(puntajePerdido,2);
@@ -200,5 +206,3 @@ public class ActivityScore extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-
-;

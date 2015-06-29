@@ -1,6 +1,7 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -75,6 +76,7 @@ public class ActivityRules extends ActionBarActivity {
         tablaReglasActividad.addView(participantes, 0);
         tablaReglasActividad.addView(fechahora,1);
         tablaReglasActividad.addView(reglamento,2);
+        tablaReglasActividad.setBackgroundColor(Color.WHITE);
 
     }
 
