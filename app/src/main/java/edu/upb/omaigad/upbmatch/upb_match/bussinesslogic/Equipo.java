@@ -30,10 +30,10 @@ public class Equipo {
 
     /**
      * Crea un equipo con un objeto de Parse.
-     * @param obj
+     * @param team
      * @throws Exception
      */
-    public Equipo(ParseObject obj) throws Exception {
+    public Equipo(ParseObject team) throws Exception {
         ParseObject team = obj.getParseObject("Id_Equipo");
         String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
         String tColor = team.fetchIfNeeded().getString("Color");
