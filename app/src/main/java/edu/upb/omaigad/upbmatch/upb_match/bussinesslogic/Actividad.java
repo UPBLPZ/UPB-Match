@@ -70,6 +70,8 @@ public class Actividad {
     private String numeroParticipantes;
     private String reglas;
     private String fondo;
+    private String icono;
+
     /**
      * El estado de la actividad.
      * @return String
@@ -125,6 +127,12 @@ public class Actividad {
     public String getFondo(){return  fondo;}
 
     /**
+     * Retrona el string del icono de la actividad
+     * @return String
+     */
+    public String getIcono(){ return icono;}
+
+    /**
      * Crea una actividad manualmente.
      *
      * @param estado
@@ -135,7 +143,7 @@ public class Actividad {
      * @param reglas
      * @param fondo
      */
-    public Actividad(String estado, String fechaUHora, String ID, String nombreActividad, String numeroParticipantes, String reglas, String fondo) {
+    public Actividad(String estado, String fechaUHora, String ID, String nombreActividad, String numeroParticipantes, String reglas, String fondo, String icon ) {
         this.estado = estado;
         this.fechaUHora = fechaUHora;
         this.ID = ID;
@@ -143,6 +151,7 @@ public class Actividad {
         this.numeroParticipantes = numeroParticipantes;
         this.reglas = reglas;
         this.fondo = fondo;
+        this.icono= icon;
     }
 
     /**
@@ -157,6 +166,7 @@ public class Actividad {
         String tNumPartici = act.getString("Numero_Participantes");
         String tReglas = act.getString("Reglas");
         String tFondo = act.getString("FondoActividad");
+        String tIcono = act.getString("Icono_Actividad");
         this.estado = tEstado;
         this.fechaUHora = tFechaHora;
         this.ID = tID;
@@ -164,6 +174,7 @@ public class Actividad {
         this.numeroParticipantes = tNumPartici;
         this.reglas = tReglas;
         this.fondo = tFondo;
+        this.icono = tIcono;
     }
 
     /**
