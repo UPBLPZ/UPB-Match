@@ -156,7 +156,7 @@ public class Actividad {
         String tNombre = act.getString("Nombre_Actividad");
         String tNumPartici = act.getString("Numero_Participantes");
         String tReglas = act.getString("Reglas");
-        String tFondo = act.getString("Fondo_ACtividad");
+        String tFondo = act.getString("FondoACtividad");
         this.estado = tEstado;
         this.fechaUHora = tFechaHora;
         this.ID = tID;
