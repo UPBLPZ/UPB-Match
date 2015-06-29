@@ -34,7 +34,7 @@ public class Equipo {
      * @throws Exception
      */
     public Equipo(ParseObject team) throws Exception {
-        ParseObject team = obj.getParseObject("Id_Equipo");
+        //ParseObject tTeam = team.getParseObject("Id_Equipo");
         String tName = team.fetchIfNeeded().getString("Nombre_Equipo");
         String tColor = team.fetchIfNeeded().getString("Color");
         int tScore = team.fetchIfNeeded().getInt("Puntaje");
