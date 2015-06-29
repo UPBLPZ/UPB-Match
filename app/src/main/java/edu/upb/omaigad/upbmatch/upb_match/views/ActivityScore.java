@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -27,6 +28,7 @@ public class ActivityScore extends BaseActivity {
     private Button botonReglas;
     private int numero_actividad;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,6 @@ public class ActivityScore extends BaseActivity {
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = intent.getStringExtra("nombre_actividad");
         numero_actividad = intent.getIntExtra("numero_actividad",0);
-
 
         setTitle(mTitle);
 
@@ -58,6 +59,10 @@ public class ActivityScore extends BaseActivity {
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> actividades) {
+                String mDrawableName = actividades.get(numero_actividad).getFondo();
+                int resID = getResources().getIdentifier(mDrawableName, "drawable", getPackageName());
+                ScrollView scroll = (ScrollView)findViewById(R.id.scrollViewActivityScore);
+                scroll.setBackgroundResource(resID);
                 String estado = actividades.get(numero_actividad).getEstado();
                 switch (estado) {
                     case "Pendiente":

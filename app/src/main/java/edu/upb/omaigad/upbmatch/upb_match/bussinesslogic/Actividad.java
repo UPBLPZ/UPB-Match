@@ -156,13 +156,14 @@ public class Actividad {
         String tNombre = act.getString("Nombre_Actividad");
         String tNumPartici = act.getString("Numero_Participantes");
         String tReglas = act.getString("Reglas");
-        String tFondo = act.getString("FondoACtividad");
+        String tFondo = act.getString("FondoActividad");
         this.estado = tEstado;
         this.fechaUHora = tFechaHora;
         this.ID = tID;
         this.nombreActividad = tNombre;
         this.numeroParticipantes = tNumPartici;
         this.reglas = tReglas;
+        this.fondo = tFondo;
     }
 
     /**

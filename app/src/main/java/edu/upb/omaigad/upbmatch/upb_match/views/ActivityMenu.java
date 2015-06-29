@@ -1,9 +1,11 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,14 +66,15 @@ public class ActivityMenu extends BaseActivity{
 
                 actividad.setOrientation(LinearLayout.VERTICAL);
                 nombre.setTextSize((float) 10);
+                nombre.setGravity(Gravity.CENTER);
                 icono.setBackgroundResource(resID);
-                icono.setTag((String)actividades.get(contA).getNombreActividad());
+                icono.setTag((String) actividades.get(contA).getNombreActividad());
                 icono.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(ActivityMenu.this, ActivityScore.class);
-                        intent.putExtra("nombre_actividad",(String)v.getTag());
-                        intent.putExtra("numero_actividad",numero_actividad);
+                        intent.putExtra("nombre_actividad", (String) v.getTag());
+                        intent.putExtra("numero_actividad", numero_actividad);
                         startActivity(intent);
                     }
                 });
@@ -79,6 +82,7 @@ public class ActivityMenu extends BaseActivity{
                 actividad.addView(icono, 0);
                 actividad.addView(nombre, 1);
                 fila.addView(actividad, colum);
+                fila.setBackgroundColor(Color.WHITE);
                 contA++;
             }
             tablaActividades.addView(fila,filas);

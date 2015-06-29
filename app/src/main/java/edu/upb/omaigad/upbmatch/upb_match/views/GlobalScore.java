@@ -57,6 +57,7 @@ public class GlobalScore extends BaseActivity{
         });
     }
     private void createDynamicContentTable(ArrayList<Equipo> equipos){
+
         tablaPuntaje.removeAllViews();
         int tam = equipos.size();
         for(int cont = 0; cont < tam; cont++){
