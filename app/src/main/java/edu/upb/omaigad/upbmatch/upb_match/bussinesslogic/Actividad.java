@@ -69,7 +69,7 @@ public class Actividad {
     private String nombreActividad;
     private String numeroParticipantes;
     private String reglas;
-
+    private String fondo;
     /**
      * El estado de la actividad.
      * @return String
@@ -119,6 +119,12 @@ public class Actividad {
     }
 
     /**
+     * Retorna el string del fondo de la actividad
+     * @return String
+     */
+    public String getFondo(){return  fondo;}
+
+    /**
      * Crea una actividad manualmente.
      *
      * @param estado
@@ -127,14 +133,16 @@ public class Actividad {
      * @param nombreActividad
      * @param numeroParticipantes
      * @param reglas
+     * @param fondo
      */
-    public Actividad(String estado, String fechaUHora, String ID, String nombreActividad, String numeroParticipantes, String reglas) {
+    public Actividad(String estado, String fechaUHora, String ID, String nombreActividad, String numeroParticipantes, String reglas, String fondo) {
         this.estado = estado;
         this.fechaUHora = fechaUHora;
         this.ID = ID;
         this.nombreActividad = nombreActividad;
         this.numeroParticipantes = numeroParticipantes;
         this.reglas = reglas;
+        this.fondo = fondo;
     }
 
     /**
@@ -148,6 +156,7 @@ public class Actividad {
         String tNombre = act.getString("Nombre_Actividad");
         String tNumPartici = act.getString("Numero_Participantes");
         String tReglas = act.getString("Reglas");
+        String tFondo = act.getString("Fondo_ACtividad");
         this.estado = tEstado;
         this.fechaUHora = tFechaHora;
         this.ID = tID;

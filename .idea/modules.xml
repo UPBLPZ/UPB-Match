@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UPB-Match.iml" filepath="$PROJECT_DIR$/UPB-Match.iml" />
-      <module fileurl="file://$PROJECT_DIR$/UPB-MatchOtro.iml" filepath="$PROJECT_DIR$/UPB-MatchOtro.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UPBFINAL.iml" filepath="$PROJECT_DIR$/UPBFINAL.iml" />
     </modules>
   </component>
 </project>

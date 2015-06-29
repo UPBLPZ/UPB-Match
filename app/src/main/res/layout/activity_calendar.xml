@@ -28,6 +28,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="New Button"
+                android:id="@+id/bPMonth"
+                android:onClick="onClickPM"
+                android:layout_weight="0.33" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="New Button"
                 android:id="@+id/bAMonth"
                 android:onClick="onClickAM"
                 android:layout_weight="0.33" />
@@ -41,22 +49,19 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.33" />
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/bPMonth"
-                android:onClick="onClickPM"
-                android:layout_weight="0.33" />
         </LinearLayout>
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="439dp"
+            android:layout_height="459dp"
             android:id="@+id/calendarTable"
             android:baselineAligned="false"
             android:layout_gravity="center"
-            android:showDividers="middle|beginning|end"></TableLayout>
+            android:showDividers="middle|beginning|end"
+            android:stretchColumns="0"
+            android:clickable="false">
+
+        </TableLayout>
 
     </FrameLayout>
 
