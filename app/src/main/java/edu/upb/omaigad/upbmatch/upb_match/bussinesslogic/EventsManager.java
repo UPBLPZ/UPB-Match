@@ -110,7 +110,7 @@ public class EventsManager implements IEventsManager {
         Date up = c2.getTime();
 
         query.whereGreaterThanOrEqualTo("Fecha_Evento",low);
-        query.whereLessThanOrEqualTo("Fecha_Evento",up );
+        query.whereLessThanOrEqualTo("Fecha_Evento", up);
         query.fromLocalDatastore();
 
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -191,14 +191,16 @@ public class EventsManager implements IEventsManager {
                             callback.fail(error.getMessage(), null);
                         }
                     }
-
-
                 }else{
-
+                    involucradosCache(callback);
                 }
 
             }
         });
+
+    }
+
+    public void involucradosCache(final CustomSimpleCallback<Involucrado> callback) {
 
     }
 }
