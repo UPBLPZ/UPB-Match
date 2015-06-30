@@ -19,51 +19,66 @@
         </ScrollView>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:layout_height="491dp">
 
-            <Button
-                android:layout_width="0dp"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/bPMonth"
-                android:onClick="onClickPM"
-                android:layout_weight="0.33" />
+                android:weightSum="1">
 
-            <Button
-                android:layout_width="0dp"
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/bPMonth"
+                    android:onClick="onClickPM"
+                    android:layout_weight="0.33"
+                    android:background="#fff2fff8" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/bAMonth"
+                    android:onClick="onClickAM"
+                    android:layout_weight="0.33"
+                    android:background="#ff203d54"
+                    android:textSize="@dimen/abc_text_size_headline_material" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/bNMonth"
+                    android:onClick="onClickNM"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.33"
+                    android:background="#ffeffff8" />
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/bAMonth"
-                android:onClick="onClickAM"
-                android:layout_weight="0.33" />
+                android:id="@+id/calendarTable"
+                android:baselineAligned="true"
+                android:clickable="false"
+                android:focusable="false"
+                android:measureWithLargestChild="false"
+                android:showDividers="middle|end"
+                android:stretchColumns="1"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:shrinkColumns="0"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="20dp">
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/bNMonth"
-                android:onClick="onClickNM"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.33" />
-
+            </TableLayout>
         </LinearLayout>
-
-        <TableLayout
-            android:layout_width="16dp"
-            android:layout_height="385dp"
-            android:id="@+id/calendarTable"
-            android:baselineAligned="true"
-            android:layout_gravity="center"
-            android:clickable="false"
-            android:focusable="false"
-            android:measureWithLargestChild="false"
-            android:showDividers="middle"
-            android:stretchColumns="*">
-
-        </TableLayout>
 
     </FrameLayout>
 

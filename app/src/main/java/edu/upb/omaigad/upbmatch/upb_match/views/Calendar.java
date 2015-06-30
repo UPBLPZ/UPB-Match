@@ -54,18 +54,22 @@ public class Calendar extends BaseActivity {
             pmonth.setText(meses[am-1]);
             amonth.setText(meses[am]);
             nmonth.setText(meses[am+1]);
+            pmonth.setVisibility(View.VISIBLE);
+            nmonth.setVisibility(View.VISIBLE);
             Log.e("am vale", am + "");
             refreshMonth();
         }else if(am == 1){
             pmonth.setText("");
             amonth.setText(meses[am]);
             nmonth.setText(meses[am+1]);
+            pmonth.setVisibility(View.INVISIBLE);
             Log.e("am vale", am + "");
             refreshMonth();
         }else if(am == 9){
             pmonth.setText(meses[am-1]);
             amonth.setText(meses[am]);
             nmonth.setText("");
+            nmonth.setVisibility(View.INVISIBLE);
             Log.e("am vale", am + "");
             refreshMonth();
         }else if(am < 1){
@@ -112,7 +116,6 @@ public class Calendar extends BaseActivity {
             TextView descripcion = new TextView(this);
 
             h.setOrientation(LinearLayout.HORIZONTAL);
-
             h2.setOrientation(LinearLayout.HORIZONTAL);
             v.setOrientation(LinearLayout.VERTICAL);
 
