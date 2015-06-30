@@ -18,11 +18,13 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
 
                 <FrameLayout
-                    android:layout_width="280dp"
-                    android:layout_height="244dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="198dp"
                     android:background="@drawable/copa_global_score"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/imag1" />
@@ -31,7 +33,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:id="@+id/scoreTable" >
+                    android:id="@+id/scoreTable"
+                    android:stretchColumns="1"
+                    android:textAlignment="center"
+                    android:longClickable="false"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginRight="45dp"
+                    style="@style/Base.TextAppearance.AppCompat.Large"
+                    android:baselineAligned="true"
+                    android:shrinkColumns="0">
 
                 </TableLayout>
             </LinearLayout>

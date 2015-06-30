@@ -1,15 +1,19 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import edu.upb.omaigad.upbmatch.upb_match.R;
@@ -47,7 +51,7 @@ public class GlobalScore extends BaseActivity{
             @Override
             public void fail(String failMessage, ArrayList<Equipo> cache) {
                 Log.e("ANDY TEAMS ACT", "NOPE");
-                if(failMessage == "cache") {
+                if (failMessage == "cache") {
                     createDynamicContentTable(cache);
                     Toast.makeText(getApplicationContext(), "Error de conexión. Los datos mostrados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
                 } else {
@@ -62,12 +66,21 @@ public class GlobalScore extends BaseActivity{
         int tam = equipos.size();
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
+            ImageView color = new ImageView(this);
+            color.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
+            color.setImageDrawable(Drawable.createFromPath("@drawable/polera.png"));
+
             TextView equipo = new TextView(this);
             equipo.setText(equipos.get(cont).getNombre());
+            equipo.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
+
             TextView puntaje = new TextView(this);
             puntaje.setText(equipos.get(cont).getPuntaje()+"");
-            fila.addView(equipo,0);
-            fila.addView(puntaje,1);
+            puntaje.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
+
+            fila.addView(color, 0);
+            fila.addView(equipo,1);
+            fila.addView(puntaje,2);
             tablaPuntaje.addView(fila, cont);
         }
 
@@ -99,4 +112,7 @@ public class GlobalScore extends BaseActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
