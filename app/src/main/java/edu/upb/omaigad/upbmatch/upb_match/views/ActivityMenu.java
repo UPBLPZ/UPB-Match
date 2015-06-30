@@ -51,25 +51,38 @@ public class ActivityMenu extends BaseActivity{
         });
     }
     private void createDynamicContentTable(final ArrayList<Actividad> actividades){
-        tablaActividades.setBackgroundColor(Color.WHITE);
+
         int tam = actividades.size();
         int contA = 0;
+
         for(int filas = 0;filas < tam/3;filas++){
+
             TableRow fila = new TableRow(this);
+
             for(int colum = 0;colum < 3;colum++){
+
                 LinearLayout actividad = new LinearLayout(this);
+
                 final int numero_actividad = contA;
+
                 ImageView icono = new ImageView(this);
                 TextView nombre = new TextView(this);
+
+                String recurso = "drawable";
+                String nombre1 = "borde_esquinas_redondas";
+                int res_imagen1 = getResources().getIdentifier(nombre1, recurso, getPackageName());
 
                 String mDrawableName = actividades.get(contA).getIcono();
                 int resID = getResources().getIdentifier(mDrawableName , "drawable", getPackageName());
 
                 actividad.setOrientation(LinearLayout.VERTICAL);
-                nombre.setTextSize((float) 10);
+                nombre.setTextSize(10);
                 nombre.setGravity(Gravity.CENTER);
+                nombre.setBackgroundResource(res_imagen1);
+
                 icono.setBackgroundResource(resID);
                 icono.setTag((String) actividades.get(contA).getNombreActividad());
+
                 icono.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

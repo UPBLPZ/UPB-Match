@@ -2,10 +2,12 @@ package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ public class ActivityRules extends ActionBarActivity {
     private TableLayout tablaReglasActividad;
     private CharSequence mTiTle;
     private int numero_actividad;
+    private SwipeRefreshLayout swipe;
 
 
     @Override
@@ -38,6 +41,15 @@ public class ActivityRules extends ActionBarActivity {
         app = (UPBMatchApplication) getApplication();
         tablaReglasActividad = (TableLayout) findViewById(R.id.activityRulesTable);
         updateTable();
+
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateTable();
+                swipe.setRefreshing(false);
+            }
+        });
     }
 
     public void updateTable(){
@@ -67,16 +79,43 @@ public class ActivityRules extends ActionBarActivity {
 
         tablaReglasActividad.removeAllViews();
 
+        String recurso = "drawable";
+        String nombre1 = "borde_esquinas_redondas";
+        int res_imagen1 = getResources().getIdentifier(nombre1, recurso, getPackageName());
+
         TextView participantes = new TextView(this);
-        participantes.setText("Participantes: "+actividad.getNumeroParticipantes());
         TextView fechahora = new TextView(this);
-        fechahora.setText("Fecha/Hora: "+actividad.getFechaUHora());
         TextView reglamento = new TextView(this);
-        reglamento.setText("Reglamento:\n"+actividad.getReglas());
-        tablaReglasActividad.addView(participantes, 0);
-        tablaReglasActividad.addView(fechahora,1);
-        tablaReglasActividad.addView(reglamento,2);
-        tablaReglasActividad.setBackgroundColor(Color.WHITE);
+
+        participantes.setText(" Participantes: " + actividad.getNumeroParticipantes() + " ");
+        fechahora.setText(" Fecha/Hora: " + actividad.getFechaUHora() + " ");
+        reglamento.setText(" Reglamento:\n " + actividad.getReglas());
+
+        participantes.setBackgroundResource(res_imagen1);
+        fechahora.setBackgroundResource(res_imagen1);
+        reglamento.setBackgroundResource(res_imagen1);
+
+        participantes.setTextSize(16);
+        fechahora.setTextSize(16);
+        reglamento.setTextSize(16);
+
+        TextView blank = new TextView(this);
+        blank.setText(" ");
+        TextView blank1 = new TextView(this);
+        blank.setText(" ");
+        TextView blank2 = new TextView(this);
+        blank.setText(" ");
+        TextView blank3 = new TextView(this);
+        blank.setText(" ");
+
+        tablaReglasActividad.addView(blank, 0);
+        tablaReglasActividad.addView(blank1,1);
+        tablaReglasActividad.addView(participantes, 2);
+        tablaReglasActividad.addView(blank2,3);
+        tablaReglasActividad.addView(fechahora,4);
+        tablaReglasActividad.addView(blank3,5);
+        tablaReglasActividad.addView(reglamento, 6);
+
 
     }
 

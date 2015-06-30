@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -128,52 +129,89 @@ public class ActivityScore extends BaseActivity {
     private void createDynamicContentTable(ArrayList<Actividad.Participante> participantes){
         //Toast.makeText(getApplicationContext(),"Dentro de la creacion de la tabla", Toast.LENGTH_SHORT).show();
         tablaPuntajeActividad.removeAllViews();
-        tablaPuntajeActividad.setBackgroundColor(Color.WHITE);
+        String recurso = "drawable";
+        String nombre1 = "borde_esquinas_redondas";
+        int res_imagen1 = getResources().getIdentifier(nombre1, recurso, getPackageName());
         int tam = participantes.size();
 
         for(int cont = 0; cont < tam; cont++){
+
+            String nombre = "polera";
             TableRow fila = new TableRow(this);
             TextView equipo = new TextView(this);
             TextView puntajeGanado = new TextView(this);
             TextView puntajePerdido = new TextView(this);
             TextView puntajeTotal = new TextView(this);
-            TextView polera = new TextView(this);
+            ImageView polera = new ImageView(this);
             int pg = participantes.get(cont).getPuntaje();
             int pp = participantes.get(cont).getPuntosPerdidos();
             int pt = pg-pp;
-            int colorPolera;
+            int res_imagen = getResources().getIdentifier(nombre, recurso, getPackageName());
 
 
-            equipo.setText(participantes.get(cont).getEquipo().getNombre()+"  ");
-            puntajeGanado.setText(pg+" ");
-            puntajePerdido.setText(pp+" ");
-            puntajeTotal.setText(pt + " ");
+            polera.setBackgroundColor(Color.parseColor("#" + participantes.get(cont).getEquipo().getColor()));
+            polera.setImageResource(res_imagen);
+            equipo.setText(" " + participantes.get(cont).getEquipo().getNombre() + "  ");
+            puntajeGanado.setText(" " + pg + " ");
+            puntajePerdido.setText(" " + pp + " ");
+            puntajeTotal.setText(" " + pt + " ");
 
-            //fila.addView(polera,0);
-            fila.addView(equipo,0);
-            fila.addView(puntajeGanado,1);
-            fila.addView(puntajePerdido,2);
-            fila.addView(puntajeTotal,3);
+            equipo.setBackgroundResource(res_imagen1);
+            puntajeGanado.setBackgroundResource(res_imagen1);
+            puntajePerdido.setBackgroundResource(res_imagen1);
+            puntajeTotal.setBackgroundResource(res_imagen1);
+
+            equipo.setTextSize(16);
+            puntajeGanado.setTextSize(18);
+            puntajePerdido.setTextSize(18);
+            puntajeTotal.setTextSize(18);
+
+            fila.addView(polera, 0);
+            fila.addView(equipo, 1);
+            fila.addView(puntajeGanado,2);
+            fila.addView(puntajePerdido, 3);
+            fila.addView(puntajeTotal,4);
 
             tablaPuntajeActividad.addView(fila, cont);
+
         }
         TableRow fila = new TableRow(this);
+        TextView polera = new TextView(this);
         TextView equipo = new TextView(this);
         TextView puntajeGanado = new TextView(this);
         TextView puntajePerdido = new TextView(this);
         TextView puntajeTotal = new TextView(this);
 
-        equipo.setText("Carrera   ");
-        puntajeGanado.setText("PG  ");
-        puntajePerdido.setText("PP  ");
-        puntajeTotal.setText("PT  ");
+        polera.setText(" ");
+        equipo.setText(" Carrera   ");
+        puntajeGanado.setText(" PG  ");
+        puntajePerdido.setText(" PP  ");
+        puntajeTotal.setText(" PT  ");
 
-        fila.addView(equipo,0);
-        fila.addView(puntajeGanado,1);
-        fila.addView(puntajePerdido,2);
-        fila.addView(puntajeTotal,3);
+        equipo.setTextSize(16);
+        puntajeGanado.setTextSize(16);
+        puntajePerdido.setTextSize(16);
+        puntajeTotal.setTextSize(16);
 
-        tablaPuntajeActividad.addView(fila,0);
+        equipo.setBackgroundResource(res_imagen1);
+        puntajeGanado.setBackgroundResource(res_imagen1);
+        puntajePerdido.setBackgroundResource(res_imagen1);
+        puntajeTotal.setBackgroundResource(res_imagen1);
+
+        TextView blank = new TextView(this);
+        blank.setText(" ");
+        TextView blank1 = new TextView(this);
+        blank.setText(" ");
+
+        fila.addView(polera,0);
+        fila.addView(equipo,1);
+        fila.addView(puntajeGanado,2);
+        fila.addView(puntajePerdido,3);
+        fila.addView(puntajeTotal,4);
+
+        tablaPuntajeActividad.addView(blank,0);
+        tablaPuntajeActividad.addView(blank1,1);
+        tablaPuntajeActividad.addView(fila,2);
     }
     public  void onClick(View view){
         Intent intent = new Intent(this, ActivityRules.class);

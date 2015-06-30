@@ -29,7 +29,8 @@ public class GlobalScore extends BaseActivity{
         setContentView(R.layout.activity_global_score);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        mTitle = "Score Global";
+        setTitle(mTitle);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
