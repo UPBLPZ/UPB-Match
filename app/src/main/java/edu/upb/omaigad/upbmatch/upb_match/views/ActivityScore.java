@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -31,7 +33,8 @@ public class ActivityScore extends BaseActivity {
     private TableLayout tablaPuntajeActividad;
     private Button botonReglas;
     private int numero_actividad;
-
+    private SwipeRefreshLayout swipe;
+    private ScrollView scroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +52,33 @@ public class ActivityScore extends BaseActivity {
         Log.e("nactividad",numero_actividad+"");*/
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
+        scroll = (ScrollView) findViewById(R.id.scrollViewActivityScore);
         tablaPuntajeActividad = (TableLayout) findViewById(R.id.activityScoreTable);
+
         botonReglas = (Button) findViewById(R.id.buttonRules);
+
         botonReglas.setText("Ir a reglamento");
         updateTable();
+
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateTable();
+                swipe.setRefreshing(false);
+            }
+        });
+
+        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scroll.getScrollY();
+                if (scrollY == 0) swipe.setEnabled(true);
+                else swipe.setEnabled(false);
+
+            }
+        });
 
     }
 

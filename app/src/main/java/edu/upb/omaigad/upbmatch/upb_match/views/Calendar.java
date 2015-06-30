@@ -3,12 +3,15 @@ package edu.upb.omaigad.upbmatch.upb_match.views;
 import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,6 +31,8 @@ public class Calendar extends BaseActivity {
     private Button nmonth;
     private String[] meses = {"enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"};
     private int am;
+    private SwipeRefreshLayout swipe;
+    private ScrollView scroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class Calendar extends BaseActivity {
         mTitle = getTitle();
         am = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
         // Set up the drawer.
+        scroll = (ScrollView) findViewById(R.id.scrollViewCalendar);
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
         tablaEventos = (TableLayout) findViewById(R.id.calendarTable);
         pmonth = (Button) findViewById(R.id.bPMonth);
@@ -45,6 +51,26 @@ public class Calendar extends BaseActivity {
 
 
         updateCalendar();
+
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateCalendar();
+                swipe.setRefreshing(false);
+            }
+        });
+
+        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scroll.getScrollY();
+                if (scrollY == 0) swipe.setEnabled(true);
+                else swipe.setEnabled(false);
+
+            }
+        });
     }
 
     private void updateCalendar(){

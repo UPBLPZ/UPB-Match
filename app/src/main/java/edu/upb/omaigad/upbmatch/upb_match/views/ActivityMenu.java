@@ -3,15 +3,18 @@ package edu.upb.omaigad.upbmatch.upb_match.views;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,7 +26,11 @@ import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 
 public class ActivityMenu extends BaseActivity{
+
     private TableLayout tablaActividades;
+    private SwipeRefreshLayout swipe;
+    private ScrollView scroll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +40,32 @@ public class ActivityMenu extends BaseActivity{
         setTitle(mTitle);
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
+        scroll = (ScrollView) findViewById(R.id.scrollViewActivityMenu);
         tablaActividades = (TableLayout) findViewById(R.id.activityMenuTable);
+
+
         updateTable();
+
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateTable();
+                swipe.setRefreshing(false);
+            }
+        });
+        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scroll.getScrollY();
+                if (scrollY == 0) swipe.setEnabled(true);
+                else swipe.setEnabled(false);
+
+            }
+        });
+
     }
     private void updateTable(){
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {

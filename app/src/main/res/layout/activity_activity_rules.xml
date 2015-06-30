@@ -19,7 +19,9 @@ android:layout_height="match_parent">
             android:id="@+id/activityRulesTable"
             android:layout_alignParentTop="true"
             android:gravity="top|center"
-            android:layout_gravity="center_horizontal|top"></TableLayout>
+            android:layout_gravity="center_horizontal|top">
+
+        </TableLayout>
     </ScrollView>
 
 </FrameLayout>

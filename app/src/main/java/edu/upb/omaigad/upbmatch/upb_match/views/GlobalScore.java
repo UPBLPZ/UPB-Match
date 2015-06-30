@@ -2,11 +2,13 @@ package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Equipo;
 public class GlobalScore extends BaseActivity{
 
     private TableLayout tablaPuntaje;
+    private SwipeRefreshLayout swipe;
+    private ScrollView scroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +38,20 @@ public class GlobalScore extends BaseActivity{
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
+        scroll = (ScrollView) findViewById(R.id.scrollViewGlobalScore);
         // Set up the table
         tablaPuntaje = (TableLayout) findViewById(R.id.scoreTable);
 
         updateTable();
+
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateTable();
+                swipe.setRefreshing(false);
+            }
+        });
     }
     private  void updateTable(){
         app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {

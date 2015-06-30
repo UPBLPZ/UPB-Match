@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -27,6 +28,7 @@ public class ActivityRules extends ActionBarActivity {
     private CharSequence mTiTle;
     private int numero_actividad;
     private SwipeRefreshLayout swipe;
+    private ScrollView scroll;
 
 
     @Override
@@ -34,11 +36,12 @@ public class ActivityRules extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        numero_actividad = intent.getIntExtra("numero_actividad",0);
+        numero_actividad = intent.getIntExtra("numero_actividad", 0);
         mTiTle = intent.getCharSequenceExtra("nombre_actividad");
-        setTitle("Reglamento: "+mTiTle);
+        setTitle("Reglamento: " + mTiTle);
         setContentView(R.layout.activity_activity_rules);
         app = (UPBMatchApplication) getApplication();
+        scroll = (ScrollView) findViewById(R.id.scrollViewActivityRules);
         tablaReglasActividad = (TableLayout) findViewById(R.id.activityRulesTable);
         updateTable();
 
@@ -48,6 +51,17 @@ public class ActivityRules extends ActionBarActivity {
             public void onRefresh() {
                 updateTable();
                 swipe.setRefreshing(false);
+            }
+        });
+
+        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scroll.getScrollY();
+                if (scrollY == 0) swipe.setEnabled(true);
+                else swipe.setEnabled(false);
+
             }
         });
     }
