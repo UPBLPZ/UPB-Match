@@ -66,12 +66,16 @@ public class GlobalScore extends BaseActivity{
         int tam = equipos.size();
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
-            ImageView color = new ImageView(this);
+            TextView color = new TextView(this);
+            color.setText(equipos.get(cont).getColor());
+            //ImageView color = new ImageView(this);
             color.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
-            color.setImageDrawable(Drawable.createFromPath("@drawable/polera.png"));
+            //color.setImageDrawable(Drawable.createFromPath("@drawable/polera.png"));
+            //color.setBackground(Drawable.createFromPath("@drawable/polera.png"));
 
             TextView equipo = new TextView(this);
             equipo.setText(equipos.get(cont).getNombre());
+            //equipo.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
             equipo.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
 
             TextView puntaje = new TextView(this);
