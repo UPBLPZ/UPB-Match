@@ -66,22 +66,25 @@ public class GlobalScore extends BaseActivity{
         int tam = equipos.size();
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
+            fila.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
             //TextView color = new TextView(this);
             //color.setText(equipos.get(cont).getColor());
             ImageView color = new ImageView(this);
             //color.setImageDrawable(Drawable.createFromPath("@drawable/polera.png"));
-            color.setBackgroundDrawable(Drawable.createFromPath("@drawable/polera.png"));
-            //color.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
-
+            //color.setBackgroundDrawable(Drawable.createFromPath("@drawable/polera.png"));
+            color.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
+            String nombre = "polera";
+            String recurso = "drawable";
+            int res_imagen = getResources().getIdentifier(nombre, recurso, getPackageName());
+            color.setImageResource(res_imagen);
 
             TextView equipo = new TextView(this);
+            equipo.setTextSize(15);
             equipo.setText(equipos.get(cont).getNombre());
-            //equipo.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
-            equipo.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
+            //equipo.setBackgroundDrawable(Drawable.createFromPath("@drawable/borde_tabla"));
 
             TextView puntaje = new TextView(this);
             puntaje.setText(equipos.get(cont).getPuntaje()+"");
-            puntaje.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
 
             fila.addView(color, 0);
             fila.addView(equipo,1);
