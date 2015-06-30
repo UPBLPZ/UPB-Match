@@ -62,7 +62,7 @@ public class ActivityMenu extends BaseActivity{
                 ImageView icono = new ImageView(this);
                 TextView nombre = new TextView(this);
 
-                String mDrawableName = "ic_launcher";
+                String mDrawableName = actividades.get(contA).getIcono();
                 int resID = getResources().getIdentifier(mDrawableName , "drawable", getPackageName());
 
                 actividad.setOrientation(LinearLayout.VERTICAL);
