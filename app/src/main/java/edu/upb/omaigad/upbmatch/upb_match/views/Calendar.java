@@ -131,29 +131,35 @@ public class Calendar extends BaseActivity {
         tablaEventos.setBackgroundColor(Color.WHITE);
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(this);
+            String recurso = "drawable";
+            String nombre1 = "borde_esquinas_redondas";
+            int res_imagen1 = getResources().getIdentifier(nombre1, recurso, getPackageName());
        //     fila.setBaselineAlignedChildIndex(2);
 
             LinearLayout h = new LinearLayout(this);
             LinearLayout h2 = new LinearLayout(this);
             LinearLayout v = new LinearLayout(this);
             TextView dia = new TextView(this);
+            dia.setBackgroundResource(res_imagen1);
             TextView hora = new TextView(this);
+            hora.setBackgroundResource(res_imagen1);
             TextView titulo = new TextView(this);
+            titulo.setBackgroundResource(res_imagen1);
             TextView descripcion = new TextView(this);
 
             h.setOrientation(LinearLayout.HORIZONTAL);
             h2.setOrientation(LinearLayout.HORIZONTAL);
             v.setOrientation(LinearLayout.VERTICAL);
 
-            dia.setText("" + eventos.get(cont).getDia());
-            dia.setBackgroundColor(Color.WHITE);
-            hora.setText("  " + eventos.get(cont).getHora());
-            hora.setBackgroundColor(Color.WHITE);
-            titulo.setText("  " + eventos.get(cont).getTitulo());
-            titulo.setBackgroundColor(Color.WHITE);
+            dia.setText(" " + eventos.get(cont).getDia() + " ");
+        //    dia.setBackgroundColor(Color.WHITE);
+            hora.setText("  " + eventos.get(cont).getHora() + " ");
+      //      hora.setBackgroundColor(Color.WHITE);
+            titulo.setText("  " + eventos.get(cont).getTitulo() + " ");
+      //      titulo.setBackgroundColor(Color.WHITE);
 
             descripcion.setText(eventos.get(cont).getDescripcion());
-            descripcion.setBackgroundColor(Color.WHITE);
+        //    descripcion.setBackgroundColor(Color.WHITE);
 
 
             h2.addView(hora,0);
@@ -165,6 +171,7 @@ public class Calendar extends BaseActivity {
             fila.addView(h,0);
 
             tablaEventos.addView(fila, cont);
+            tablaEventos.setBackgroundResource(res_imagen1);
         }
     }
 

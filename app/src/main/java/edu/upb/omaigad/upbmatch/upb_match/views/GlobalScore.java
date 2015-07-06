@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -50,6 +51,16 @@ public class GlobalScore extends BaseActivity{
             public void onRefresh() {
                 updateTable();
                 swipe.setRefreshing(false);
+            }
+        });
+        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scroll.getScrollY();
+                if (scrollY == 0) swipe.setEnabled(true);
+                else swipe.setEnabled(false);
+
             }
         });
     }
