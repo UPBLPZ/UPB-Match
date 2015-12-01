@@ -1,25 +1,23 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import edu.upb.omaigad.upbmatch.upb_match.R;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
+
+import java.util.ArrayList;
 
 public class ActivityRules extends ActionBarActivity {
 
@@ -40,7 +38,7 @@ public class ActivityRules extends ActionBarActivity {
         mTiTle = intent.getCharSequenceExtra("nombre_actividad");
         setTitle("Reglamento: " + mTiTle);
         setContentView(R.layout.activity_activity_rules);
-        app = (UPBMatchApplication) getApplication();
+        app = (UPBMatchApplication) this.getApplication();
         scroll = (ScrollView) findViewById(R.id.scrollViewActivityRules);
         tablaReglasActividad = (TableLayout) findViewById(R.id.activityRulesTable);
         updateTable();
@@ -137,7 +135,7 @@ public class ActivityRules extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_rules, menu);
+       // getMenuInflater().inflate(R.menu.menu_activity_rules, menu);
         return true;
     }
 

@@ -10,7 +10,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+        <activity
+            android:name=".views.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".views.SplashScreen"
             android:screenOrientation="portrait"
@@ -23,36 +30,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.ActivityScore"
-            android:label="@string/title_activity_activity_score" >
-        </activity>
-        <activity
-            android:name=".views.GlobalScore"
-            android:label="@string/title_activity_activity_score" >
-        </activity>
-        <activity
             android:name=".views.ActivityRules"
-            android:label="@string/title_activity_activity_rules"
+            android:label="ActivityRules"
             android:parentActivityName=".views.ActivityScore" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.upb.omaigad.upbmatch.upb_match.views.ActivityScore" />
         </activity>
         <activity
-            android:name=".views.BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
-        <activity
-            android:name=".views.Calendar"
-            android:label="@string/title_activity_calendar" >
-        </activity>
-        <activity
-            android:name=".views.ActivityMenu"
-            android:label="@string/title_activity_activity_menu"
-            android:parentActivityName=".views.BaseActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.upb.omaigad.upbmatch.upb_match.views.BaseActivity" />
+            android:name=".views.ActivityScore"
+            android:label="ActivityScore" >
         </activity>
     </application>
 

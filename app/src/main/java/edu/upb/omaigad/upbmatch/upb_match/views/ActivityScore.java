@@ -1,14 +1,10 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -16,18 +12,18 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import edu.upb.omaigad.upbmatch.upb_match.R;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Actividad;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
+
+import java.util.ArrayList;
 
 
-public class ActivityScore extends BaseActivity {
+public class ActivityScore extends AppCompatActivity {
 
 
     private TableLayout tablaPuntajeActividad;
@@ -35,14 +31,16 @@ public class ActivityScore extends BaseActivity {
     private int numero_actividad;
     private SwipeRefreshLayout swipe;
     private ScrollView scroll;
+    protected CharSequence mTitle;
+    protected UPBMatchApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_score);
         Intent intent = getIntent();
+        app = (UPBMatchApplication) this.getApplication();
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = intent.getStringExtra("nombre_actividad");
         numero_actividad = intent.getIntExtra("numero_actividad",0);
 
@@ -51,7 +49,7 @@ public class ActivityScore extends BaseActivity {
         /*Log.e("esta en la activdad",(String)mTitle);
         Log.e("nactividad",numero_actividad+"");*/
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+
         scroll = (ScrollView) findViewById(R.id.scrollViewActivityScore);
         tablaPuntajeActividad = (TableLayout) findViewById(R.id.activityScoreTable);
 
@@ -145,7 +143,7 @@ public class ActivityScore extends BaseActivity {
 
                     Toast.makeText(getApplicationContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(),"No se pudo cargar la actividad.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No se pudo cargar la actividad.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -240,14 +238,14 @@ public class ActivityScore extends BaseActivity {
     }
     public  void onClick(View view){
         Intent intent = new Intent(this, ActivityRules.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("nombre_actividad",mTitle);
         intent.putExtra("numero_actividad",numero_actividad);
         startActivity(intent);
 
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_score, menu);
@@ -265,5 +263,5 @@ public class ActivityScore extends BaseActivity {
 
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

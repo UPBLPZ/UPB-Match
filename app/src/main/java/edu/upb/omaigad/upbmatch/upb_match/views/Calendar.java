@@ -1,13 +1,13 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.graphics.Color;
-import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,15 +17,18 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import edu.upb.omaigad.upbmatch.upb_match.R;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.CustomSimpleCallback;
 import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.Evento;
+import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 
-public class Calendar extends BaseActivity {
+import java.util.ArrayList;
+
+public class Calendar extends Fragment {
 
     private TableLayout tablaEventos;
+    protected CharSequence mTitle;
+    protected UPBMatchApplication app;
     private Button pmonth;
     private Button amonth;
     private Button nmonth;
@@ -34,25 +37,62 @@ public class Calendar extends BaseActivity {
     private SwipeRefreshLayout swipe;
     private ScrollView scroll;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+    public static Calendar newInstance(){
+        Calendar fragment = new Calendar();
+        return fragment;
+    }
+
+    public Calendar(){
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_calendar, container, false);
+        app = (UPBMatchApplication) this.getActivity().getApplication();
+        mTitle = "Calendario";
+        this.getActivity().setTitle(mTitle);
         am = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
         // Set up the drawer.
-        scroll = (ScrollView) findViewById(R.id.scrollViewCalendar);
-        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-        tablaEventos = (TableLayout) findViewById(R.id.calendarTable);
-        pmonth = (Button) findViewById(R.id.bPMonth);
-        amonth = (Button) findViewById(R.id.bAMonth);
-        nmonth = (Button) findViewById(R.id.bNMonth);
+        scroll = (ScrollView) rootView.findViewById(R.id.scrollViewCalendar);
+
+
+        tablaEventos = (TableLayout) rootView.findViewById(R.id.calendarTable);
+
+        //Setup buttons
+        pmonth = (Button) rootView.findViewById(R.id.bPMonth);
+        amonth = (Button) rootView.findViewById(R.id.bAMonth);
+        nmonth = (Button) rootView.findViewById(R.id.bNMonth);
+
+        pmonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                am-=1;
+                Log.e("am vale", am + "");
+                updateCalendar();
+            }
+        });
+        amonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("am vale", am + "");
+                updateCalendar();
+            }
+        });
+        nmonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                am+=1;
+                Log.e("am vale", am + "");
+                updateCalendar();
+            }
+        });
+
+
 
 
         updateCalendar();
 
-        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -71,11 +111,15 @@ public class Calendar extends BaseActivity {
 
             }
         });
+
+
+
+        return rootView;
     }
 
     private void updateCalendar(){
         tablaEventos.removeAllViews();
-        Log.e("am vale",am+"");
+        Log.e("am vale", am + "");
         if(am > 1 && am < 9){
             pmonth.setText(meses[am-1]);
             amonth.setText(meses[am]);
@@ -114,38 +158,38 @@ public class Calendar extends BaseActivity {
                 if(data.size() != 0){
                     createDynamicContentTable(data);
                 }else{
-                    Toast.makeText(getApplicationContext(), "No hay eventos en este mes.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(app.getApplicationContext(), "No hay eventos en este mes.", Toast.LENGTH_LONG).show();
                 }
 
             }
 
             @Override
             public void fail(String failMessage, ArrayList<Evento> cache) {
-                Toast.makeText(getApplicationContext(),"No se pudo cargar los eventos.", Toast.LENGTH_LONG).show();
+                Toast.makeText(app.getApplicationContext(), "No se pudo cargar los eventos.", Toast.LENGTH_LONG).show();
             }
         });
     }
     private void createDynamicContentTable(ArrayList<Evento> eventos){
         int tam = eventos.size();
-        Log.e("en create",tam+"");
+        Log.e("en create", tam + "");
         tablaEventos.setBackgroundColor(Color.WHITE);
         for(int cont = 0; cont < tam; cont++){
-            TableRow fila = new TableRow(this);
+            TableRow fila = new TableRow(this.getActivity());
             String recurso = "drawable";
             String nombre1 = "borde_esquinas_redondas";
-            int res_imagen1 = getResources().getIdentifier(nombre1, recurso, getPackageName());
+            int res_imagen1 = getResources().getIdentifier(nombre1, recurso, this.getActivity().getPackageName());
        //     fila.setBaselineAlignedChildIndex(2);
 
-            LinearLayout h = new LinearLayout(this);
-            LinearLayout h2 = new LinearLayout(this);
-            LinearLayout v = new LinearLayout(this);
-            TextView dia = new TextView(this);
+            LinearLayout h = new LinearLayout(this.getActivity());
+            LinearLayout h2 = new LinearLayout(this.getActivity());
+            LinearLayout v = new LinearLayout(this.getActivity());
+            TextView dia = new TextView(this.getActivity());
             dia.setBackgroundResource(res_imagen1);
-            TextView hora = new TextView(this);
+            TextView hora = new TextView(this.getActivity());
             hora.setBackgroundResource(res_imagen1);
-            TextView titulo = new TextView(this);
+            TextView titulo = new TextView(this.getActivity());
             titulo.setBackgroundResource(res_imagen1);
-            TextView descripcion = new TextView(this);
+            TextView descripcion = new TextView(this.getActivity());
 
             h.setOrientation(LinearLayout.HORIZONTAL);
             h2.setOrientation(LinearLayout.HORIZONTAL);
@@ -175,18 +219,18 @@ public class Calendar extends BaseActivity {
         }
     }
 
-    public void onClickPM(View view){
+    /*public void onClickPM(View view){
         am-=1;
-        Log.e("am vale",am+"");
+        Log.e("am vale", am + "");
         updateCalendar();
     }
     public void onClickAM(View view){
-        Log.e("am vale",am+"");
+        Log.e("am vale", am + "");
         updateCalendar();
     }
     public void onClickNM(View view){
         am+=1;
-        Log.e("am vale",am+"");
+        Log.e("am vale", am + "");
         updateCalendar();
     }
     @Override
@@ -207,5 +251,5 @@ public class Calendar extends BaseActivity {
 
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
