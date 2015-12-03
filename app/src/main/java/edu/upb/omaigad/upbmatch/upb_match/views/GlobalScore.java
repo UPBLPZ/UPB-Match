@@ -111,17 +111,17 @@ public class GlobalScore extends android.support.v4.app.Fragment{
         tablaPuntaje.removeAllViews();
         int tam = equipos.size();
         //Setup of the title row
-        TableRow titulo = new TableRow(this.getActivity());
+        TableRow titulo = new TableRow(rootView.getContext());
 
-        TextView titulocolor = new TextView(this.getActivity());
+        TextView titulocolor = new TextView(rootView.getContext());
         titulocolor.setText("");
         titulocolor.setTextSize(18);
 
-        TextView tituloequipo = new TextView(this.getActivity());
+        TextView tituloequipo = new TextView(rootView.getContext());
         tituloequipo.setText("  Carrera");
         tituloequipo.setTextSize(18);
 
-        TextView titulopuntaje = new TextView(this.getActivity());
+        TextView titulopuntaje = new TextView(rootView.getContext());
         titulopuntaje.setText("  PT");
         titulopuntaje.setTextSize(18);
 
