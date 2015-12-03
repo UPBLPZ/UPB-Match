@@ -31,6 +31,7 @@ public class ActivityMenu extends Fragment {
     protected UPBMatchApplication app;
     private SwipeRefreshLayout swipe;
     private ScrollView scroll;
+    private View rootView;
 
     public static ActivityMenu newInstance(){
         ActivityMenu fragment = new ActivityMenu();
@@ -43,7 +44,7 @@ public class ActivityMenu extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_activity_menu, container, false);
+        rootView = inflater.inflate(R.layout.activity_activity_menu, container, false);
         app = (UPBMatchApplication) this.getActivity().getApplication();
         mTitle = "Actividades";
         this.getActivity().setTitle(mTitle);
@@ -55,25 +56,6 @@ public class ActivityMenu extends Fragment {
 
         updateTable();
 
-        /*swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
-
-        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                updateTable();
-                swipe.setRefreshing(false);
-            }
-        });
-        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-
-            @Override
-            public void onScrollChanged() {
-                int scrollY = scroll.getScrollY();
-                if (scrollY == 0) swipe.setEnabled(true);
-                else swipe.setEnabled(false);
-
-            }
-        });*/
         swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -117,23 +99,23 @@ public class ActivityMenu extends Fragment {
 
         for(int filas = 0;filas < tam/3;filas++){
 
-            TableRow fila = new TableRow(this.getActivity());
+            TableRow fila = new TableRow(rootView.getContext());
 
             for(int colum = 0;colum < 3;colum++){
 
-                LinearLayout actividad = new LinearLayout(this.getActivity());
+                LinearLayout actividad = new LinearLayout(rootView.getContext());
 
                 final int numero_actividad = contA;
 
-                ImageView icono = new ImageView(this.getActivity());
-                TextView nombre = new TextView(this.getActivity());
+                ImageView icono = new ImageView(rootView.getContext());
+                TextView nombre = new TextView(rootView.getContext());
 
                 String recurso = "drawable";
                 String nombre1 = "borde_esquinas_redondas";
-                int res_imagen1 = getResources().getIdentifier(nombre1, recurso, this.getActivity().getPackageName());
+                int res_imagen1 = getResources().getIdentifier(nombre1, recurso, rootView.getContext().getPackageName());
 
                 String mDrawableName = actividades.get(contA).getIcono();
-                int resID = getResources().getIdentifier(mDrawableName , "drawable", this.getActivity().getPackageName());
+                int resID = getResources().getIdentifier(mDrawableName , "drawable", rootView.getContext().getPackageName());
 
                 actividad.setOrientation(LinearLayout.VERTICAL);
                 nombre.setTextSize(10);
@@ -183,23 +165,4 @@ public class ActivityMenu extends Fragment {
                 tablaActividades.addView(fila);
         }*/
     }
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }
