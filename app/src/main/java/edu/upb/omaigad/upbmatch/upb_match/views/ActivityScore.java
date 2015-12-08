@@ -1,10 +1,15 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -42,7 +47,7 @@ public class ActivityScore extends AppCompatActivity {
         app = (UPBMatchApplication) this.getApplication();
 
         mTitle = intent.getStringExtra("nombre_actividad");
-        numero_actividad = intent.getIntExtra("numero_actividad",0);
+        numero_actividad = intent.getIntExtra("numero_actividad", 0);
 
         setTitle(mTitle);
 
@@ -245,10 +250,10 @@ public class ActivityScore extends AppCompatActivity {
 
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_score, menu);
+       // getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -258,10 +263,17 @@ public class ActivityScore extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // this takes the user 'back', as if they pressed the left-facing triangle icon on the main android toolbar.
+                // if this doesn't work as desired, another possibility is to call `finish()` here.
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
         //noinspection SimplifiableIfStatement
+        }
 
-
-        return super.onOptionsItemSelected(item);
-    }*/
+    }
 }

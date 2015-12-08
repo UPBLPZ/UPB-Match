@@ -35,8 +35,14 @@
             android:parentActivityName=".views.ActivityScore" >
         </activity>
         <activity
+            android:name=".views.ActivityActivity"
+            android:label="ActivityActivity"
+            android:parentActivityName=".views.ActivityActivity" >
+        </activity>
+        <activity
             android:name=".views.ActivityScore"
             android:label="ActivityScore" >
+            android:parentActivityName=".views.MainActivity" >
         </activity>
     </application>
 

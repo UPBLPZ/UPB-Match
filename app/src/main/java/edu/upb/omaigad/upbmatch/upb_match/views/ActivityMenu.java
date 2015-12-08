@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -31,6 +33,7 @@ public class ActivityMenu extends Fragment {
     protected UPBMatchApplication app;
     private SwipeRefreshLayout swipe;
     private ScrollView scroll;
+    private ProgressBar loadAnimation;
     private View rootView;
 
     public static ActivityMenu newInstance(){
@@ -51,12 +54,15 @@ public class ActivityMenu extends Fragment {
 
         // Set up the drawer.
         scroll = (ScrollView) rootView.findViewById(R.id.scrollViewActivityMenu);
+        loadAnimation = (ProgressBar) rootView.findViewById(R.id.loadAnimation);
 
         tablaActividades = (TableLayout) rootView.findViewById(R.id.activityMenuTable);
-
+        tablaActividades.setVisibility(View.GONE);
         updateTable();
 
         swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+        swipe.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -83,6 +89,8 @@ public class ActivityMenu extends Fragment {
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
             @Override
             public void done(ArrayList<Actividad> data) {
+                loadAnimation.setVisibility(View.GONE);
+                tablaActividades.setVisibility(View.VISIBLE);
                 createDynamicContentTable(data);
             }
 
@@ -94,6 +102,7 @@ public class ActivityMenu extends Fragment {
     }
     private void createDynamicContentTable(final ArrayList<Actividad> actividades){
 
+        tablaActividades.removeAllViews();
         int tam = actividades.size();
         int contA = 0;
 
@@ -128,7 +137,7 @@ public class ActivityMenu extends Fragment {
                 icono.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), ActivityScore.class);
+                        Intent intent = new Intent(getActivity(), ActivityActivity.class);
                         intent.putExtra("nombre_actividad", (String) v.getTag());
                         intent.putExtra("numero_actividad", numero_actividad);
                         startActivity(intent);

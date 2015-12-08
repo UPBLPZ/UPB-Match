@@ -19,15 +19,35 @@
                 android:id="@+id/scrollViewActivityMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TableLayout
-                    android:id="@+id/activityMenuTable"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:elevation="10dp"
-                    android:layout_gravity="center_horizontal|top">
-                </TableLayout>
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:id="@+id/loadAnimation"
+                        android:elevation="10dp"
+                        android:paddingTop="16dp" />
+
+                    <TableLayout
+                        android:id="@+id/activityMenuTable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:elevation="10dp"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/card_background">
+                    </TableLayout>
+
+                </LinearLayout>
             </ScrollView>
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
