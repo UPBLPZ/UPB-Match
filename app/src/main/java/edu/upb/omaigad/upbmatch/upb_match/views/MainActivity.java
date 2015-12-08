@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(0);
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
                 case 0: return GlobalScore.newInstance();
                 case 1: return ActivityMenu.newInstance();

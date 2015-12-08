@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -29,7 +30,9 @@ public class GlobalScore extends android.support.v4.app.Fragment{
     protected UPBMatchApplication app;
     private TableLayout tablaPuntaje;
     private SwipeRefreshLayout swipe;
+    private ProgressBar loadAnimation;
     private ScrollView scroll;
+    private View rootView;
 
     public static GlobalScore newInstance(){
         GlobalScore fragment = new GlobalScore();
@@ -41,20 +44,26 @@ public class GlobalScore extends android.support.v4.app.Fragment{
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_global_score, container, false);
+
+        rootView = inflater.inflate(R.layout.activity_global_score, container, false);
+
         app = (UPBMatchApplication) this.getActivity().getApplication();
+
         mTitle = "Score Global";
+
         this.getActivity().setTitle(mTitle);
 
-        // Set up the drawer.
-
         scroll = (ScrollView) rootView.findViewById(R.id.scrollViewGlobalScore);
-        // Set up the table
-        tablaPuntaje = (TableLayout) rootView.findViewById(R.id.scoreTable);
+        loadAnimation = (ProgressBar) rootView.findViewById(R.id.loadAnimation);
 
+
+        tablaPuntaje = (TableLayout) rootView.findViewById(R.id.scoreTable);
+        tablaPuntaje.setVisibility(View.GONE);
         updateTable();
 
         swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+        swipe.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -62,6 +71,7 @@ public class GlobalScore extends android.support.v4.app.Fragment{
                 swipe.setRefreshing(false);
             }
         });
+
         scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
             @Override
@@ -79,6 +89,8 @@ public class GlobalScore extends android.support.v4.app.Fragment{
         app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {
             @Override
             public void done(ArrayList<Equipo> equipos) {
+                loadAnimation.setVisibility(View.GONE);
+                tablaPuntaje.setVisibility(View.VISIBLE);
                 createDynamicContentTable(equipos);
             }
 
@@ -99,17 +111,17 @@ public class GlobalScore extends android.support.v4.app.Fragment{
         tablaPuntaje.removeAllViews();
         int tam = equipos.size();
         //Setup of the title row
-        TableRow titulo = new TableRow(this.getActivity());
+        TableRow titulo = new TableRow(rootView.getContext());
 
-        TextView titulocolor = new TextView(this.getActivity());
+        TextView titulocolor = new TextView(rootView.getContext());
         titulocolor.setText("");
         titulocolor.setTextSize(18);
 
-        TextView tituloequipo = new TextView(this.getActivity());
+        TextView tituloequipo = new TextView(rootView.getContext());
         tituloequipo.setText("  Carrera");
         tituloequipo.setTextSize(18);
 
-        TextView titulopuntaje = new TextView(this.getActivity());
+        TextView titulopuntaje = new TextView(rootView.getContext());
         titulopuntaje.setText("  PT");
         titulopuntaje.setTextSize(18);
 
@@ -121,24 +133,24 @@ public class GlobalScore extends android.support.v4.app.Fragment{
 
         //Setup content rows
         for(int cont = 0; cont < tam; cont++){
-            TableRow fila = new TableRow(this.getActivity());
+            TableRow fila = new TableRow(rootView.getContext());
 
             String recurso = "drawable";
 
             String nombre = "ic_account_circle_black_36dp";
 
-            int res_imagen = getResources().getIdentifier(nombre, recurso, this.getActivity().getPackageName());
+            int res_imagen = getResources().getIdentifier(nombre, recurso, rootView.getContext().getPackageName());
 
             //fila.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
-            ImageView color = new ImageView(this.getActivity());
+            ImageView color = new ImageView(rootView.getContext());
             color.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
             color.setImageResource(res_imagen);
 
-            TextView equipo = new TextView(this.getActivity());
+            TextView equipo = new TextView(rootView.getContext());
             equipo.setTextSize(16);
             equipo.setText("  " + equipos.get(cont).getNombre());
 
-            TextView puntaje = new TextView(this.getActivity());
+            TextView puntaje = new TextView(rootView.getContext());
             puntaje.setTextSize(18);
             puntaje.setText("  " + equipos.get(cont).getPuntaje() + "  ");
 
@@ -147,30 +159,5 @@ public class GlobalScore extends android.support.v4.app.Fragment{
             fila.addView(puntaje,2);
             tablaPuntaje.addView(fila, cont+1);
         }
-
     }
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.global_score, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }

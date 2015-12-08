@@ -36,6 +36,7 @@ public class Calendar extends Fragment {
     private int am;
     private SwipeRefreshLayout swipe;
     private ScrollView scroll;
+    private View rootView;
 
     public static Calendar newInstance(){
         Calendar fragment = new Calendar();
@@ -47,7 +48,7 @@ public class Calendar extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_calendar, container, false);
+        rootView = inflater.inflate(R.layout.activity_calendar, container, false);
         app = (UPBMatchApplication) this.getActivity().getApplication();
         mTitle = "Calendario";
         this.getActivity().setTitle(mTitle);
@@ -174,22 +175,22 @@ public class Calendar extends Fragment {
         Log.e("en create", tam + "");
         tablaEventos.setBackgroundColor(Color.WHITE);
         for(int cont = 0; cont < tam; cont++){
-            TableRow fila = new TableRow(this.getActivity());
+            TableRow fila = new TableRow(rootView.getContext());
             String recurso = "drawable";
             String nombre1 = "borde_esquinas_redondas";
-            int res_imagen1 = getResources().getIdentifier(nombre1, recurso, this.getActivity().getPackageName());
+            int res_imagen1 = getResources().getIdentifier(nombre1, recurso, rootView.getContext().getPackageName());
        //     fila.setBaselineAlignedChildIndex(2);
 
-            LinearLayout h = new LinearLayout(this.getActivity());
-            LinearLayout h2 = new LinearLayout(this.getActivity());
-            LinearLayout v = new LinearLayout(this.getActivity());
-            TextView dia = new TextView(this.getActivity());
+            LinearLayout h = new LinearLayout(rootView.getContext());
+            LinearLayout h2 = new LinearLayout(rootView.getContext());
+            LinearLayout v = new LinearLayout(rootView.getContext());
+            TextView dia = new TextView(rootView.getContext());
             dia.setBackgroundResource(res_imagen1);
-            TextView hora = new TextView(this.getActivity());
+            TextView hora = new TextView(rootView.getContext());
             hora.setBackgroundResource(res_imagen1);
-            TextView titulo = new TextView(this.getActivity());
+            TextView titulo = new TextView(rootView.getContext());
             titulo.setBackgroundResource(res_imagen1);
-            TextView descripcion = new TextView(this.getActivity());
+            TextView descripcion = new TextView(rootView.getContext());
 
             h.setOrientation(LinearLayout.HORIZONTAL);
             h2.setOrientation(LinearLayout.HORIZONTAL);
