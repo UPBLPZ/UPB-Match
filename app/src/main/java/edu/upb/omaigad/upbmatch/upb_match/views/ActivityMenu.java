@@ -106,11 +106,11 @@ public class ActivityMenu extends Fragment {
         int tam = actividades.size();
         int contA = 0;
 
-        for(int filas = 0;filas < tam/3;filas++){
+        for(int filas = 0;filas < tam/2;filas++){
 
             TableRow fila = new TableRow(rootView.getContext());
 
-            for(int colum = 0;colum < 3;colum++){
+            for(int colum = 0;colum < 2;colum++){
 
                 LinearLayout actividad = new LinearLayout(rootView.getContext());
 
