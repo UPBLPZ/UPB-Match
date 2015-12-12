@@ -37,7 +37,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
-                            android:elevation="10dp"
+                            android:elevation="8dp"
                             android:textAlignment="center"
                             android:shrinkColumns="0"
                             android:stretchColumns="1"

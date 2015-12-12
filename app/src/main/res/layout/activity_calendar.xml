@@ -1,10 +1,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context=".Views.Calendar">
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,52 +23,14 @@
                 android:layout_height="match_parent"
                 android:id="@+id/scrollViewCalendar"
                 android:layout_gravity="center"
-                android:background="@drawable/fondo_calendar">
+                android:background="#f1f1f1">
 
 
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="491dp">
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="1">
-
-                        <Button
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="New Button"
-                            android:id="@+id/bPMonth"
-                            android:onClick="onClickPM"
-                            android:layout_weight="0.33"
-                            android:background="#fff2fff8" />
-
-                        <Button
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="New Button"
-                            android:id="@+id/bAMonth"
-                            android:onClick="onClickAM"
-                            android:layout_weight="0.33"
-                            android:background="#ff203d54"
-                            android:textSize="@dimen/abc_text_size_headline_material" />
-
-                        <Button
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="New Button"
-                            android:id="@+id/bNMonth"
-                            android:onClick="onClickNM"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="0.33"
-                            android:background="#ffeffff8" />
-
-                    </LinearLayout>
-
+                    android:layout_height="match_parent">
                     <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,9 +43,12 @@
                         android:stretchColumns="1"
                         style="@style/Base.TextAppearance.AppCompat.Large"
                         android:shrinkColumns="0"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginRight="45dp"
-                        android:layout_marginBottom="25dp">
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/card_background"
+                        android:elevation="8dp">
 
                     </TableLayout>
                 </LinearLayout>

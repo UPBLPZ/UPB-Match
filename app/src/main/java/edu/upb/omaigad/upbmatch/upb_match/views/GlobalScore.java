@@ -1,6 +1,8 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -58,7 +60,8 @@ public class GlobalScore extends android.support.v4.app.Fragment{
 
 
         tablaPuntaje = (TableLayout) rootView.findViewById(R.id.scoreTable);
-        tablaPuntaje.setVisibility(View.GONE);
+
+
         updateTable();
 
         swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
@@ -68,7 +71,7 @@ public class GlobalScore extends android.support.v4.app.Fragment{
             @Override
             public void onRefresh() {
                 updateTable();
-                swipe.setRefreshing(false);
+                //swipe.setRefreshing(false);
             }
         });
 
@@ -86,11 +89,13 @@ public class GlobalScore extends android.support.v4.app.Fragment{
     }
 
     private  void updateTable(){
+        tablaPuntaje.setVisibility(View.GONE);
         app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {
             @Override
             public void done(ArrayList<Equipo> equipos) {
                 loadAnimation.setVisibility(View.GONE);
                 tablaPuntaje.setVisibility(View.VISIBLE);
+                swipe.setRefreshing(false);
                 createDynamicContentTable(equipos);
             }
 

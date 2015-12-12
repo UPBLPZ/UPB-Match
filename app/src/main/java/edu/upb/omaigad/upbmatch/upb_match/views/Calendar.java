@@ -29,10 +29,7 @@ public class Calendar extends Fragment {
     private TableLayout tablaEventos;
     protected CharSequence mTitle;
     protected UPBMatchApplication app;
-    private Button pmonth;
-    private Button amonth;
-    private Button nmonth;
-    private String[] meses = {"enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"};
+    private String[] meses = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     private int am;
     private SwipeRefreshLayout swipe;
     private ScrollView scroll;
@@ -60,37 +57,6 @@ public class Calendar extends Fragment {
         tablaEventos = (TableLayout) rootView.findViewById(R.id.calendarTable);
 
         //Setup buttons
-        pmonth = (Button) rootView.findViewById(R.id.bPMonth);
-        amonth = (Button) rootView.findViewById(R.id.bAMonth);
-        nmonth = (Button) rootView.findViewById(R.id.bNMonth);
-
-        pmonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                am-=1;
-                Log.e("am vale", am + "");
-                updateCalendar();
-            }
-        });
-        amonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("am vale", am + "");
-                updateCalendar();
-            }
-        });
-        nmonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                am+=1;
-                Log.e("am vale", am + "");
-                updateCalendar();
-            }
-        });
-
-
-
-
         updateCalendar();
 
         swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
@@ -120,137 +86,66 @@ public class Calendar extends Fragment {
 
     private void updateCalendar(){
         tablaEventos.removeAllViews();
-        Log.e("am vale", am + "");
-        if(am > 1 && am < 9){
-            pmonth.setText(meses[am-1]);
-            amonth.setText(meses[am]);
-            nmonth.setText(meses[am+1]);
-            pmonth.setVisibility(View.VISIBLE);
-            nmonth.setVisibility(View.VISIBLE);
-            Log.e("am vale", am + "");
-            refreshMonth();
-        }else if(am == 1){
-            pmonth.setText("");
-            amonth.setText(meses[am]);
-            nmonth.setText(meses[am+1]);
-            pmonth.setVisibility(View.INVISIBLE);
-            Log.e("am vale", am + "");
-            refreshMonth();
-        }else if(am == 9){
-            pmonth.setText(meses[am-1]);
-            amonth.setText(meses[am]);
-            nmonth.setText("");
-            nmonth.setVisibility(View.INVISIBLE);
-            Log.e("am vale", am + "");
-            refreshMonth();
-        }else if(am < 1){
-            am = 1;
-            updateCalendar();
-        }else{
-            am = 9;
-            updateCalendar();
+        for(int currentM = 0;currentM < 12;currentM++){
+            refreshMonth(currentM);
         }
     }
 
-    private void refreshMonth(){
-        app.getEventsManager().getEvents(am, new CustomSimpleCallback<Evento>() {
+    private void refreshMonth(final int currentM){
+        app.getEventsManager().getEvents(currentM, new CustomSimpleCallback<Evento>() {
             @Override
             public void done(ArrayList<Evento> data) {
                 if(data.size() != 0){
-                    createDynamicContentTable(data);
-                }else{
-                    Toast.makeText(app.getApplicationContext(), "No hay eventos en este mes.", Toast.LENGTH_LONG).show();
+                    createDynamicContentTable(data,currentM);
                 }
-
             }
-
             @Override
             public void fail(String failMessage, ArrayList<Evento> cache) {
                 Toast.makeText(app.getApplicationContext(), "No se pudo cargar los eventos.", Toast.LENGTH_LONG).show();
             }
         });
     }
-    private void createDynamicContentTable(ArrayList<Evento> eventos){
+    private void createDynamicContentTable(ArrayList<Evento> eventos,int currentM){
+
+        //Setup month title
+        TableRow mes = new TableRow(rootView.getContext());
+        TextView titulomes = new TextView(rootView.getContext());
+        titulomes.setText(meses[currentM]);
+        titulomes.setTextSize(20);
+        mes.addView(titulomes);
+        tablaEventos.addView(mes);
+
         int tam = eventos.size();
-        Log.e("en create", tam + "");
-        tablaEventos.setBackgroundColor(Color.WHITE);
         for(int cont = 0; cont < tam; cont++){
             TableRow fila = new TableRow(rootView.getContext());
-            String recurso = "drawable";
-            String nombre1 = "borde_esquinas_redondas";
-            int res_imagen1 = getResources().getIdentifier(nombre1, recurso, rootView.getContext().getPackageName());
-       //     fila.setBaselineAlignedChildIndex(2);
+
+            TextView titulo = new TextView(rootView.getContext());
+            titulo.setText(""+eventos.get(cont).getTitulo());
+
+            TextView descripcion = new TextView(rootView.getContext());
+            descripcion.setText(""+eventos.get(cont).getDescripcion());
+
+            TextView dia = new TextView(rootView.getContext());
+            dia.setText(""+eventos.get(cont).getDia());
+
+            TextView hora = new TextView(rootView.getContext());
+            hora.setText(""+eventos.get(cont).getHora());
 
             LinearLayout h = new LinearLayout(rootView.getContext());
-            LinearLayout h2 = new LinearLayout(rootView.getContext());
             LinearLayout v = new LinearLayout(rootView.getContext());
-            TextView dia = new TextView(rootView.getContext());
-            dia.setBackgroundResource(res_imagen1);
-            TextView hora = new TextView(rootView.getContext());
-            hora.setBackgroundResource(res_imagen1);
-            TextView titulo = new TextView(rootView.getContext());
-            titulo.setBackgroundResource(res_imagen1);
-            TextView descripcion = new TextView(rootView.getContext());
-
+            Log.e("dia",eventos.get(cont).getDia()+"" );
+            Log.e("mes",eventos.get(cont).getFecha()+"" );
+            v.addView(titulo,0);
+            v.addView(descripcion,1);
+            v.addView(hora,2);
+            h.addView(dia,0);
+            h.addView(v, 1);
             h.setOrientation(LinearLayout.HORIZONTAL);
-            h2.setOrientation(LinearLayout.HORIZONTAL);
             v.setOrientation(LinearLayout.VERTICAL);
 
-            dia.setText(" " + eventos.get(cont).getDia() + " ");
-        //    dia.setBackgroundColor(Color.WHITE);
-            hora.setText("  " + eventos.get(cont).getHora() + " ");
-      //      hora.setBackgroundColor(Color.WHITE);
-            titulo.setText("  " + eventos.get(cont).getTitulo() + " ");
-      //      titulo.setBackgroundColor(Color.WHITE);
-
-            descripcion.setText(eventos.get(cont).getDescripcion());
-        //    descripcion.setBackgroundColor(Color.WHITE);
-
-
-            h2.addView(hora,0);
-            h2.addView(titulo,1);
-            v.addView(h2,0);
-            v.addView(descripcion,1);
-            h.addView(dia,0);
-            h.addView(v,1);
-            fila.addView(h,0);
-
-            tablaEventos.addView(fila, cont);
-            tablaEventos.setBackgroundResource(res_imagen1);
+            fila.addView(h);
+            tablaEventos.addView(fila);
         }
     }
 
-    /*public void onClickPM(View view){
-        am-=1;
-        Log.e("am vale", am + "");
-        updateCalendar();
-    }
-    public void onClickAM(View view){
-        Log.e("am vale", am + "");
-        updateCalendar();
-    }
-    public void onClickNM(View view){
-        am+=1;
-        Log.e("am vale", am + "");
-        updateCalendar();
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_calendar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }

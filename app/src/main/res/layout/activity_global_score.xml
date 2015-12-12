@@ -54,10 +54,9 @@
                         android:shrinkColumns="0"
                         android:stretchColumns="1"
                         android:textAlignment="center"
-                        android:elevation="10dp"
+                        android:elevation="8dp"
                         android:radius="10dip"
-                        android:background="@drawable/card_background"
-                        android:showDividers="middle|beginning|end">
+                        android:background="@drawable/card_background">
                     </TableLayout>
 
                 </LinearLayout>
