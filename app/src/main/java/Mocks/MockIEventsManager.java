@@ -37,7 +37,7 @@ public class MockIEventsManager implements IEventsManager{
 
                         public void run() {
 
-                            ArrayList<Evento> eventos = new ArrayList<Evento>();
+                            ArrayList<Evento> eventos = new ArrayList<>();
                             switch (month) {
 
                                 case 5:
@@ -94,6 +94,11 @@ public class MockIEventsManager implements IEventsManager{
 
     @Override
     public void getInvolucrados(CustomSimpleCallback<Involucrado> callback) {
+
+    }
+
+    @Override
+    public void getAllEvents(CustomSimpleCallback<Evento> callback) {
 
     }
 }

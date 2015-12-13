@@ -45,13 +45,13 @@ public class EventsManager implements IEventsManager {
         Date up = c2.getTime();
 
         query.whereGreaterThanOrEqualTo("Fecha_Evento",low);
-        query.whereLessThanOrEqualTo("Fecha_Evento",up );
-
+        query.whereLessThanOrEqualTo("Fecha_Evento", up);
+        query.orderByAscending("Fecha_Evento");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> list, ParseException e) {
 
                 if (e == null) {
-                    ArrayList<Evento> eventos = new ArrayList<Evento>();
+                    ArrayList<Evento> eventos = new ArrayList<>();
 
                     for(ParseObject event : list){
                         String eId = event.getObjectId();
@@ -59,9 +59,13 @@ public class EventsManager implements IEventsManager {
                         Date eDate = event.getDate("Fecha_Evento");
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(eDate);
-
+                        String eHora;
                         int eDay = cal.get(Calendar.DAY_OF_MONTH);
-                        String eHora = "" + cal.get(Calendar.HOUR_OF_DAY) +":" + cal.get(Calendar.MINUTE);
+                        if(cal.get(Calendar.MINUTE)==0) {
+                            eHora = "" + cal.get(Calendar.HOUR_OF_DAY) + ":0" + cal.get(Calendar.MINUTE);
+                        }else {
+                            eHora = "" + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+                        }
                         String eDesc = event.getString("Descripcion");
                         Evento neoEvent = new Evento(eId,eTitulo,eDay,eHora,eDesc);
                         eventos.add(neoEvent);
@@ -111,13 +115,14 @@ public class EventsManager implements IEventsManager {
 
         query.whereGreaterThanOrEqualTo("Fecha_Evento",low);
         query.whereLessThanOrEqualTo("Fecha_Evento", up);
+        query.orderByAscending("Fecha_Evento");
         query.fromLocalDatastore();
 
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> list, ParseException e) {
 
                 if (e == null) {
-                    ArrayList<Evento> eventos = new ArrayList<Evento>();
+                    ArrayList<Evento> eventos = new ArrayList<>();
 
                     for(ParseObject event : list){
                         String eId = event.getObjectId();
@@ -156,7 +161,7 @@ public class EventsManager implements IEventsManager {
     @Override
     public void getInvolucrados(final CustomSimpleCallback<Involucrado> callback) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Involucrados");
-        Log.e("Micky","accede a la tabla");
+        Log.e("Micky", "accede a la tabla");
       //  ParseObject equipo = new ParseObject("Equipos");
       //  ParseObject evento = new ParseObject("Eventos");
 
@@ -164,8 +169,8 @@ public class EventsManager implements IEventsManager {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
-                    Log.e("Micky",list.toString());
-                    ArrayList<Involucrado> invol = new ArrayList<Involucrado>();
+                    Log.e("Micky", list.toString());
+                    ArrayList<Involucrado> invol = new ArrayList<>();
                     for (ParseObject involucrados : list){
                         try {
                             // obtener los datos del equipo involucrados en el evento
@@ -198,6 +203,100 @@ public class EventsManager implements IEventsManager {
             }
         });
 
+    }
+
+    @Override
+    public void getAllEvents(final CustomSimpleCallback<Evento> callback) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Eventos");
+        query.orderByAscending("Fecha_Evento");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> list, ParseException e) {
+
+                if (e == null) {
+                    ArrayList<Evento> eventos = new ArrayList<>();
+
+                    for(ParseObject event : list){
+                        String eId = event.getObjectId();
+                        String eTitulo = event.getString("Nombre_Evento");
+                        Date eDate = event.getDate("Fecha_Evento");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(eDate);
+                        String eHora;
+                        int eDay = cal.get(Calendar.DAY_OF_MONTH);
+                        if(cal.get(Calendar.MINUTE)==0) {
+                            eHora = "" + cal.get(Calendar.HOUR_OF_DAY) + ":0" + cal.get(Calendar.MINUTE);
+                        }else {
+                            eHora = "" + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+                        }
+                        String eDesc = event.getString("Descripcion");
+                        Evento neoEvent = new Evento(eId,eTitulo,eDay,eHora,eDesc);
+                        eventos.add(neoEvent);
+
+                    }
+
+                    try {
+                        ParseObject.unpinAll("EVENTS_LABEL");
+                    } catch (Exception ex) {
+                        Log.e("ANDY EVENTS", "WHOOPS UNPINNING");
+                    }
+
+                    ParseObject.pinAllInBackground("TEAMS_LABEL", list);
+
+                    callback.done(eventos);
+                }else {
+                    allEventsCache( callback);
+                }
+
+            }
+
+        });
+    }
+
+
+    public void allEventsCache(final CustomSimpleCallback<Evento> callback){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Eventos");
+
+        query.orderByAscending("Fecha_Evento");
+         query.fromLocalDatastore();
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> list, ParseException e) {
+
+                if (e == null) {
+                    ArrayList<Evento> eventos = new ArrayList<>();
+
+                    for(ParseObject event : list){
+                        String eId = event.getObjectId();
+                        String eTitulo = event.getString("Nombre_Evento");
+                        Date eDate = event.getDate("Fecha_Evento");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(eDate);
+
+                        int eDay = cal.get(Calendar.DAY_OF_MONTH);
+                        String eHora = "" + cal.get(Calendar.HOUR_OF_DAY) +":" + cal.get(Calendar.MINUTE);
+                        String eDesc = event.getString("Descripcion");
+                        Evento neoEvent = new Evento(eId,eTitulo,eDay,eHora,eDesc);
+                        eventos.add(neoEvent);
+
+                    }
+
+                    try {
+                        ParseObject.unpinAll("EVENTS_LABEL");
+                    } catch (Exception ex) {
+                        Log.e("Miky all EVENTS", "Somethings wrong ");
+                    }
+
+                    ParseObject.pinAllInBackground("EVENTS_LABEL", list);
+
+                    callback.done(eventos);
+                }else {
+
+                    callback.fail(e.getMessage(), null);
+                }
+
+            }
+
+        });
     }
 
     public void involucradosCache(final CustomSimpleCallback<Involucrado> callback) {
