@@ -33,13 +33,20 @@ public class Evento {
 
     }
 
+    public Evento(String id, String titulo, int dia,String hora,String desc,Date fecha){
+        this.EventID = id;
+        this.nombreEvento=titulo;
+        this.dia=dia;
+        this.hora=hora;
+        this.fecha = fecha;
+        this.descripcion=desc;
+    }
     public Evento(String id, String titulo, int dia,String hora,String desc){
         this.EventID = id;
         this.nombreEvento=titulo;
         this.dia=dia;
         this.hora=hora;
         this.descripcion=desc;
-
     }
 
     public Evento(){

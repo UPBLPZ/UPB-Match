@@ -41,7 +41,6 @@
                         android:radius="10dip"
                         android:background="@drawable/card_background"
                         android:gravity="top|center"
-                        android:layout_gravity="center_horizontal|top"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/participantes" />
 
@@ -60,7 +59,7 @@
                         android:radius="10dip"
                         android:background="@drawable/card_background"
                         android:gravity="top|center"
-                        android:layout_gravity="center_horizontal|top"
+
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/fechahora" />
 
@@ -79,7 +78,7 @@
                         android:radius="10dip"
                         android:background="@drawable/card_background"
                         android:gravity="top|center"
-                        android:layout_gravity="center_horizontal|top"
+
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/reglamento" />
                 </LinearLayout>

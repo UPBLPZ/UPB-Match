@@ -1,16 +1,20 @@
 package edu.upb.omaigad.upbmatch.upb_match.views;
 
+import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -29,18 +33,19 @@ public class Calendar extends Fragment {
     private TableLayout tablaEventos;
     protected CharSequence mTitle;
     protected UPBMatchApplication app;
-    private String[] meses = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+    private String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
     private int am;
     private SwipeRefreshLayout swipe;
     private ScrollView scroll;
     private View rootView;
+    private ProgressBar loadAnimation;
 
-    public static Calendar newInstance(){
+    public static Calendar newInstance() {
         Calendar fragment = new Calendar();
         return fragment;
     }
 
-    public Calendar(){
+    public Calendar() {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +57,7 @@ public class Calendar extends Fragment {
         am = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
         // Set up the drawer.
         scroll = (ScrollView) rootView.findViewById(R.id.scrollViewCalendar);
-
+        loadAnimation = (ProgressBar) rootView.findViewById(R.id.loadAnimation);
 
         tablaEventos = (TableLayout) rootView.findViewById(R.id.calendarTable);
 
@@ -60,11 +65,11 @@ public class Calendar extends Fragment {
         updateCalendar();
 
         swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+        swipe.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 updateCalendar();
-                swipe.setRefreshing(false);
             }
         });
 
@@ -80,71 +85,91 @@ public class Calendar extends Fragment {
         });
 
 
-
         return rootView;
     }
 
-    private void updateCalendar(){
+    private void updateCalendar() {
         tablaEventos.removeAllViews();
-        for(int currentM = 0;currentM < 12;currentM++){
-            refreshMonth(currentM);
+        refreshTable();
+    }
+
+    private void refreshTable() {
+        tablaEventos.setVisibility(View.INVISIBLE);
+        if (getActivity() != null) {
+            app.getEventsManager().getAllEvents(new CustomSimpleCallback<Evento>() {
+                @Override
+                public void done(ArrayList<Evento> data) {
+                    tablaEventos.setVisibility(View.VISIBLE);
+                    loadAnimation.setVisibility(View.GONE);
+                    swipe.setRefreshing(false);
+                    createDynamicContentTable(data);
+                }
+                @Override
+                public void fail(String failMessage, ArrayList<Evento> cache) {
+
+                }
+            });
         }
     }
 
-    private void refreshMonth(final int currentM){
-        app.getEventsManager().getEvents(currentM, new CustomSimpleCallback<Evento>() {
-            @Override
-            public void done(ArrayList<Evento> data) {
-                if(data.size() != 0){
-                    createDynamicContentTable(data,currentM);
-                }
-            }
-            @Override
-            public void fail(String failMessage, ArrayList<Evento> cache) {
-                Toast.makeText(app.getApplicationContext(), "No se pudo cargar los eventos.", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-    private void createDynamicContentTable(ArrayList<Evento> eventos,int currentM){
+    private void createDynamicContentTable(ArrayList<Evento> eventos) {
+        int eventsPM[] = new int[12];
+        for (int cont = 0; cont < eventos.size(); cont++) {
+            eventsPM[eventos.get(cont).getFecha().getMonth()]++;
+        }
 
-        //Setup month title
-        TableRow mes = new TableRow(rootView.getContext());
-        TextView titulomes = new TextView(rootView.getContext());
-        titulomes.setText(meses[currentM]);
-        titulomes.setTextSize(20);
-        mes.addView(titulomes);
-        tablaEventos.addView(mes);
 
         int tam = eventos.size();
-        for(int cont = 0; cont < tam; cont++){
-            TableRow fila = new TableRow(rootView.getContext());
+        int cont = 0;
+        for (int contM = 0; contM < 12; contM++) {
+            if (eventsPM[contM] != 0) {
+                TableRow mes = new TableRow(rootView.getContext());
+                TextView titulomes = new TextView(rootView.getContext());
+                titulomes.setText(meses[contM]);
+                titulomes.setTextSize(22);
 
-            TextView titulo = new TextView(rootView.getContext());
-            titulo.setText(""+eventos.get(cont).getTitulo());
+                mes.addView(titulomes);
+                mes.setPadding(8, 0, 0, 0);
+                tablaEventos.addView(mes);
+            }
+            for (int contE = 0; contE < eventsPM[contM]; cont++, contE++) {
+                TableRow fila = new TableRow(rootView.getContext());
 
-            TextView descripcion = new TextView(rootView.getContext());
-            descripcion.setText(""+eventos.get(cont).getDescripcion());
+                TextView titulo = new TextView(rootView.getContext());
+                titulo.setText("" + eventos.get(cont).getTitulo());
 
-            TextView dia = new TextView(rootView.getContext());
-            dia.setText(""+eventos.get(cont).getDia());
+                TextView descripcion = new TextView(rootView.getContext());
+                descripcion.setText("" + eventos.get(cont).getDescripcion());
 
-            TextView hora = new TextView(rootView.getContext());
-            hora.setText(""+eventos.get(cont).getHora());
 
-            LinearLayout h = new LinearLayout(rootView.getContext());
-            LinearLayout v = new LinearLayout(rootView.getContext());
-            Log.e("dia",eventos.get(cont).getDia()+"" );
-            Log.e("mes",eventos.get(cont).getFecha()+"" );
-            v.addView(titulo,0);
-            v.addView(descripcion,1);
-            v.addView(hora,2);
-            h.addView(dia,0);
-            h.addView(v, 1);
-            h.setOrientation(LinearLayout.HORIZONTAL);
-            v.setOrientation(LinearLayout.VERTICAL);
+                TextView dia = new TextView(rootView.getContext());
+                if (eventos.get(cont).getDia() < 10) {
+                    dia.setText("  " + eventos.get(cont).getDia());
+                } else {
+                    dia.setText("" + eventos.get(cont).getDia());
+                }
+                dia.setTextSize(18);
+                dia.setPadding(0, 0, 16, 0);
+                dia.setGravity(Gravity.RIGHT);
 
-            fila.addView(h);
-            tablaEventos.addView(fila);
+                TextView hora = new TextView(rootView.getContext());
+                hora.setText("" + eventos.get(cont).getHora());
+                hora.setGravity(Gravity.RIGHT);
+                LinearLayout h = new LinearLayout(rootView.getContext());
+                LinearLayout v = new LinearLayout(rootView.getContext());
+
+                v.addView(titulo, 0);
+                v.addView(descripcion, 1);
+                v.addView(hora, 2);
+                h.addView(dia, 0);
+                h.addView(v, 1);
+                h.setOrientation(LinearLayout.HORIZONTAL);
+                v.setOrientation(LinearLayout.VERTICAL);
+
+                fila.setPadding(16, 0, 0, 0);
+                fila.addView(h);
+                tablaEventos.addView(fila);
+            }
         }
     }
 

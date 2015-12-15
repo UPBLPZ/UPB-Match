@@ -35,7 +35,7 @@ import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 /**
  * Created by mau_a on 06-Dec-15.
  */
-public class ActivityActivity extends AppCompatActivity {
+public class   ActivityActivity extends AppCompatActivity {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a

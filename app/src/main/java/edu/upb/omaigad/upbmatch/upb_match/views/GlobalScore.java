@@ -26,7 +26,7 @@ import edu.upb.omaigad.upbmatch.upb_match.bussinesslogic.UPBMatchApplication;
 import java.util.ArrayList;
 
 
-public class GlobalScore extends android.support.v4.app.Fragment{
+public class GlobalScore extends android.support.v4.app.Fragment {
 
     protected CharSequence mTitle;
     protected UPBMatchApplication app;
@@ -36,12 +36,12 @@ public class GlobalScore extends android.support.v4.app.Fragment{
     private ScrollView scroll;
     private View rootView;
 
-    public static GlobalScore newInstance(){
+    public static GlobalScore newInstance() {
         GlobalScore fragment = new GlobalScore();
         return fragment;
     }
 
-    public GlobalScore(){
+    public GlobalScore() {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +52,7 @@ public class GlobalScore extends android.support.v4.app.Fragment{
         app = (UPBMatchApplication) this.getActivity().getApplication();
 
         mTitle = "Score Global";
+
 
         this.getActivity().setTitle(mTitle);
 
@@ -71,7 +72,6 @@ public class GlobalScore extends android.support.v4.app.Fragment{
             @Override
             public void onRefresh() {
                 updateTable();
-                //swipe.setRefreshing(false);
             }
         });
 
@@ -88,30 +88,32 @@ public class GlobalScore extends android.support.v4.app.Fragment{
         return rootView;
     }
 
-    private  void updateTable(){
+    private void updateTable() {
         tablaPuntaje.setVisibility(View.GONE);
-        app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {
-            @Override
-            public void done(ArrayList<Equipo> equipos) {
-                loadAnimation.setVisibility(View.GONE);
-                tablaPuntaje.setVisibility(View.VISIBLE);
-                swipe.setRefreshing(false);
-                createDynamicContentTable(equipos);
-            }
-
-            @Override
-            public void fail(String failMessage, ArrayList<Equipo> cache) {
-                Log.e("ANDY TEAMS ACT", "NOPE");
-                if (failMessage == "cache") {
-                    createDynamicContentTable(cache);
-                    Toast.makeText(app.getApplicationContext(), "Error de conexión. Los datos mostrados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(app.getApplicationContext(), "No se pudieron cargar datos.", Toast.LENGTH_LONG).show();
+        if (getActivity() != null) {
+            app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {
+                @Override
+                public void done(ArrayList<Equipo> equipos) {
+                    loadAnimation.setVisibility(View.GONE);
+                    tablaPuntaje.setVisibility(View.VISIBLE);
+                    swipe.setRefreshing(false);
+                    createDynamicContentTable(equipos);
                 }
-            }
-        });
+                @Override
+                public void fail(String failMessage, ArrayList<Equipo> cache) {
+                    Log.e("ANDY TEAMS ACT", "NOPE");
+                    if (failMessage == "cache") {
+                        createDynamicContentTable(cache);
+                        Toast.makeText(app.getApplicationContext(), "Error de conexión. Los datos mostrados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(app.getApplicationContext(), "No se pudieron cargar datos.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
     }
-    private void createDynamicContentTable(ArrayList<Equipo> equipos){
+
+    private void createDynamicContentTable(ArrayList<Equipo> equipos) {
 
         tablaPuntaje.removeAllViews();
         int tam = equipos.size();
@@ -131,13 +133,13 @@ public class GlobalScore extends android.support.v4.app.Fragment{
         titulopuntaje.setTextSize(18);
 
         titulo.addView(titulocolor, 0);
-        titulo.addView(tituloequipo,1);
-        titulo.addView(titulopuntaje,2);
+        titulo.addView(tituloequipo, 1);
+        titulo.addView(titulopuntaje, 2);
 
         tablaPuntaje.addView(titulo, 0);
 
         //Setup content rows
-        for(int cont = 0; cont < tam; cont++){
+        for (int cont = 0; cont < tam; cont++) {
             TableRow fila = new TableRow(rootView.getContext());
 
             String recurso = "drawable";
@@ -160,9 +162,9 @@ public class GlobalScore extends android.support.v4.app.Fragment{
             puntaje.setText("  " + equipos.get(cont).getPuntaje() + "  ");
 
             fila.addView(color, 0);
-            fila.addView(equipo,1);
-            fila.addView(puntaje,2);
-            tablaPuntaje.addView(fila, cont+1);
+            fila.addView(equipo, 1);
+            fila.addView(puntaje, 2);
+            tablaPuntaje.addView(fila, cont + 1);
         }
     }
 }
