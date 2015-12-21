@@ -6,7 +6,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ public class ActivityRules extends ActionBarActivity {
     private CharSequence mTiTle;
     private int numero_actividad;
     private SwipeRefreshLayout swipe;
+    private ProgressBar loadAnimation;
     private ScrollView scroll;
 
 
@@ -48,7 +51,7 @@ public class ActivityRules extends ActionBarActivity {
             @Override
             public void onRefresh() {
                 updateTable();
-                swipe.setRefreshing(false);
+
             }
         });
 
@@ -65,14 +68,19 @@ public class ActivityRules extends ActionBarActivity {
     }
 
     public void updateTable(){
+        tablaReglasActividad.setVisibility(View.INVISIBLE);
         app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
+
             @Override
             public void done(ArrayList<Actividad> data) {
+
                 String mDrawableName = data.get(numero_actividad).getFondo();
                 int resID = getResources().getIdentifier(mDrawableName, "drawable", getPackageName());
                 ScrollView scroll = (ScrollView)findViewById(R.id.scrollViewActivityRules);
                 scroll.setBackgroundResource(resID);
                 createDynamicContentTable(data.get(numero_actividad));
+                swipe.setRefreshing(false);
+                tablaReglasActividad.setVisibility(View.VISIBLE);
             }
 
             @Override

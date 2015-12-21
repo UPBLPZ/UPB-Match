@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -154,6 +155,7 @@ public class   ActivityActivity extends AppCompatActivity {
     public static class ActivityActivityScore extends Fragment{
         private TableLayout tablaPuntajeActividad;
         private int numero_actividad;
+        private ProgressBar loadAnimation;
         private SwipeRefreshLayout swipe;
         private ScrollView scroll;
         protected CharSequence mTitle;
@@ -179,6 +181,7 @@ public class   ActivityActivity extends AppCompatActivity {
             scroll = (ScrollView) rootView.findViewById(R.id.scrollViewActivityScore);
             tablaPuntajeActividad = (TableLayout) rootView.findViewById(R.id.activityScoreTable);
             tablaPuntajeActividad.setVisibility(View.INVISIBLE);
+            loadAnimation = (ProgressBar) rootView.findViewById(R.id.loadAnimation);
             updateTable();
 
             swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
@@ -187,7 +190,7 @@ public class   ActivityActivity extends AppCompatActivity {
                 @Override
                 public void onRefresh() {
                     updateTable();
-                    swipe.setRefreshing(false);
+
                 }
             });
 
@@ -205,10 +208,14 @@ public class   ActivityActivity extends AppCompatActivity {
             return rootView;
         }
         private void updateTable() {
+            tablaPuntajeActividad.setVisibility(View.INVISIBLE);
             app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
                 @Override
                 public void done(ArrayList<Actividad> actividades) {
                     String estado = actividades.get(numero_actividad).getEstado();
+                    swipe.setRefreshing(false);
+                    loadAnimation.setVisibility(View.GONE);
+
                     switch (estado) {
                         case "Pendiente":
                             Toast.makeText(rootView.getContext(), actividades.get(numero_actividad).getNombreActividad() + " todavia no comenzo.", Toast.LENGTH_LONG).show();
@@ -217,11 +224,12 @@ public class   ActivityActivity extends AppCompatActivity {
                             Toast.makeText(rootView.getContext(), "Esta en curso.", Toast.LENGTH_LONG).show();
                             break;
                         case "Concluida":
-                            tablaPuntajeActividad.setVisibility(View.VISIBLE);
+
                             actividades.get(numero_actividad).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
                                 @Override
                                 public void done(ArrayList<Actividad.Participante> participantes) {
                                     createDynamicContentTable(participantes);
+                                    tablaPuntajeActividad.setVisibility(View.VISIBLE);
                                 }
 
                                 @Override
@@ -244,17 +252,20 @@ public class   ActivityActivity extends AppCompatActivity {
                 public void fail(String failMessage, ArrayList<Actividad> cache) {
                     if (failMessage == "cache") {
                         // TODO (para Mauri) hacerlo dinámico.
-
+                        swipe.setRefreshing(false);
+                        loadAnimation.setVisibility(View.GONE);
                         cache.get(numero_actividad).getParticipantes(new CustomSimpleCallback<Actividad.Participante>() {
                             @Override
                             public void done(ArrayList<Actividad.Participante> participantes) {
                                 createDynamicContentTable(participantes);
+                                tablaPuntajeActividad.setVisibility(View.VISIBLE);
                             }
 
                             @Override
                             public void fail(String failMessage, ArrayList<Actividad.Participante> cache) {
                                 if (failMessage == "cache") {
                                     createDynamicContentTable(cache);
+                                    tablaPuntajeActividad.setVisibility(View.VISIBLE);
                                     Toast.makeText(rootView.getContext(), "Error de conectividad. Los datos cargados pueden no estar actualizados.", Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(rootView.getContext(), "No se pudo cargar los participantes.", Toast.LENGTH_LONG).show();
@@ -290,14 +301,20 @@ public class   ActivityActivity extends AppCompatActivity {
                 int pg = participantes.get(cont).getPuntaje();
                 int pp = participantes.get(cont).getPuntosPerdidos();
                 int pt = pg-pp;
-                String recurso = "drawable";
 
-                String nombre = "ic_account_circle_black_36dp";
-
-                int res_imagen = getResources().getIdentifier(nombre, recurso, rootView.getContext().getPackageName());
 
                 polera.setBackgroundColor(Color.parseColor("#" + participantes.get(cont).getEquipo().getColor()));
-                polera.setImageResource(res_imagen);
+
+                if(isAdded()){
+                    String recurso = "drawable";
+
+                    String nombre = "ic_account_circle_black_36dp";
+
+                    int res_imagen = getResources().getIdentifier(nombre, recurso, rootView.getContext().getPackageName());
+
+                    polera.setImageResource(res_imagen);
+                }
+
                 equipo.setText(" " + participantes.get(cont).getEquipo().getNombre() + "  ");
                 puntajeGanado.setText(" " + pg + " ");
                 puntajePerdido.setText(" " + pp + " ");
@@ -352,12 +369,16 @@ public class   ActivityActivity extends AppCompatActivity {
 
         private UPBMatchApplication app;
         //private TableLayout tablaReglasActividad;
+        private ProgressBar loadAnimation;
         private CharSequence mTiTle;
         private int numero_actividad;
         private SwipeRefreshLayout swipe;
         private ScrollView scroll;
         private View rootView;
         private LinearLayout ll;
+        private TextView participantes ;
+        private TextView fechahora ;
+        private TextView reglamento ;
 
 
         public static ActivityActivityRules newInstance(int numero_actividad) {
@@ -377,17 +398,21 @@ public class   ActivityActivity extends AppCompatActivity {
             app = (UPBMatchApplication) this.getActivity().getApplication();
             numero_actividad = getArguments().getInt("NUMERO_ACTIVIDAD");
             scroll = (ScrollView) rootView.findViewById(R.id.scrollViewActivityRules);
+            loadAnimation = (ProgressBar) rootView.findViewById(R.id.loadAnimation);
+            participantes = (TextView) rootView.findViewById(R.id.participantes);
+            fechahora = (TextView) rootView.findViewById(R.id.fechahora);
+            reglamento = (TextView) rootView.findViewById(R.id.reglamento);
             //tablaReglasActividad = (TableLayout) rootView.findViewById(R.id.activityRulesTable);
             updateTable();
             ll = (LinearLayout) rootView.findViewById(R.id.linearlayout);
-            ll.setVisibility(View.INVISIBLE);
+
             swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
             swipe.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
             swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     updateTable();
-                    swipe.setRefreshing(false);
+
                 }
             });
 
@@ -405,6 +430,10 @@ public class   ActivityActivity extends AppCompatActivity {
             return rootView;
         }
         public void updateTable(){
+            fechahora.setVisibility(View.INVISIBLE);
+            reglamento.setVisibility(View.INVISIBLE);
+            participantes.setVisibility(View.INVISIBLE);
+
             app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
                 @Override
                 public void done(ArrayList<Actividad> data) {
@@ -412,8 +441,13 @@ public class   ActivityActivity extends AppCompatActivity {
                     int resID = getResources().getIdentifier(mDrawableName, "drawable", rootView.getContext().getPackageName());
                     ScrollView scroll = (ScrollView)rootView.findViewById(R.id.scrollViewActivityRules);
                     scroll.setBackgroundResource(resID);*/
-                    ll.setVisibility(View.VISIBLE);
+                    //ll.setVisibility(View.VISIBLE);
+                    loadAnimation.setVisibility(View.GONE);
                     createDynamicContentTable(data.get(numero_actividad));
+                    fechahora.setVisibility(View.VISIBLE);
+                    reglamento.setVisibility(View.VISIBLE);
+                    participantes.setVisibility(View.VISIBLE);
+                    swipe.setRefreshing(false);
                 }
 
                 @Override
@@ -433,9 +467,7 @@ public class   ActivityActivity extends AppCompatActivity {
             //tablaReglasActividad.removeAllViews();
 
 
-            TextView participantes = (TextView) rootView.findViewById(R.id.participantes);
-            TextView fechahora = (TextView) rootView.findViewById(R.id.fechahora);
-            TextView reglamento = (TextView) rootView.findViewById(R.id.reglamento);
+
 
             participantes.setText(" Participantes: " + actividad.getNumeroParticipantes() + " ");
             fechahora.setText(" Fecha/Hora: " + actividad.getFechaUHora() + " ");

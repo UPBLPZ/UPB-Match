@@ -136,7 +136,7 @@ public class ActivityMenu extends Fragment {
 
     private void updateTable() {
         gridView.setVisibility(View.INVISIBLE);
-        if (getActivity() != null) {
+        if (isAdded()) {
             app.getActivitiesManager().getActivities(new CustomSimpleCallback<Actividad>() {
                 @Override
                 public void done(ArrayList<Actividad> data) {
@@ -152,7 +152,7 @@ public class ActivityMenu extends Fragment {
         }
     }
 
-    private void createDynamicContentTable(final ArrayList<Actividad> actividades) {
+    /*private void createDynamicContentTable(final ArrayList<Actividad> actividades) {
 
         tablaActividades.removeAllViews();
         int tam = actividades.size();
@@ -224,8 +224,8 @@ public class ActivityMenu extends Fragment {
                     contA++;
                 }
                 tablaActividades.addView(fila);
-        }*/
-    }
+        }
+    }*/
 
     private class ActivityMenuAdapter extends BaseAdapter {
 

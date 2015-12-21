@@ -63,6 +63,7 @@ public class GlobalScore extends android.support.v4.app.Fragment {
         tablaPuntaje = (TableLayout) rootView.findViewById(R.id.scoreTable);
 
 
+
         updateTable();
 
         swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
@@ -90,7 +91,7 @@ public class GlobalScore extends android.support.v4.app.Fragment {
 
     private void updateTable() {
         tablaPuntaje.setVisibility(View.GONE);
-        if (getActivity() != null) {
+        if (isAdded()) {
             app.getTeamsManager().getTeams(new CustomSimpleCallback<Equipo>() {
                 @Override
                 public void done(ArrayList<Equipo> equipos) {
@@ -146,12 +147,15 @@ public class GlobalScore extends android.support.v4.app.Fragment {
 
             String nombre = "ic_account_circle_black_36dp";
 
-            int res_imagen = getResources().getIdentifier(nombre, recurso, rootView.getContext().getPackageName());
+
 
             //fila.setBackgroundColor(Integer.parseInt(String.valueOf(0xffffffff)));
             ImageView color = new ImageView(rootView.getContext());
-            color.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
-            color.setImageResource(res_imagen);
+            if(isAdded()){
+                int res_imagen = getResources().getIdentifier(nombre, recurso, rootView.getContext().getPackageName());
+                color.setBackgroundColor(Color.parseColor("#" + equipos.get(cont).getColor()));
+                color.setImageResource(res_imagen);
+            }
 
             TextView equipo = new TextView(rootView.getContext());
             equipo.setTextSize(16);
